@@ -17,11 +17,14 @@ class TimeTableController : UIViewController {
     
     let dictionnary  = ["Subject":labelWith("Subject"), "Time":labelWith("Time"), "Room":labelWith("Room"),    "Day":labelWith("Day")]
     
+    let imageView = UIImageView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setView()
         setCellView()
         setLabelConstraint()
+        setImage()
     }
     
     func setView(){
@@ -30,14 +33,16 @@ class TimeTableController : UIViewController {
     
     func setCellView(){
         cellView = UIView()
-        cellView.layer.cornerRadius = 7
+        //cellView.layer.cornerRadius = 7
         cellView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cellView)
         cellView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
         cellView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
-        cellView.backgroundColor = .white
-        cellView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
+        let cellViewColor = UIColor(red: color(38), green: color(38), blue: color(38), alpha: 0.5)
+        cellView.layer.borderWidth = 0.3
+        cellView.backgroundColor = cellViewColor
+        cellView.heightAnchor.constraint(equalToConstant: 260).isActive = true
+        cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
     }
     
     func setUpLabel(){
@@ -85,6 +90,20 @@ class TimeTableController : UIViewController {
            // size(view: view, width: width, height: height)
             labelView.centerXAnchor.constraint(equalTo: cellView.centerXAnchor).isActive = true
         }
+    }
+    
+    
+    func setImage(){
+        let size : CGFloat = 60
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = #imageLiteral(resourceName: "image")
+        imageView.layer.cornerRadius = 3
+        cellView.addSubview(imageView)
+        imageView.backgroundColor = .white
+        imageView.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 10).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 10).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: size).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: size).isActive = true
     }
     
     func size(view: UIView, width: CGFloat, height : CGFloat){

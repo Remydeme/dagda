@@ -30,6 +30,7 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
         navigationController?.navigationBar.prefersLargeTitles = true 
         collectionView?.backgroundColor = .black
         collectionView?.register(QRCodeCell.self, forCellWithReuseIdentifier: id)
+        collectionView?.backgroundColor = .clear 
     }
     
     

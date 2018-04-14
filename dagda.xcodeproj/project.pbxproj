@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0F2A82208137E6009171ED /* timeTableController.swift */; };
 		2D0F2A8520815523009171ED /* tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0F2A8420815523009171ED /* tools.swift */; };
+		2D1BD57920817BF700838049 /* Gradiant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1BD57820817BF700838049 /* Gradiant.swift */; };
 		2D35C3722080FD7000439134 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3712080FD7000439134 /* AppDelegate.swift */; };
 		2D35C3742080FD7000439134 /* AppTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3732080FD7000439134 /* AppTabBar.swift */; };
 		2D35C3772080FD7000439134 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D35C3752080FD7000439134 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		2D0F2A82208137E6009171ED /* timeTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeTableController.swift; sourceTree = "<group>"; };
 		2D0F2A8420815523009171ED /* tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tools.swift; sourceTree = "<group>"; };
+		2D1BD57820817BF700838049 /* Gradiant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradiant.swift; sourceTree = "<group>"; };
 		2D35C36E2080FD7000439134 /* dagda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D35C3712080FD7000439134 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D35C3732080FD7000439134 /* AppTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBar.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				2D35C3A52081054800439134 /* QRCodeCell.swift */,
 				2D0F2A82208137E6009171ED /* timeTableController.swift */,
 				2D0F2A8420815523009171ED /* tools.swift */,
+				2D1BD57820817BF700838049 /* Gradiant.swift */,
 			);
 			path = VIPER;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 			files = (
 				2D35C3742080FD7000439134 /* AppTabBar.swift in Sources */,
 				2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */,
+				2D1BD57920817BF700838049 /* Gradiant.swift in Sources */,
 				2D35C3722080FD7000439134 /* AppDelegate.swift in Sources */,
 				2D35C37A2080FD7000439134 /* dagda.xcdatamodeld in Sources */,
 				2D35C3A62081054900439134 /* QRCodeCell.swift in Sources */,

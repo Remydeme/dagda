@@ -20,7 +20,7 @@ func labelWith(_ text : String) -> UILabel{
     label.font = fontWith(16)
     label.numberOfLines = 2
     label.lineBreakMode = .byCharWrapping
-    label.textColor = .black
+    label.textColor = .white
     return label
 }
 
@@ -30,6 +30,6 @@ func labelWith(_ text : String, size : CGFloat) -> UILabel{
     label.font = fontWith(size)
     label.numberOfLines = 2
     label.lineBreakMode = .byCharWrapping
-    label.textColor = .black
+    label.textColor = .white
     return label
 }

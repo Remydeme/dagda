@@ -26,7 +26,8 @@ class QRCodeCell : UICollectionViewCell {
     }
     
     func setUp(){
-        backgroundColor = .darkGray
+       // backgroundColor = .clear
+        backgroundColor = UIColor(red: color(255), green: color(255), blue: color(255), alpha: 1)
         qrCodeReader = QRCodeController()
         qrCodeReader.topController = self.topController
         authorization()

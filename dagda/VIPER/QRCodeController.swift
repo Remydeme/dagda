@@ -11,13 +11,17 @@ import UIKit
 import AVFoundation
 
 
-class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegate,  AVSpeechSynthesizerDelegate  {
     
     var captureSession : AVCaptureSession? // to perform a real time capture cession
     var videoPrewLayer : AVCaptureVideoPreviewLayer?
     var qrCodeFrameView : UIView!
     var timeTable : TimeTableController!
     var topController : QRCodeHomeController!
+    
+    // speech synthetizer
+    
+    let speechSynthetizer = AVSpeechSynthesizer()
     
     override func viewDidLoad() {
         setUp()
@@ -98,9 +102,18 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         captureSession?.startRunning()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        readText()
+    }
     
     func setUpGesture()
     {
@@ -114,6 +127,51 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     }
     
     
+    func getArrayInfo(value: String) -> [String:String] {
+        let fields = value.components(separatedBy: "\n")
+        var infoDico = [String:String]()
+        for field in fields{
+            let infos = field.components(separatedBy: ": ")
+            infoDico[infos[0]] = infos[1]
+        }
+        return infoDico
+    }
+    
+    func generateSpeech() -> String{
+        var speech = ""
+        speech += "You have "
+        speech += (timeTable.dictionnary["Subject"]?.text!)!
+        speech += " class in room "
+        speech += (timeTable.dictionnary["Room"]?.text!)!
+        speech += " at " + (timeTable.dictionnary["Time"]?.text!)!
+        return speech
+    }
+    
+    func readText(){
+        let audioSession =  AVAudioSession.sharedInstance()
+        do {
+            
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
+            
+        } catch {
+            print("audioSession properties weren't set because of an error.")
+        }
+        let speech = generateSpeech()
+        speechSynthetizer.delegate = self
+        let speechUtterance = AVSpeechUtterance(string: speech)
+        speechUtterance.voice =  AVSpeechSynthesisVoice(language: "en-GB")
+       
+        speechUtterance.volume = 1.0
+        
+        speechSynthetizer.speak(speechUtterance)
+    }
+    
+    func setTimeTableLabel(controller: TimeTableController, info: [String:String]){
+        controller.dictionnary["Day"]?.text = info["Day"]
+        controller.dictionnary["Time"]?.text = info["Time"]
+        controller.dictionnary["Subject"]?.text = info["Subject"]
+        controller.dictionnary["Room"]?.text = info["Room"]
+    }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
     
@@ -122,6 +180,8 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            let qrCodeInfo = getArrayInfo(value: stringValue)
+            setTimeTableLabel(controller: timeTable, info: qrCodeInfo)
         }
     
     }
