@@ -14,6 +14,7 @@ import AVFoundation
 class QRCodeCell : UICollectionViewCell {
     
     var qrCodeReader : QRCodeController!
+    
     var topController : QRCodeHomeController!
     override init(frame: CGRect) {
         super.init(frame: frame)

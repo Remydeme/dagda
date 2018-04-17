@@ -21,6 +21,27 @@
 		2D35C3A42081002100439134 /* QRCodeHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3A32081002100439134 /* QRCodeHomeController.swift */; };
 		2D35C3A62081054900439134 /* QRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3A52081054800439134 /* QRCodeCell.swift */; };
 		2D35C3A82081081000439134 /* QRCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3A72081081000439134 /* QRCodeController.swift */; };
+		2DC4C0992084B304007DDD45 /* signIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0982084B304007DDD45 /* signIn.swift */; };
+		2DC4C09C2084B31A007DDD45 /* signUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C09B2084B31A007DDD45 /* signUp.swift */; };
+		2DC4C0A02084B618007DDD45 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C09F2084B618007DDD45 /* extension.swift */; };
+		2DC4C0A32084C506007DDD45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2DC4C0A22084C505007DDD45 /* GoogleService-Info.plist */; };
+		2DC4C0A62084D98C007DDD45 /* worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0A52084D98C007DDD45 /* worker.swift */; };
+		2DC4C0A92084DF0E007DDD45 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0A82084DF0E007DDD45 /* Description.swift */; };
+		2DC4C0AC2084F326007DDD45 /* memberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0AB2084F326007DDD45 /* memberController.swift */; };
+		2DC4C0AE2084F330007DDD45 /* descriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0AD2084F330007DDD45 /* descriptionCell.swift */; };
+		2DC4C0B12084F4FB007DDD45 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0B02084F4FB007DDD45 /* BaseCell.swift */; };
+		2DC4C0B32084F5F6007DDD45 /* memberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0B22084F5F6007DDD45 /* memberCell.swift */; };
+		2DC5DDCB20851531003D9283 /* desriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDCA20851531003D9283 /* desriptionController.swift */; };
+		2DC5DDCD20851574003D9283 /* baseCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDCC20851574003D9283 /* baseCollectionController.swift */; };
+		2DC5DDD220854A31003D9283 /* descriptionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDD120854A31003D9283 /* descriptionInteractor.swift */; };
+		2DC5DDD420855018003D9283 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDD320855018003D9283 /* User.swift */; };
+		2DC5DDD6208552E3003D9283 /* DescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDD5208552E3003D9283 /* DescriptionPresenter.swift */; };
+		2DC5DDD82085541B003D9283 /* descriptionConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDD72085541B003D9283 /* descriptionConfigurer.swift */; };
+		2DC5DDDA20856288003D9283 /* editDescriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDD920856288003D9283 /* editDescriptionController.swift */; };
+		2DC5DDDD2085702C003D9283 /* reconizerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDDC2085702C003D9283 /* reconizerController.swift */; };
+		833E7A3A64837D6A2EE03F66 /* Pods_dagdaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22F159CF6F29FE3C77FDE22 /* Pods_dagdaUITests.framework */; };
+		A7D1B1BB08EAFAC0D653C79A /* Pods_dagda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AF8305D8AF1715854D184 /* Pods_dagda.framework */; };
+		F554497362A98C8198C5DC7A /* Pods_dagdaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DAF339DB2C6364E378D8A5 /* Pods_dagdaTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AE49551C699678D8DB7689C /* Pods-dagdaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagdaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dagdaTests/Pods-dagdaTests.release.xcconfig"; sourceTree = "<group>"; };
 		2D0F2A82208137E6009171ED /* timeTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeTableController.swift; sourceTree = "<group>"; };
 		2D0F2A8420815523009171ED /* tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tools.swift; sourceTree = "<group>"; };
 		2D1BD57820817BF700838049 /* Gradiant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradiant.swift; sourceTree = "<group>"; };
@@ -61,6 +83,32 @@
 		2D35C3A32081002100439134 /* QRCodeHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeHomeController.swift; sourceTree = "<group>"; };
 		2D35C3A52081054800439134 /* QRCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeCell.swift; sourceTree = "<group>"; };
 		2D35C3A72081081000439134 /* QRCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeController.swift; sourceTree = "<group>"; };
+		2DC4C0982084B304007DDD45 /* signIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signIn.swift; sourceTree = "<group>"; };
+		2DC4C09B2084B31A007DDD45 /* signUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUp.swift; sourceTree = "<group>"; };
+		2DC4C09F2084B618007DDD45 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		2DC4C0A22084C505007DDD45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2DC4C0A52084D98C007DDD45 /* worker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = worker.swift; sourceTree = "<group>"; };
+		2DC4C0A82084DF0E007DDD45 /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		2DC4C0AB2084F326007DDD45 /* memberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberController.swift; sourceTree = "<group>"; };
+		2DC4C0AD2084F330007DDD45 /* descriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = descriptionCell.swift; sourceTree = "<group>"; };
+		2DC4C0B02084F4FB007DDD45 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		2DC4C0B22084F5F6007DDD45 /* memberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberCell.swift; sourceTree = "<group>"; };
+		2DC5DDCA20851531003D9283 /* desriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = desriptionController.swift; sourceTree = "<group>"; };
+		2DC5DDCC20851574003D9283 /* baseCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baseCollectionController.swift; sourceTree = "<group>"; };
+		2DC5DDD120854A31003D9283 /* descriptionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = descriptionInteractor.swift; sourceTree = "<group>"; };
+		2DC5DDD320855018003D9283 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2DC5DDD5208552E3003D9283 /* DescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionPresenter.swift; sourceTree = "<group>"; };
+		2DC5DDD72085541B003D9283 /* descriptionConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = descriptionConfigurer.swift; sourceTree = "<group>"; };
+		2DC5DDD920856288003D9283 /* editDescriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editDescriptionController.swift; sourceTree = "<group>"; };
+		2DC5DDDC2085702C003D9283 /* reconizerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reconizerController.swift; sourceTree = "<group>"; };
+		2E264EC3D08E73A52607AA4F /* Pods-dagdaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagdaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dagdaUITests/Pods-dagdaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		86D38FBD3B99D8DB7A4D3225 /* Pods-dagdaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagdaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dagdaTests/Pods-dagdaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A67145AD201BDD611ABF154B /* Pods-dagda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dagda/Pods-dagda.debug.xcconfig"; sourceTree = "<group>"; };
+		BC2AF8305D8AF1715854D184 /* Pods_dagda.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dagda.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE248D423FB616939622852B /* Pods-dagdaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagdaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dagdaUITests/Pods-dagdaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C22F159CF6F29FE3C77FDE22 /* Pods_dagdaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dagdaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2DAF339DB2C6364E378D8A5 /* Pods_dagdaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dagdaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3391ACB0BBB61BFEE08A88D /* Pods-dagda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagda.release.xcconfig"; path = "Pods/Target Support Files/Pods-dagda/Pods-dagda.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7D1B1BB08EAFAC0D653C79A /* Pods_dagda.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F554497362A98C8198C5DC7A /* Pods_dagdaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				833E7A3A64837D6A2EE03F66 /* Pods_dagdaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +146,8 @@
 				2D35C3882080FD7100439134 /* dagdaTests */,
 				2D35C3932080FD7100439134 /* dagdaUITests */,
 				2D35C36F2080FD7000439134 /* Products */,
+				3B35058BEA50169B35A15263 /* Pods */,
+				C5B8539925143D4D75366DA9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +170,7 @@
 				2D35C37B2080FD7000439134 /* Assets.xcassets */,
 				2D35C37D2080FD7000439134 /* LaunchScreen.storyboard */,
 				2D35C3802080FD7000439134 /* Info.plist */,
+				2DC4C0A22084C505007DDD45 /* GoogleService-Info.plist */,
 				2D35C3782080FD7000439134 /* dagda.xcdatamodeld */,
 			);
 			path = dagda;
@@ -143,15 +197,151 @@
 		2D35C3A22080FFFE00439134 /* VIPER */ = {
 			isa = PBXGroup;
 			children = (
-				2D35C3732080FD7000439134 /* AppTabBar.swift */,
-				2D35C3A32081002100439134 /* QRCodeHomeController.swift */,
-				2D35C3A72081081000439134 /* QRCodeController.swift */,
-				2D35C3A52081054800439134 /* QRCodeCell.swift */,
-				2D0F2A82208137E6009171ED /* timeTableController.swift */,
+				2DC5DDD020854A12003D9283 /* interactor */,
+				2DC5DDCF20854A0C003D9283 /* configurer */,
+				2DC5DDCE20854A05003D9283 /* Presenter */,
+				2DC4C0A72084DEF4007DDD45 /* Model */,
+				2DC4C0A42084D956007DDD45 /* Worker */,
+				2DC4C09E2084B343007DDD45 /* View */,
+				2DC4C09D2084B322007DDD45 /* controller */,
 				2D0F2A8420815523009171ED /* tools.swift */,
-				2D1BD57820817BF700838049 /* Gradiant.swift */,
 			);
 			path = VIPER;
+			sourceTree = "<group>";
+		};
+		2DC4C09A2084B309007DDD45 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2DC4C0982084B304007DDD45 /* signIn.swift */,
+				2DC4C09B2084B31A007DDD45 /* signUp.swift */,
+				2DC5DDD320855018003D9283 /* User.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2DC4C09D2084B322007DDD45 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				2DC5DDDB20856FF8003D9283 /* SpeechReconizer */,
+				2D35C3732080FD7000439134 /* AppTabBar.swift */,
+				2DC5DDCC20851574003D9283 /* baseCollectionController.swift */,
+				2DC4C0AA2084F303007DDD45 /* member */,
+				2DC4C09F2084B618007DDD45 /* extension.swift */,
+				2DC4C0A12084B66E007DDD45 /* QRCODE */,
+				2DC4C09A2084B309007DDD45 /* Login */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		2DC4C09E2084B343007DDD45 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2DC4C0B02084F4FB007DDD45 /* BaseCell.swift */,
+				2DC4C0AF2084F33B007DDD45 /* member */,
+				2D1BD57820817BF700838049 /* Gradiant.swift */,
+				2D35C3A52081054800439134 /* QRCodeCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2DC4C0A12084B66E007DDD45 /* QRCODE */ = {
+			isa = PBXGroup;
+			children = (
+				2D35C3A72081081000439134 /* QRCodeController.swift */,
+				2D35C3A32081002100439134 /* QRCodeHomeController.swift */,
+				2D0F2A82208137E6009171ED /* timeTableController.swift */,
+				2DC5DDD920856288003D9283 /* editDescriptionController.swift */,
+			);
+			path = QRCODE;
+			sourceTree = "<group>";
+		};
+		2DC4C0A42084D956007DDD45 /* Worker */ = {
+			isa = PBXGroup;
+			children = (
+				2DC4C0A52084D98C007DDD45 /* worker.swift */,
+			);
+			path = Worker;
+			sourceTree = "<group>";
+		};
+		2DC4C0A72084DEF4007DDD45 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2DC4C0A82084DF0E007DDD45 /* Description.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2DC4C0AA2084F303007DDD45 /* member */ = {
+			isa = PBXGroup;
+			children = (
+				2DC4C0AB2084F326007DDD45 /* memberController.swift */,
+				2DC5DDCA20851531003D9283 /* desriptionController.swift */,
+			);
+			path = member;
+			sourceTree = "<group>";
+		};
+		2DC4C0AF2084F33B007DDD45 /* member */ = {
+			isa = PBXGroup;
+			children = (
+				2DC4C0AD2084F330007DDD45 /* descriptionCell.swift */,
+				2DC4C0B22084F5F6007DDD45 /* memberCell.swift */,
+			);
+			path = member;
+			sourceTree = "<group>";
+		};
+		2DC5DDCE20854A05003D9283 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				2DC5DDD5208552E3003D9283 /* DescriptionPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		2DC5DDCF20854A0C003D9283 /* configurer */ = {
+			isa = PBXGroup;
+			children = (
+				2DC5DDD72085541B003D9283 /* descriptionConfigurer.swift */,
+			);
+			path = configurer;
+			sourceTree = "<group>";
+		};
+		2DC5DDD020854A12003D9283 /* interactor */ = {
+			isa = PBXGroup;
+			children = (
+				2DC5DDD120854A31003D9283 /* descriptionInteractor.swift */,
+			);
+			path = interactor;
+			sourceTree = "<group>";
+		};
+		2DC5DDDB20856FF8003D9283 /* SpeechReconizer */ = {
+			isa = PBXGroup;
+			children = (
+				2DC5DDDC2085702C003D9283 /* reconizerController.swift */,
+			);
+			path = SpeechReconizer;
+			sourceTree = "<group>";
+		};
+		3B35058BEA50169B35A15263 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A67145AD201BDD611ABF154B /* Pods-dagda.debug.xcconfig */,
+				F3391ACB0BBB61BFEE08A88D /* Pods-dagda.release.xcconfig */,
+				86D38FBD3B99D8DB7A4D3225 /* Pods-dagdaTests.debug.xcconfig */,
+				1AE49551C699678D8DB7689C /* Pods-dagdaTests.release.xcconfig */,
+				BE248D423FB616939622852B /* Pods-dagdaUITests.debug.xcconfig */,
+				2E264EC3D08E73A52607AA4F /* Pods-dagdaUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		C5B8539925143D4D75366DA9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BC2AF8305D8AF1715854D184 /* Pods_dagda.framework */,
+				C2DAF339DB2C6364E378D8A5 /* Pods_dagdaTests.framework */,
+				C22F159CF6F29FE3C77FDE22 /* Pods_dagdaUITests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,9 +351,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D35C3992080FD7100439134 /* Build configuration list for PBXNativeTarget "dagda" */;
 			buildPhases = (
+				538E98776A3AEE3AA3B72DE3 /* [CP] Check Pods Manifest.lock */,
 				2D35C36A2080FD7000439134 /* Sources */,
 				2D35C36B2080FD7000439134 /* Frameworks */,
 				2D35C36C2080FD7000439134 /* Resources */,
+				C2EC49668900C46305366083 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -178,6 +370,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D35C39C2080FD7100439134 /* Build configuration list for PBXNativeTarget "dagdaTests" */;
 			buildPhases = (
+				18DE9F3999285574EFEFB393 /* [CP] Check Pods Manifest.lock */,
 				2D35C3812080FD7100439134 /* Sources */,
 				2D35C3822080FD7100439134 /* Frameworks */,
 				2D35C3832080FD7100439134 /* Resources */,
@@ -196,6 +389,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D35C39F2080FD7100439134 /* Build configuration list for PBXNativeTarget "dagdaUITests" */;
 			buildPhases = (
+				6DAB9B871410E848EEEAB85B /* [CP] Check Pods Manifest.lock */,
 				2D35C38C2080FD7100439134 /* Sources */,
 				2D35C38D2080FD7100439134 /* Frameworks */,
 				2D35C38E2080FD7100439134 /* Resources */,
@@ -262,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D35C37F2080FD7000439134 /* LaunchScreen.storyboard in Resources */,
+				2DC4C0A32084C506007DDD45 /* GoogleService-Info.plist in Resources */,
 				2D35C37C2080FD7000439134 /* Assets.xcassets in Resources */,
 				2D35C3772080FD7000439134 /* Main.storyboard in Resources */,
 			);
@@ -283,17 +478,117 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		18DE9F3999285574EFEFB393 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dagdaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		538E98776A3AEE3AA3B72DE3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dagda-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DAB9B871410E848EEEAB85B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dagdaUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2EC49668900C46305366083 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-dagda/Pods-dagda-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-dagda/Pods-dagda-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2D35C36A2080FD7000439134 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2D35C3742080FD7000439134 /* AppTabBar.swift in Sources */,
+				2DC4C0AC2084F326007DDD45 /* memberController.swift in Sources */,
+				2DC4C0A62084D98C007DDD45 /* worker.swift in Sources */,
+				2DC5DDDD2085702C003D9283 /* reconizerController.swift in Sources */,
 				2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */,
+				2DC4C09C2084B31A007DDD45 /* signUp.swift in Sources */,
+				2DC4C0B32084F5F6007DDD45 /* memberCell.swift in Sources */,
+				2DC4C0AE2084F330007DDD45 /* descriptionCell.swift in Sources */,
+				2DC4C0A02084B618007DDD45 /* extension.swift in Sources */,
+				2DC5DDCD20851574003D9283 /* baseCollectionController.swift in Sources */,
 				2D1BD57920817BF700838049 /* Gradiant.swift in Sources */,
+				2DC5DDD6208552E3003D9283 /* DescriptionPresenter.swift in Sources */,
+				2DC5DDD420855018003D9283 /* User.swift in Sources */,
+				2DC4C0992084B304007DDD45 /* signIn.swift in Sources */,
+				2DC5DDDA20856288003D9283 /* editDescriptionController.swift in Sources */,
 				2D35C3722080FD7000439134 /* AppDelegate.swift in Sources */,
+				2DC5DDD82085541B003D9283 /* descriptionConfigurer.swift in Sources */,
+				2DC5DDD220854A31003D9283 /* descriptionInteractor.swift in Sources */,
 				2D35C37A2080FD7000439134 /* dagda.xcdatamodeld in Sources */,
+				2DC4C0B12084F4FB007DDD45 /* BaseCell.swift in Sources */,
 				2D35C3A62081054900439134 /* QRCodeCell.swift in Sources */,
+				2DC5DDCB20851531003D9283 /* desriptionController.swift in Sources */,
+				2DC4C0A92084DF0E007DDD45 /* Description.swift in Sources */,
 				2D35C3A42081002100439134 /* QRCodeHomeController.swift in Sources */,
 				2D35C3A82081081000439134 /* QRCodeController.swift in Sources */,
 				2D0F2A8520815523009171ED /* tools.swift in Sources */,
@@ -460,6 +755,7 @@
 		};
 		2D35C39A2080FD7100439134 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A67145AD201BDD611ABF154B /* Pods-dagda.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -475,6 +771,7 @@
 		};
 		2D35C39B2080FD7100439134 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3391ACB0BBB61BFEE08A88D /* Pods-dagda.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -490,6 +787,7 @@
 		};
 		2D35C39D2080FD7100439134 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 86D38FBD3B99D8DB7A4D3225 /* Pods-dagdaTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -507,6 +805,7 @@
 		};
 		2D35C39E2080FD7100439134 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1AE49551C699678D8DB7689C /* Pods-dagdaTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -524,6 +823,7 @@
 		};
 		2D35C3A02080FD7100439134 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE248D423FB616939622852B /* Pods-dagdaUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -540,6 +840,7 @@
 		};
 		2D35C3A12080FD7100439134 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E264EC3D08E73A52607AA4F /* Pods-dagdaUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

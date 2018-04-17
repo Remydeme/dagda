@@ -12,14 +12,26 @@ class AppTabBar : UITabBarController{
     
     override func viewDidLoad() {
         
+        
+        let signIn = SignIn()
+        let signInController = createTabController(controller: signIn, tile: "Member", logo: #imageLiteral(resourceName: "home"))
         let layout = UICollectionViewFlowLayout()
         let QRCodeControllerVar = QRCodeHomeController(collectionViewLayout: layout)
         let Home = createTabController(controller: QRCodeControllerVar, tile: "Flash", logo: #imageLiteral(resourceName: "home"))
         
         
 //        let layout = UICollectionViewFlowLayout()
-//        let HistoryController = 
-        viewControllers = [Home]
+//        let HistoryController =
+        let yout = UICollectionViewFlowLayout()
+        //yout.scrollDirection = .horizontal
+        let controller = MemberController(collectionViewLayout: yout)
+        let nav = UINavigationController(rootViewController: controller)
+        
+        
+        let test = EditDescriptionController()
+        let nevTest = UINavigationController(rootViewController: test)
+        
+        viewControllers = [nevTest, nav, signInController, Home]
     }
     
     

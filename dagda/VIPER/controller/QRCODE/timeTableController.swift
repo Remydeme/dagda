@@ -15,7 +15,7 @@ class TimeTableController : UIViewController {
     
     var cellView : UIView!
     
-    let dictionnary  = ["Subject":labelWith("Subject"), "Time":labelWith("Time"), "Room":labelWith("Room"),    "Day":labelWith("Day")]
+    let dictionnary  = ["Subject":labelWithTitle("Subject"), "Time":labelWithTitle("Time"), "Room":labelWithTitle("Room"),    "Day":labelWithTitle("Day")]
     
     let imageView = UIImageView()
     
@@ -64,10 +64,7 @@ class TimeTableController : UIViewController {
     }
     
     func setLabelConstraint(){
-        
-        let height : CGFloat = 10
-        let width : CGFloat = 100
-        var top : CGFloat = 50
+     
         for (name, labelView) in dictionnary {
             labelView.translatesAutoresizingMaskIntoConstraints = false
             cellView.addSubview(labelView)
@@ -99,6 +96,7 @@ class TimeTableController : UIViewController {
     
     
     func setImage(){
+    
         let size : CGFloat = 60
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = #imageLiteral(resourceName: "image")
