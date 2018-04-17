@@ -14,11 +14,13 @@ import UIKit
 class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegateFlowLayout, AVCaptureMetadataOutputObjectsDelegate {
     
     
-    let navTitle = "Dagba"
+    let navTitle = "Welcome in Dagda"
     let id = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    
         setUp()
     }
     
@@ -26,7 +28,7 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
     func setUp(){
         navigationItem.title = navTitle
         navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.barTintColor = UIColor.white
         navigationController?.navigationBar.prefersLargeTitles = true 
         collectionView?.backgroundColor = .black
         collectionView?.register(QRCodeCell.self, forCellWithReuseIdentifier: id)
