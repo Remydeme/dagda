@@ -53,15 +53,14 @@ class API {
     }
     
     func roomDescriptionExists(room: String) -> Bool{
+        var exist = false
         Database.database().reference(withPath: "description").queryOrdered(byChild: "room").queryEqual(toValue: room).observeSingleEvent(of: .value, with: {snapshot in
             let room = snapshot.value
             if (room != nil) {
-                return true
-            }
-            else {
-                return false
+                exist = true
             }
         })
+        return exist
     }
     
     func addDescription(description: Description){
