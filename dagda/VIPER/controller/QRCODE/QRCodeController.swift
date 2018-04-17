@@ -10,6 +10,11 @@ import Foundation
 import UIKit
 import AVFoundation
 
+enum QRCODETYPE : String {
+    case known = "known"
+    case unknown = "uknown"
+    case notValid = "notValid"
+}
 
 class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegate,  AVSpeechSynthesizerDelegate  {
     
@@ -17,6 +22,7 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     var videoPrewLayer : AVCaptureVideoPreviewLayer?
     var qrCodeFrameView : UIView!
     var timeTable : TimeTableController!
+    var editDescription: EditDescriptionController!
     var topController : QRCodeHomeController!
     
     // speech synthetizer
@@ -29,6 +35,9 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     }
     
     func setUp(){
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isTranslucent = true
         timeTable = TimeTableController()
         captureSession = AVCaptureSession()
         setUpGesture()
@@ -83,17 +92,7 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
         }
     }
     
-    func alert(message : String, title: String){
-        let action = UIAlertAction(title: "Alert", style: .default, handler: nil)
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(action)
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func displayTimeTable(){
-        self.present(timeTable, animated: true, completion: nil)
-    }
-    
+   
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -122,6 +121,16 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
        timeTable.view.addGestureRecognizer(tap)
     }
     
+    func alert(message : String, title: String){
+        let action = UIAlertAction(title: "Alert", style: .default, handler: nil)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(action)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+
+
+    
     @objc func dismiss(_ sender: Any){
         dismiss(animated: true, completion: nil)
     }
@@ -135,6 +144,13 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
             infoDico[infos[0]] = infos[1]
         }
         return infoDico
+    }
+    
+    func checkValidity(roomData: [String:String]) -> Bool{ // can check if the hours is good or not ...
+        guard let _ = roomData["Subject"]  else {return false}
+        guard let _ = roomData["Room"]  else {return false}
+        guard let _ = roomData["Time"]  else {return false}
+        return true
     }
     
     func generateSpeech() -> String{
@@ -166,22 +182,40 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
         speechSynthetizer.speak(speechUtterance)
     }
     
-    func setTimeTableLabel(controller: TimeTableController, info: [String:String]){
-        controller.dictionnary["Day"]?.text = info["Day"]
-        controller.dictionnary["Time"]?.text = info["Time"]
-        controller.dictionnary["Subject"]?.text = info["Subject"]
-        controller.dictionnary["Room"]?.text = info["Room"]
+
+    
+    func setTimeTableLabel(controller: TimeTableController, info: [String:String], type: QRCODETYPE){
+        switch type {
+        case .known:
+            controller.dictionnary["Day"]?.text = info["Day"]
+            controller.dictionnary["Time"]?.text = info["Time"]
+            controller.dictionnary["Subject"]?.text = info["Subject"]
+            controller.dictionnary["Room"]?.text = info["Room"]
+            self.present(timeTable, animated: true, completion: nil)
+        case .unknown: // implement un function qui regarde si une clef existe
+            editDescription = EditDescriptionController()
+            self.present(editDescription, animated: true, completion: nil)
+            break
+        case .notValid:
+            
+            break
+        }
+        
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
     
-        displayTimeTable()
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             let qrCodeInfo = getArrayInfo(value: stringValue)
-            setTimeTableLabel(controller: timeTable, info: qrCodeInfo)
+            if checkValidity(roomData: qrCodeInfo){
+                setTimeTableLabel(controller: timeTable, info: qrCodeInfo, type: .known)
+            }
+            else {
+                setTimeTableLabel(controller: timeTable, info: qrCodeInfo, type: .notValid)
+            }
         }
     
     }
