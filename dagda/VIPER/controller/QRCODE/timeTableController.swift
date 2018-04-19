@@ -55,6 +55,8 @@ class TimeTableController : UIViewController, UITextViewDelegate {
     
     func setCellView(){
         cellView = UIView()
+        
+        
         //cellView.layer.cornerRadius = 7
         cellView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cellView)
@@ -65,6 +67,9 @@ class TimeTableController : UIViewController, UITextViewDelegate {
         cellView.backgroundColor = cellViewColor
         cellView.heightAnchor.constraint(equalToConstant: 460).isActive = true
         cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
+       
+        
+        
     }
     
    
@@ -187,7 +192,7 @@ class TimeTableController : UIViewController, UITextViewDelegate {
         imageView.image = #imageLiteral(resourceName: "image")
         imageView.layer.cornerRadius = 3
         cellView.addSubview(imageView)
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = .blue
         imageView.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 10).isActive = true
         imageView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 10).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: size).isActive = true
