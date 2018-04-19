@@ -18,8 +18,24 @@ enum QRCODETYPE : String {
 
 
 
-class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegate,  AVSpeechSynthesizerDelegate  {
+protocol QRCodeControllerInput {
+    func displayDescription(description: [String : AnyObject]?)
+    func displayAddDescription()
+}
+
+protocol QRCodeControllerOutput {
+    func fetchDescriptionIfExist(room: String) -> Bool
+}
+
+
+
+class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegate,  AVSpeechSynthesizerDelegate, QRCodeControllerInput  {
+  
+    // interactor
     
+    var output : QRCodeControllerOutput!
+    
+    // image video attribute
     var captureSession : AVCaptureSession? // to perform a real time capture cession
     var videoPrewLayer : AVCaptureVideoPreviewLayer?
     var qrCodeFrameView : UIView!
@@ -210,6 +226,19 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     }
     
 
+    func displayDescription(description: [String : AnyObject]?) {
+        timeTable.dictionnary["Day"]?.text = qrCodeInfo["day"]!
+        timeTable.dictionnary["Time"]?.text = qrCodeInfo["Time"]!
+        timeTable.dictionnary["Subject"]?.text = qrCodeInfo["Subject"]!
+        timeTable.dictionnary["Room"]?.text = qrCodeInfo["Room"]!
+        timeTable.descriptionView.text = (description?["description"] as! String)
+        timeTable.qrCodeController = self
+    }
+    
+    func displayAddDescription() {
+        editAlert(message: "No description for this room", title: "Help us")
+    }
+    
     
  
  
@@ -222,18 +251,7 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
             // start treat metadata
             qrCodeInfo = getArrayInfo(value: stringValue)
             if qrCodeInfo != nil {
-                API.instance.roomDescriptionExists(room: (qrCodeInfo?["Room"])!)
-                if API.instance.exist {
-                        timeTable.dictionnary["Day"]?.text = qrCodeInfo?["Day"]
-                        timeTable.dictionnary["Time"]?.text = qrCodeInfo?["Time"]
-                        timeTable.dictionnary["Subject"]?.text = qrCodeInfo?["Subject"]
-                        timeTable.dictionnary["Room"]?.text = qrCodeInfo?["Room"]
-                        timeTable.qrCodeController = self 
-                        self.present(timeTable, animated: true, completion: nil)
-                    }
-                    else {
-                        editAlert(message: "No description for this room", title: "Help us")
-                    }
+                self.output.fetchDescriptionIfExist(room: qrCodeInfo["Room"]!)
             }
             else {
                createAlert(title: "Not valid", message: "Invalid QRCode")

@@ -19,7 +19,7 @@ class API {
     
     static let instance = API()
     
-    var data : [String:AnyObject]!
+    var data : [String:AnyObject]?
     var exist = false 
     
     
@@ -67,9 +67,9 @@ class API {
                 self.exist = true
             }
             for element in snapshot.children.allObjects as! [DataSnapshot]{
-               self.data = element.value as! [String:AnyObject]
+               self.data = element.value as? [String:AnyObject]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: existNotification), object: nil)
-                print (self.data)
+                print (self.data!) // should be removed 
             }
         })
     }

@@ -39,6 +39,9 @@
 		2DC5DDD82085541B003D9283 /* descriptionConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDD72085541B003D9283 /* descriptionConfigurer.swift */; };
 		2DC5DDDA20856288003D9283 /* editDescriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDD920856288003D9283 /* editDescriptionController.swift */; };
 		2DC5DDDD2085702C003D9283 /* reconizerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDDC2085702C003D9283 /* reconizerController.swift */; };
+		2DE331962089550700261703 /* QRcodeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE331952089550700261703 /* QRcodeInteractor.swift */; };
+		2DE331982089591400261703 /* QRCodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE331972089591400261703 /* QRCodePresenter.swift */; };
+		2DE3319A20895CF400261703 /* QRCodeConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3319920895CF400261703 /* QRCodeConfigurer.swift */; };
 		833E7A3A64837D6A2EE03F66 /* Pods_dagdaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22F159CF6F29FE3C77FDE22 /* Pods_dagdaUITests.framework */; };
 		A7D1B1BB08EAFAC0D653C79A /* Pods_dagda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC2AF8305D8AF1715854D184 /* Pods_dagda.framework */; };
 		F554497362A98C8198C5DC7A /* Pods_dagdaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2DAF339DB2C6364E378D8A5 /* Pods_dagdaTests.framework */; };
@@ -101,6 +104,9 @@
 		2DC5DDD72085541B003D9283 /* descriptionConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = descriptionConfigurer.swift; sourceTree = "<group>"; };
 		2DC5DDD920856288003D9283 /* editDescriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editDescriptionController.swift; sourceTree = "<group>"; };
 		2DC5DDDC2085702C003D9283 /* reconizerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reconizerController.swift; sourceTree = "<group>"; };
+		2DE331952089550700261703 /* QRcodeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRcodeInteractor.swift; sourceTree = "<group>"; };
+		2DE331972089591400261703 /* QRCodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodePresenter.swift; sourceTree = "<group>"; };
+		2DE3319920895CF400261703 /* QRCodeConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeConfigurer.swift; sourceTree = "<group>"; };
 		2E264EC3D08E73A52607AA4F /* Pods-dagdaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagdaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dagdaUITests/Pods-dagdaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		86D38FBD3B99D8DB7A4D3225 /* Pods-dagdaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagdaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dagdaTests/Pods-dagdaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A67145AD201BDD611ABF154B /* Pods-dagda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dagda/Pods-dagda.debug.xcconfig"; sourceTree = "<group>"; };
@@ -293,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				2DC5DDD5208552E3003D9283 /* DescriptionPresenter.swift */,
+				2DE331972089591400261703 /* QRCodePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -301,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				2DC5DDD72085541B003D9283 /* descriptionConfigurer.swift */,
+				2DE3319920895CF400261703 /* QRCodeConfigurer.swift */,
 			);
 			path = configurer;
 			sourceTree = "<group>";
@@ -309,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				2DC5DDD120854A31003D9283 /* descriptionInteractor.swift */,
+				2DE331952089550700261703 /* QRcodeInteractor.swift */,
 			);
 			path = interactor;
 			sourceTree = "<group>";
@@ -571,6 +580,7 @@
 				2DC4C0A62084D98C007DDD45 /* worker.swift in Sources */,
 				2DC5DDDD2085702C003D9283 /* reconizerController.swift in Sources */,
 				2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */,
+				2DE3319A20895CF400261703 /* QRCodeConfigurer.swift in Sources */,
 				2DC4C09C2084B31A007DDD45 /* signUp.swift in Sources */,
 				2DC4C0B32084F5F6007DDD45 /* memberCell.swift in Sources */,
 				2DC4C0AE2084F330007DDD45 /* descriptionCell.swift in Sources */,
@@ -587,6 +597,8 @@
 				2D35C37A2080FD7000439134 /* dagda.xcdatamodeld in Sources */,
 				2DC4C0B12084F4FB007DDD45 /* BaseCell.swift in Sources */,
 				2D35C3A62081054900439134 /* QRCodeCell.swift in Sources */,
+				2DE331962089550700261703 /* QRcodeInteractor.swift in Sources */,
+				2DE331982089591400261703 /* QRCodePresenter.swift in Sources */,
 				2DC5DDCB20851531003D9283 /* desriptionController.swift in Sources */,
 				2DC4C0A92084DF0E007DDD45 /* Description.swift in Sources */,
 				2D35C3A42081002100439134 /* QRCodeHomeController.swift in Sources */,

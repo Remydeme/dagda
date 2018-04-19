@@ -46,8 +46,9 @@ class TimeTableController : UIViewController, UITextViewDelegate {
     
     
     @objc func setTextViewSpeech(_ sender: Any){
-        descriptionView.text = (API.instance.data["desccription"] as! String)
+        descriptionView.text = (API.instance.data!["desccription"] as! String)
     }
+    
     func setView(){
         self.view.backgroundColor = .clear
     }
