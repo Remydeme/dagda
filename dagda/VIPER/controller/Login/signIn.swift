@@ -13,7 +13,7 @@ import Firebase
 
 
 
-class SignIn : UIViewController{
+class SignIn : UIViewController, UITextViewDelegate{
     
     var cellView : UIView!
     let signUp = UIButton(type: .custom)
@@ -157,8 +157,27 @@ class SignIn : UIViewController{
             input.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5).isActive = true
             input.heightAnchor.constraint(equalToConstant: height).isActive = true
             input.widthAnchor.constraint(equalToConstant: width + 20).isActive = true
+            input.delegate = self
             top += 40
             
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+

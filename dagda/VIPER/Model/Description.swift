@@ -18,12 +18,12 @@ class Description {
     var writtenBy : String = ""
     var description : String = ""
     var dico = [String:String]()
-    
 
    
     
+    
     func dictionary() -> [String:String]{
-        dico = ["description":description,"lastModification":lastModification, "note":note, "room":room, "valided":valided, "writtenBy":writtenBy]
+        dico = ["id":id, "description":description,"lastModification":lastModification, "note":note, "room":room, "valided":valided, "writtenBy":writtenBy]
         return dico
     }
     

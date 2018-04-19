@@ -4,10 +4,14 @@
 <dict>
 	<key>NSCameraUsageDescription</key>
 	<string>We need to use your camera </string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We want to use your microphone</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>We need to access to the speech recognizer</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>&quot;Dagda&quot; want to record your speech.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

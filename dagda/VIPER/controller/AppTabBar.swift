@@ -22,16 +22,16 @@ class AppTabBar : UITabBarController{
         
 //        let layout = UICollectionViewFlowLayout()
 //        let HistoryController =
-        let yout = UICollectionViewFlowLayout()
-        //yout.scrollDirection = .horizontal
-        let controller = MemberController(collectionViewLayout: yout)
-        let nav = UINavigationController(rootViewController: controller)
+//        let yout = UICollectionViewFlowLayout()
+//        //yout.scrollDirection = .horizontal
+//        let controller = MemberController(collectionViewLayout: yout)
+//        let nav = UINavigationController(rootViewController: controller)
+//
+//
+//        let test = EditDescriptionController()
+//        let nevTest = UINavigationController(rootViewController: test)
         
-        
-        let test = EditDescriptionController()
-        let nevTest = UINavigationController(rootViewController: test)
-        
-        viewControllers = [nevTest, nav, signInController, Home]
+        viewControllers = [Home, signInController]
     }
     
     

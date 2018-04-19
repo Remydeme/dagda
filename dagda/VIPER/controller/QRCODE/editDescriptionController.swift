@@ -9,14 +9,18 @@
 import Foundation
 import UIKit
 
-class EditDescriptionController: UIViewController {
+class EditDescriptionController: UIViewController , UITextViewDelegate{
     
     var cellView : UIView!
-    
+    var topController : QRCodeController!
     var dictionnary  = ["Room":labelWithTitle("Room"), "Description":UITextView()]
     let confirmedButton = UIButton(type: .custom)
     let imageView = UIImageView()
     let speechReconizerController = SpeechReconizerController()
+    let numberTouch = 0
+    
+    var qrCodeInfo : [String:String]!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +66,7 @@ class EditDescriptionController: UIViewController {
                 labelView.heightAnchor.constraint(equalToConstant: height).isActive = true
                 labelView.widthAnchor.constraint(equalToConstant: width).isActive = true
                 labelView.textColor = .white
+                labelView.delegate = self
                 labelView.font = fontWith(15)
                 break
             case "Room":
@@ -83,10 +88,14 @@ class EditDescriptionController: UIViewController {
     }
     
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func setButton(){
         
         // push button
-        let height : CGFloat = 10
+        let height : CGFloat = 35
         let width : CGFloat = 100
         
         confirmedButton.addTarget(self, action: #selector (EditDescriptionController.push(_:)), for: .touchDown)
@@ -106,14 +115,10 @@ class EditDescriptionController: UIViewController {
         
         // speech button
         
-        let speechWidth : CGFloat = 25
+        let speechWidth : CGFloat = 30
         let speechButton = speechReconizerController.startButton
-        
-        speechButton.addTarget(self, action: #selector (EditDescriptionController.speechReconizer(_:)), for: .touchDown)
-        
+        speechButton.setImage(#imageLiteral(resourceName: "mic"), for: .normal)
         speechButton.translatesAutoresizingMaskIntoConstraints = false
-        speechButton.setTitle("S", for: .normal)
-        
         cellView.addSubview(speechButton)
         
         speechButton.leadingAnchor.constraint(equalTo: textInput.trailingAnchor, constant: 7).isActive = true
@@ -122,12 +127,13 @@ class EditDescriptionController: UIViewController {
         speechButton.heightAnchor.constraint(equalToConstant: height).isActive = true
         speechButton.widthAnchor.constraint(equalToConstant: speechWidth).isActive = true
 
+        speechButton.addTarget(self, action: #selector (EditDescriptionController.startRecord(_:)), for: .touchDown)
     }
     
     @objc func push(_ sender: Any){
         print ("Something as been pushed ")
         let description = Description()
-        description.room = (dictionnary["Room"] as! UILabel).text!
+        description.room = qrCodeInfo["Room"]!
         description.description = (dictionnary["Description"] as! UITextView).text
         description.note = "0"
         let formatter = DateFormatter()
@@ -138,14 +144,11 @@ class EditDescriptionController: UIViewController {
         description.writtenBy = "User"
         API.instance.addDescription(description: description)
         createAlert(title: "Thank you", message: "Thank you for your contribution")
-        dismiss(animated: true, completion: nil)
     }
     
-    @objc func speechReconizer(_ sender: Any){
-        print ("reconizing")
-        speechReconizerController.reccordAndReconize()
-        let descriptionView = dictionnary["Description"] as! UITextView
-        descriptionView.text = speechReconizerController.outputView.text
+ 
+    @objc func startRecord (_ sender : Any){
+        speechReconizerController.microphoneTaped(self)
     }
     
     func setImage(){

@@ -11,15 +11,21 @@ import UIKit
 import Firebase
 
 
+let existNotification = "dagda.notification.exist.notification"
+
 class API {
     fileprivate let FIREBASE_URL = "https://dagda-9f511.firebaseio.com/"
     private init (){}
     
     static let instance = API()
     
+    var data : [String:AnyObject]!
+    var exist = false 
+    
+    
     func fetchRoomDescription(room : String){
         let ref = Database.database().reference(withPath: "description")
-        ref.queryOrdered(byChild: "room").queryEqual(toValue: "30").observeSingleEvent(of: .value, with: {(snapshot)   in
+        ref.queryOrdered(byChild: "room").queryEqual(toValue: "E2004").observeSingleEvent(of: .value, with: {(snapshot)   in
            
             for childSnapshot in snapshot.children {
                 print(childSnapshot)
@@ -52,15 +58,20 @@ class API {
         ref.updateChildValues(childValue)
     }
     
-    func roomDescriptionExists(room: String) -> Bool{
-        var exist = false
-        Database.database().reference(withPath: "description").queryOrdered(byChild: "room").queryEqual(toValue: room).observeSingleEvent(of: .value, with: {snapshot in
-            let room = snapshot.value
-            if (room != nil) {
-                exist = true
+    func roomDescriptionExists(room: String){
+        let ref = Database.database().reference(withPath: "description")
+        ref.queryOrdered(byChild: "room").queryEqual(toValue: room).observeSingleEvent(of: .value, with: {(snapshot)   in
+            
+            let value = snapshot.value
+            if (value != nil) {
+                self.exist = true
+            }
+            for element in snapshot.children.allObjects as! [DataSnapshot]{
+               self.data = element.value as! [String:AnyObject]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: existNotification), object: nil)
+                print (self.data)
             }
         })
-        return exist
     }
     
     func addDescription(description: Description){
@@ -69,8 +80,7 @@ class API {
         description.id = refDes.key
         refDes.updateChildValues(description.dictionary(), withCompletionBlock: { (error, ref) in
             if error != nil{
-                print ((error! as NSError).localizedDescription
-                )
+                print ((error! as NSError).localizedDescription)
             }
             else {
                print ("added")
