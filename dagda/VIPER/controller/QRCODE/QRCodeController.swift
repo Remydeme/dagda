@@ -24,7 +24,7 @@ protocol QRCodeControllerInput {
 }
 
 protocol QRCodeControllerOutput {
-    func fetchDescriptionIfExist(room: String) -> Bool
+    func fetchDescriptionIfExist(room: String)
 }
 
 

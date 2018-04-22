@@ -16,6 +16,8 @@ class User {
     public private(set) var id : String = ""
     public private(set) var note : String = ""
     
+    public private(set) var connected = false
+    
     private init () {}
     
     static let instance = User()
@@ -24,6 +26,14 @@ class User {
         self.name = name
         self.id = id
         self.note = note
+    }
+    
+    func connect(){
+        connected = true 
+    }
+    
+    func disconnect(){
+        connected = false
     }
     
 }

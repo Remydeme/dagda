@@ -12,12 +12,24 @@ import FirebaseAuth
 import Firebase
 
 
+protocol SignUpControllerInput {
+    func hasBeenAdded()
+    func hasNotBeenAdded(error: String?)
+    
+}
+
+protocol SignUpControllerOutput {
+    func addUser(formular: inout [String:String])
+}
+
 class SignUp  : UIViewController {
+    
+    var interactor : SignUpControllerOutput!
     
     var cellView : UIView!
     let signUp = UIButton(type: .custom)
-    let viewTitle = labelWithTitle("Joy", size: 50)
-    let dictionarySignUp = ["Nom":textViewWith(), "Prenom":textViewWith(), "Mot de passe": textViewWith(), "Email":textViewWith(), "Confirmation":textViewWith()]
+    let viewTitle = labelWithTitle("Dagda", size: 50)
+    let dictionarySignUp = ["Family name":textViewWith(), "Firstname":textViewWith(), "Password": textViewWith(), "Email":textViewWith(), "Confirmation":textViewWith()]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +38,7 @@ class SignUp  : UIViewController {
         setCellview()
         setButtonUp()
         setView()
+        SignUpConfigurer.instance.configure(controller: self)
     }
     
     func setUp(){
@@ -44,9 +57,9 @@ class SignUp  : UIViewController {
     func setTitle (){
         viewTitle.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(viewTitle)
-        viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
+        viewTitle.topAnchor.constraintEqualToSystemSpacingBelow(view.topAnchor, multiplier: 0.2).isActive = true
         viewTitle.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        viewTitle.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        viewTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
         viewTitle.centerXAnchor.constraint(lessThanOrEqualTo: view.centerXAnchor).isActive = true
     }
     
@@ -57,7 +70,7 @@ class SignUp  : UIViewController {
         cellView.layer.cornerRadius = 17
         cellView.backgroundColor = cellBackground
         cellView.heightAnchor.constraint(equalToConstant: 320).isActive = true
-        cellView.widthAnchor.constraint(equalToConstant: 320).isActive = true
+        cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95).isActive = true
         cellView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         cellView.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 5).isActive = true
     }
@@ -65,8 +78,10 @@ class SignUp  : UIViewController {
     func setButtonUp(){
         signUp.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(signUp)
-       // signUp.addTarget(self, action: #selector (SignUp.signUpAction(_:)), for: .touchDown)
-        signUp.setTitle("Enregistrer", for: .normal)
+        signUp.addTarget(self, action: #selector (SignUp.signUpAction(_:)), for: .touchDown)
+        signUp.setTitle("save", for: .normal)
+        signUp.backgroundColor = .black
+        signUp.layer.cornerRadius = 17 
         signUp.titleLabel?.font = fontWith(18)
         signUp.heightAnchor.constraint(equalToConstant: 30).isActive = true
         signUp.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -85,9 +100,10 @@ class SignUp  : UIViewController {
     }
     
     @objc func signUpAction(_ sender: Any){
-        print ("Sign Up ")
+        print ("Sign Up in")
         if checkField() {
-            guard let email = dictionarySignUp["Email"]?.text , let password = dictionarySignUp["Password"]?.text, let name = dictionarySignUp["Nom"]?.text, let firstname = dictionarySignUp["Prenom"]?.text else {
+            guard let email = dictionarySignUp["Email"]?.text , let password = dictionarySignUp["Password"]?.text, let name = dictionarySignUp["Family name"]?.text, let firstname = dictionarySignUp["Firstname"]?.text else {
+                print ("Error when trying getting information")
                 return
             }
             if (password == dictionarySignUp["Confirmation"]?.text!) {
@@ -96,102 +112,92 @@ class SignUp  : UIViewController {
                         print(err.localizedDescription)
                         self.createAlert(title: "Enregistrer", message: err.localizedDescription)
                     } else {
-                        let ref = Database.database().reference(fromURL:"https://dagda-9f511.firebaseio.com/")
-                        let userRef = ref.child("users")
-                        let values = ["Nom":name, "Prenom":firstname, "password":password,"Email":email]
-                        userRef.updateChildValues(values)
-                        let controller = MemberController()
-                        self.navigationController?.pushViewController(controller, animated: true)
+                        var values  = ["email":email, "family name":name, "firstname":firstname, "password":password]
+                        self.interactor.addUser(formular:  &values)
                     }}
                 )
-
+            } else {
+                createAlert(title: "Password", message: "Password confirmation invalid")
+                self.dictionarySignUp["Confirmation"]?.text = ""
+                self.dictionarySignUp["Password"]?.text = ""
             }
         }
     }
     
     func setView(){
+      
         let leading : CGFloat = 20
         let height : CGFloat = 30
         let width : CGFloat = 120
-        let offset : CGFloat = 25
-        for (name, input) in dictionarySignUp{
-            input.layer.cornerRadius = 3
+
+        for(name, input) in dictionarySignUp{
             
+            let label = labelWithTitle(name, .white)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.textColor = .black
+            cellView.addSubview(label)
+            
+            input.layer.cornerRadius = 3
+            input.textColor = .black
+            input.translatesAutoresizingMaskIntoConstraints = false
+            cellView.addSubview(input)
+            input.heightAnchor.constraint(equalToConstant: height).isActive = true
+            input.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.5).isActive = true
             switch name {
-            case "Nom" :
-                let label = labelWithTitle(name, .white)
-                label.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(label)
+            case "Family name" :
+              
+               
                 label.heightAnchor.constraint(equalToConstant: height).isActive = true
                 label.widthAnchor.constraint(equalToConstant: width).isActive = true
                 label.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 30).isActive = true
                 label.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: leading).isActive = true
-                input.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(input)
+               
                 input.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 0).isActive = true
                 input.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5).isActive = true
-                input.heightAnchor.constraint(equalToConstant: height).isActive = true
-                input.widthAnchor.constraint(equalToConstant: width + offset).isActive = true
                 break
-            case "Prenom":
-                let label = labelWithTitle(name, .white)
-                label.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(label)
+            case "Firstname":
+              
+               
                 label.heightAnchor.constraint(equalToConstant: height).isActive = true
                 label.widthAnchor.constraint(equalToConstant: width).isActive = true
                 label.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 70).isActive = true
                 label.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: leading).isActive = true
-                input.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(input)
+                
                 input.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 0).isActive = true
                 input.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5).isActive = true
-                input.heightAnchor.constraint(equalToConstant: height).isActive = true
-                input.widthAnchor.constraint(equalToConstant: width + offset).isActive = true
                 break
             case "Email":
-                let label = labelWithTitle(name, .white)
-                label.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(label)
+               
+               
                 label.heightAnchor.constraint(equalToConstant: height).isActive = true
                 label.widthAnchor.constraint(equalToConstant: width).isActive = true
                 label.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 110).isActive = true
                 label.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: leading).isActive = true
-                input.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(input)
+               
                 input.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 0).isActive = true
                 input.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5).isActive = true
-                input.heightAnchor.constraint(equalToConstant: height).isActive = true
-                input.widthAnchor.constraint(equalToConstant: width + offset).isActive = true
                 break
-            case "Mot de passe":
-                let label = labelWithTitle(name, .white)
-                label.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(label)
+            case "Password":
+               
+              
                 label.heightAnchor.constraint(equalToConstant: height).isActive = true
                 label.widthAnchor.constraint(equalToConstant: width).isActive = true
                 label.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 150).isActive = true
                 label.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: leading).isActive = true
-                input.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(input)
+               
                 input.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 0).isActive = true
                 input.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5).isActive = true
-                input.heightAnchor.constraint(equalToConstant: height).isActive = true
-                input.widthAnchor.constraint(equalToConstant: width + offset).isActive = true
                 break
             case "Confirmation":
-                let label = labelWithTitle(name, .white)
-                label.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(label)
+               
+              
                 label.heightAnchor.constraint(equalToConstant: height).isActive = true
                 label.widthAnchor.constraint(equalToConstant: width).isActive = true
                 label.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 190).isActive = true
                 label.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: leading).isActive = true
-                input.translatesAutoresizingMaskIntoConstraints = false
-                cellView.addSubview(input)
+               
                 input.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 0).isActive = true
                 input.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5).isActive = true
-                input.heightAnchor.constraint(equalToConstant: height).isActive = true
-                input.widthAnchor.constraint(equalToConstant: width + offset).isActive = true
                 break
             default:
                 break
@@ -200,3 +206,25 @@ class SignUp  : UIViewController {
     }
     
 }
+
+
+extension SignUp : SignUpControllerInput {
+    func hasBeenAdded() {
+        let layout = UICollectionViewFlowLayout()
+        let controller = MemberController(collectionViewLayout: layout)
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func hasNotBeenAdded(error: String?) {
+        createAlert(title: "Error", message: error!)
+    }
+}
+
+extension SignUp {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}
+
+
+

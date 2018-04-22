@@ -31,7 +31,7 @@ class AppTabBar : UITabBarController{
 //        let test = EditDescriptionController()
 //        let nevTest = UINavigationController(rootViewController: test)
         
-        viewControllers = [Home, signInController]
+        viewControllers = [signInController, Home]
     }
     
     

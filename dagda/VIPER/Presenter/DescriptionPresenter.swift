@@ -11,22 +11,29 @@ import Foundation
 
 
 protocol DescriptionPresenterInput {
-    func presentDescription(descriptions : [[String:String]])
+    func mayBeLoaded()
 }
 
 protocol DescriptionPresenterOuput{
-    func displayDescription(descriptions: [[String:String]])
+    func desccriptionLoaded(descriptions: [[String:AnyObject]])
+    func errorLoading()
 }
 
 class DescriptionPresenter : DescriptionPresenterInput{
   
     var controller : DescriptionPresenterOuput!
 
-    func presentDescription(descriptions : [[String:String]])
-    {
-        
-        controller.displayDescription(descriptions: descriptions)
+    func mayBeLoaded() {
+        NotificationCenter.default.addObserver(self, selector: #selector (DescriptionPresenter.descriptionLoaded(_:)), name: NSNotification.Name(rawValue: decriptionLoadedNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector (DescriptionPresenter.errorLoading(_:)), name: NSNotification.Name(rawValue: errorDecriptionLoadedNotification), object: nil)
+
     }
     
+    @objc func descriptionLoaded(_ sender: Any) {
+        controller.desccriptionLoaded(descriptions: API.instance.descriptionArray)
+    }
     
+    @objc func errorLoading(_ sender: Any){
+        controller.errorLoading()
+    }
 }

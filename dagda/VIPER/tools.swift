@@ -12,15 +12,15 @@ import UIKit
 
 
 
-
-let cellBackground = UIColor(red: color(38), green: color(38) , blue: color(38), alpha: 0.3)
+let Black = UIColor(red: color(10), green: color(10) , blue: color(10), alpha: 1)
+let cellBackground = UIColor(red: color(255), green: color(255) , blue: color(255), alpha: 0.9)
 let homeBlue = UIColor(red: color(51), green: color(191), blue: color(255), alpha: 0.9)
 let homeMocha = UIColor(red: color(255), green: color (250), blue: color (244), alpha: 1)
 
 fileprivate let viecolor = UIColor(red: color(38.0), green: color(38.0) , blue: color(38.0), alpha: -1)
 
 fileprivate let viewInpucolor =  UIColor(red: color(38.0), green: color(38.0) , blue: color(38.0), alpha: 0.2)
-fileprivate let defaultSize : CGFloat = 15
+fileprivate let defaultSize : CGFloat = 17
 fileprivate let defaultBigSize : CGFloat = 18
 let fontColor = UIColor(red: color(255), green: color(255.0) , blue: color(255.0), alpha: 1)
 
@@ -90,6 +90,9 @@ func textFieldWith() -> UITextField
     textArea.font =  fontWith(defaultSize)
     return textArea
 }
+
+
+
 // generate a texte input area
 func textViewWith() -> UITextView
 {
@@ -97,6 +100,7 @@ func textViewWith() -> UITextView
     textInput.font = fontWith(defaultSize)
     textInput.textColor = fontColor
     textInput.backgroundColor =  viewInpucolor
+    textInput.autocapitalizationType = .none
     return textInput
 }
 
@@ -107,6 +111,7 @@ func textViewWithDisplay() -> UITextView
     textInput.backgroundColor = viecolor
     textInput.textColor = fontColor
     textInput.font = fontWith(defaultSize)
+    textInput.autocapitalizationType = .none
     textInput.isEditable = false
     return textInput
 }
@@ -117,6 +122,7 @@ func textViewWith(backColor : UIColor) ->UITextView
     textInput.isEditable = false
     textInput.backgroundColor = .clear
     textInput.font = fontWith(16)
+    textInput.autocapitalizationType = .none
     textInput.textColor = fontColor
     return textInput
 }

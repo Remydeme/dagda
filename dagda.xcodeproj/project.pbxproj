@@ -21,6 +21,9 @@
 		2D35C3A42081002100439134 /* QRCodeHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3A32081002100439134 /* QRCodeHomeController.swift */; };
 		2D35C3A62081054900439134 /* QRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3A52081054800439134 /* QRCodeCell.swift */; };
 		2D35C3A82081081000439134 /* QRCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3A72081081000439134 /* QRCodeController.swift */; };
+		2DA234FB208B56CC00C6CF55 /* signUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */; };
+		2DA234FE208B580600C6CF55 /* signUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FD208B580600C6CF55 /* signUpInteractor.swift */; };
+		2DA23500208B5D4100C6CF55 /* signUpConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */; };
 		2DC4C0992084B304007DDD45 /* signIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0982084B304007DDD45 /* signIn.swift */; };
 		2DC4C09C2084B31A007DDD45 /* signUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C09B2084B31A007DDD45 /* signUp.swift */; };
 		2DC4C0A02084B618007DDD45 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C09F2084B618007DDD45 /* extension.swift */; };
@@ -86,6 +89,9 @@
 		2D35C3A32081002100439134 /* QRCodeHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeHomeController.swift; sourceTree = "<group>"; };
 		2D35C3A52081054800439134 /* QRCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeCell.swift; sourceTree = "<group>"; };
 		2D35C3A72081081000439134 /* QRCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeController.swift; sourceTree = "<group>"; };
+		2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpPresenter.swift; sourceTree = "<group>"; };
+		2DA234FD208B580600C6CF55 /* signUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpInteractor.swift; sourceTree = "<group>"; };
+		2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpConfigurer.swift; sourceTree = "<group>"; };
 		2DC4C0982084B304007DDD45 /* signIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signIn.swift; sourceTree = "<group>"; };
 		2DC4C09B2084B31A007DDD45 /* signUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUp.swift; sourceTree = "<group>"; };
 		2DC4C09F2084B618007DDD45 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
@@ -242,10 +248,10 @@
 		2DC4C09E2084B343007DDD45 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2D1BD57820817BF700838049 /* Gradiant.swift */,
+				2DE3319B208B4E8100261703 /* QRCode */,
 				2DC4C0B02084F4FB007DDD45 /* BaseCell.swift */,
 				2DC4C0AF2084F33B007DDD45 /* member */,
-				2D1BD57820817BF700838049 /* Gradiant.swift */,
-				2D35C3A52081054800439134 /* QRCodeCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -300,6 +306,7 @@
 			children = (
 				2DC5DDD5208552E3003D9283 /* DescriptionPresenter.swift */,
 				2DE331972089591400261703 /* QRCodePresenter.swift */,
+				2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -309,6 +316,7 @@
 			children = (
 				2DC5DDD72085541B003D9283 /* descriptionConfigurer.swift */,
 				2DE3319920895CF400261703 /* QRCodeConfigurer.swift */,
+				2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */,
 			);
 			path = configurer;
 			sourceTree = "<group>";
@@ -318,6 +326,7 @@
 			children = (
 				2DC5DDD120854A31003D9283 /* descriptionInteractor.swift */,
 				2DE331952089550700261703 /* QRcodeInteractor.swift */,
+				2DA234FD208B580600C6CF55 /* signUpInteractor.swift */,
 			);
 			path = interactor;
 			sourceTree = "<group>";
@@ -328,6 +337,14 @@
 				2DC5DDDC2085702C003D9283 /* reconizerController.swift */,
 			);
 			path = SpeechReconizer;
+			sourceTree = "<group>";
+		};
+		2DE3319B208B4E8100261703 /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				2D35C3A52081054800439134 /* QRCodeCell.swift */,
+			);
+			path = QRCode;
 			sourceTree = "<group>";
 		};
 		3B35058BEA50169B35A15263 /* Pods */ = {
@@ -581,6 +598,7 @@
 				2DC5DDDD2085702C003D9283 /* reconizerController.swift in Sources */,
 				2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */,
 				2DE3319A20895CF400261703 /* QRCodeConfigurer.swift in Sources */,
+				2DA234FB208B56CC00C6CF55 /* signUpPresenter.swift in Sources */,
 				2DC4C09C2084B31A007DDD45 /* signUp.swift in Sources */,
 				2DC4C0B32084F5F6007DDD45 /* memberCell.swift in Sources */,
 				2DC4C0AE2084F330007DDD45 /* descriptionCell.swift in Sources */,
@@ -597,9 +615,11 @@
 				2D35C37A2080FD7000439134 /* dagda.xcdatamodeld in Sources */,
 				2DC4C0B12084F4FB007DDD45 /* BaseCell.swift in Sources */,
 				2D35C3A62081054900439134 /* QRCodeCell.swift in Sources */,
+				2DA234FE208B580600C6CF55 /* signUpInteractor.swift in Sources */,
 				2DE331962089550700261703 /* QRcodeInteractor.swift in Sources */,
 				2DE331982089591400261703 /* QRCodePresenter.swift in Sources */,
 				2DC5DDCB20851531003D9283 /* desriptionController.swift in Sources */,
+				2DA23500208B5D4100C6CF55 /* signUpConfigurer.swift in Sources */,
 				2DC4C0A92084DF0E007DDD45 /* Description.swift in Sources */,
 				2D35C3A42081002100439134 /* QRCodeHomeController.swift in Sources */,
 				2D35C3A82081081000439134 /* QRCodeController.swift in Sources */,
@@ -771,10 +791,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HE3628KHUH;
+				DEVELOPMENT_TEAM = 8FSJUCWGP2;
 				INFOPLIST_FILE = dagda/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = app.dagda.2;
+				PRODUCT_BUNDLE_IDENTIFIER = app.dagda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -787,10 +807,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HE3628KHUH;
+				DEVELOPMENT_TEAM = 8FSJUCWGP2;
 				INFOPLIST_FILE = dagda/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = app.dagda.2;
+				PRODUCT_BUNDLE_IDENTIFIER = app.dagda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

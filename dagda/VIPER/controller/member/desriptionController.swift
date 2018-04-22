@@ -11,7 +11,8 @@ import UIKit
 
 
 protocol DescriptionControllerInput {
-    func displayDescription(descriptions: [[String:String]])
+    func desccriptionLoaded(descriptions: [[String:AnyObject]])
+    func errorLoading()
 }
 
 
@@ -21,12 +22,11 @@ protocol DescriptionControllerOutput{
     
 }
 
-class DescriptionController : BaseCollectionController, DescriptionControllerInput{
+class DescriptionController : BaseCollectionController{
+
    
     
-   
-    
-    var descriptionArray : [[String:String]]!
+    var descriptionArray : [[String:AnyObject]]!
     
     let id = "cell"
     
@@ -35,35 +35,62 @@ class DescriptionController : BaseCollectionController, DescriptionControllerInp
     override func viewDidLoad() {
         super.viewDidLoad()
         DescriptionConfigurer.instance.configure(controller: self)
+        self.output.fetchDescription()
         setUp()
     }
     
     
     override func setUp() {
         collectionView?.register(DescriptionCell.self, forCellWithReuseIdentifier: id)
-        collectionView?.backgroundColor = .white
+        collectionView?.backgroundView = GradientView(frame: (collectionView?.frame)!)
     }
     
- 
 
-    func displayDescription(descriptions: [[String : String]]) {
-        descriptionArray = descriptions
-    }
-    
-    
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if descriptionArray == nil {
+            return 0
+        }
+        else {
+            return descriptionArray.count
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: id, for: indexPath) as! DescriptionCell
         let description = descriptionArray[indexPath.row]
-        cell.descriptionModel = description
+        cell.descriptionModel = description as! [String:String]
+        cell.setDescription()
+        cell.topController = self
+        cell.position = indexPath
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width * 0.95, height: CGFloat(340))
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        let spaceBetweenDescription : CGFloat = 30
+        return spaceBetweenDescription
+    }
+}
+
+
+
+extension DescriptionController : DescriptionControllerInput {
+    
+    func desccriptionLoaded(descriptions: [[String : AnyObject]]) {
+        descriptionArray = descriptions
+        collectionView?.reloadData()
+    }
+    
+    func errorLoading() {
+        createAlert(title: "Error", message: "Error while loading data")
+    }
+    
 }

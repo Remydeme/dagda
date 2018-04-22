@@ -16,7 +16,7 @@ protocol DescriptonInteractorInput {
 }
 
 protocol DescriptionInteractorOutput{
-    func presentDescription(descriptions : [[String:String]])
+    func mayBeLoaded()
 }
 
 class DescriptionInteractor : DescriptonInteractorInput{
@@ -26,12 +26,10 @@ class DescriptionInteractor : DescriptonInteractorInput{
     
     
     func fetchDescription() {
+        output.mayBeLoaded()
         worker = API.instance
-        let dico = worker.fetchDescriptionNotConfirmed()
-        output.presentDescription(descriptions: dico)
+        worker.fetchDescriptionNotConfirmed()
     }
-    
- 
     
     func updateDescription(formular: DescriptionCell) {
         let oldDescription = formular.descriptionModel

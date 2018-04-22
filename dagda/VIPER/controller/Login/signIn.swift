@@ -19,7 +19,7 @@ class SignIn : UIViewController, UITextViewDelegate{
     let signUp = UIButton(type: .custom)
     let signIn = UIButton(type: .custom)
     let viewTitle = labelWithTitle("Dagda", size: 50)
-    let dictionarySignUp = ["Mot de passe": textViewWith(), "Email":textViewWith()]
+    let dictionarySignUp = ["Password": textViewWith(), "Email":textViewWith()]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,7 @@ class SignIn : UIViewController, UITextViewDelegate{
         setCellview()
         setButtonUp()
         setView()
+        //API.instance.fetchDescriptionNotConfirmed()
     }
     
     
@@ -44,7 +45,6 @@ class SignIn : UIViewController, UITextViewDelegate{
     }
     
     func setTitle (){
-        let top : CGFloat = -3
         viewTitle.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(viewTitle)
         viewTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
@@ -60,7 +60,7 @@ class SignIn : UIViewController, UITextViewDelegate{
         cellView.layer.cornerRadius = 17
         cellView.backgroundColor = cellBackground
         cellView.heightAnchor.constraint(equalToConstant: 180).isActive = true
-        cellView.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95).isActive = true
         cellView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         cellView.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 5).isActive = true
     }
@@ -69,7 +69,9 @@ class SignIn : UIViewController, UITextViewDelegate{
         signUp.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(signUp)
         signUp.addTarget(self, action: #selector (SignIn.signUpAction(_:)), for: .touchDown)
-        signUp.setTitle("Créer compte", for: .normal)
+        signUp.setTitle("Singn Up", for: .normal)
+        signUp.backgroundColor = .black
+        signUp.layer.cornerRadius = 17
         signUp.titleLabel?.font = fontWith(16)
         signUp.heightAnchor.constraint(equalToConstant: 30).isActive = true
         signUp.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -80,9 +82,11 @@ class SignIn : UIViewController, UITextViewDelegate{
         // sign in
         signIn.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(signIn)
-      //  signIn.addTarget(self, action: #selector (SignIn.signIn(_:)), for: .touchDown)
-        signIn.setTitle("Connecter", for: .normal)
+        signIn.addTarget(self, action: #selector (SignIn.signIn(_:)), for: .touchDown)
+        signIn.setTitle("Sign In", for: .normal)
         signIn.titleLabel?.font = fontWith(16)
+        signIn.backgroundColor = .black
+        signIn.layer.cornerRadius = 17
         signIn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         signIn.widthAnchor.constraint(equalToConstant: 100).isActive = true
         signIn.centerXAnchor.constraint(equalTo: cellView.centerXAnchor, constant: 70).isActive = true
@@ -103,7 +107,7 @@ class SignIn : UIViewController, UITextViewDelegate{
     func checkField() -> Bool{
         for (name, element) in dictionarySignUp {
             if element.text == ""{
-                createAlert(title:"Connection", message: "Veuiller renseigner votre " + name + ".")
+                createAlert(title:"Connection", message: "Please fill the " + name + " field.")
                 return false
             }
         }
@@ -112,25 +116,27 @@ class SignIn : UIViewController, UITextViewDelegate{
     
     
     @objc  func signIn(_ sender: Any){
-        print ("Sign In")
         if checkField() {
-            guard let email = dictionarySignUp["Email"]?.text , let password = dictionarySignUp["Mot de passe"]?.text else {
+            guard let email = dictionarySignUp["Email"]?.text , let password = dictionarySignUp["Password"]?.text else {
                 return
             }
-            Auth.auth().signIn(withEmail: email, password: password, completion: {(user, error) in
-                if let err = error {
-                    print(err.localizedDescription)
-                    self.createAlert(title: "Connection", message: err.localizedDescription)
-                } else {
-                    print ("Connected")
-                    let ref = Database.database().reference().child("users/Patient")
-                    let refUpdate = ref.childByAutoId()
-                    let value = ["Nom":"Karim", "prenom":"Dd"]
-                    refUpdate.updateChildValues(value)
-                    let controller = MemberController()
-                    self.navigationController?.pushViewController(controller, animated: true)
-                }
-            })
+            print(password)
+            print(email)
+            if !(User.instance.connected) {
+                Auth.auth().signIn(withEmail: email, password: password, completion: {(user, error) in
+                    if let err = error {
+                        print(err.localizedDescription)
+                        self.createAlert(title: "Ok", message: "Bad password or email please try again.")
+                    }
+                    else {
+                        User.instance.connect()
+                        User.instance.configure(name: (user?.email)!, id: (user?.uid)!, note : "Nan")
+                        let layout = UICollectionViewFlowLayout()
+                        let controller = MemberController(collectionViewLayout: layout)
+                        self.navigationController?.pushViewController(controller, animated: true)
+                    }
+                })
+            }
         }
     }
     
@@ -138,7 +144,6 @@ class SignIn : UIViewController, UITextViewDelegate{
         var top : CGFloat = 30
         let leading : CGFloat = 20
         let height : CGFloat = 30
-        let width : CGFloat = 120
         for (name, input) in dictionarySignUp{
             input.layer.cornerRadius = 3
             if name == "Mot de passe" {
@@ -148,15 +153,17 @@ class SignIn : UIViewController, UITextViewDelegate{
             label.translatesAutoresizingMaskIntoConstraints = false
             cellView.addSubview(label)
             label.heightAnchor.constraint(equalToConstant: height).isActive = true
-            label.widthAnchor.constraint(equalToConstant: width).isActive = true
+            label.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.3).isActive = true
             label.topAnchor.constraint(equalTo: cellView.topAnchor, constant: top).isActive = true
             label.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: leading).isActive = true
+            label.textColor = .black 
             input.translatesAutoresizingMaskIntoConstraints = false
             cellView.addSubview(input)
             input.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 0).isActive = true
             input.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5).isActive = true
             input.heightAnchor.constraint(equalToConstant: height).isActive = true
-            input.widthAnchor.constraint(equalToConstant: width + 20).isActive = true
+            input.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.5).isActive = true
+            input.textColor = .black
             input.delegate = self
             top += 40
             

@@ -22,6 +22,8 @@ protocol QRCodePresenterOutput {
 
 class QRCodePresenter : QRCodePresenterInput{
 
+
+    
     var output : QRCodePresenterOutput!
     
     func presentDescription(description: [String : AnyObject]?) {

@@ -24,10 +24,18 @@ class MemberController : UICollectionViewController, UICollectionViewDelegateFlo
     func setUp(){
         collectionView?.register(MemberCell.self, forCellWithReuseIdentifier: id)
         //collectionView?.isPagingEnabled = true
-        collectionView?.backgroundColor = .white
-        navigationItem.title = "Member"
+        collectionView?.backgroundColor = .black
+        navigationItem.title = "Descriptions list"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .plain, target: self, action: #selector (MemberController.signOut(_:)))
         navigationController?.navigationBar.prefersLargeTitles = true
-        //navigationController?.navigationBar.backgroundColor = .black
+        navigationItem.hidesBackButton = true 
+    }
+    
+    @objc func signOut(_ sender : Any){
+        print("Sign out")
+       API.instance.signOut()
+       User.instance.disconnect()
+       navigationController?.popToRootViewController(animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

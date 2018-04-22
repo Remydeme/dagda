@@ -16,9 +16,9 @@ func color(_ value : CGFloat) ->CGFloat {
 
 class GradientView: UIScrollView{
     
-    let darkBlue =  UIColor(red: color(15), green: color(145) , blue: color(189), alpha: 1.0)
-    let middleBlue = UIColor(red: color(113), green: color(211) , blue: color(244), alpha: 1)
-    let clearBlue = UIColor(red: color(19), green: color(182) , blue: color(236), alpha: 1.0)
+    let darkBlue =  UIColor(red: color(2), green: color(142) , blue: color(211), alpha: 1.0)
+    let middleBlue = UIColor(red: color(1), green: color(51) , blue: color(120), alpha: 1)
+    let clearBlue = UIColor(red: color(1), green: color(51) , blue: color(120), alpha: 1.0)
     
     override class var layerClass: AnyClass {
         return CAGradientLayer.self

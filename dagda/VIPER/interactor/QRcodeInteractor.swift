@@ -10,7 +10,7 @@ import Foundation
 
 
 protocol QRCodeInteractorInput {
-    func fetchDescriptionIfExist(room: String) -> Bool
+    func fetchDescriptionIfExist(room: String)
 }
 
 
@@ -24,10 +24,9 @@ class QRCodeInteractor : QRCodeInteractorInput{
     var output : QRCodeInteractorOutput!
     var worker : API!
     
-    func fetchDescriptionIfExist(room: String) -> Bool {
+    func fetchDescriptionIfExist(room: String)  {
         worker = API.instance
         worker.roomDescriptionExists(room: room)
         output.presentDescription(description: worker.data)
-        return API.instance.exist
     }
 }
