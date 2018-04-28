@@ -31,8 +31,7 @@ class VideoController : UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     // let video parameter
     
-    let filename = "video"
-    
+    var filename = ""
     
     // interactor
     var interactor : VideoControllerOutput!
@@ -57,6 +56,9 @@ class VideoController : UIViewController, AVCaptureVideoDataOutputSampleBufferDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        tabBarController?.tabBar.isHidden = true
+        navigationController?.isNavigationBarHidden = false 
         cameraSession.sessionPreset = .hd1280x720
     }
 
@@ -182,7 +184,8 @@ extension VideoController : AVCaptureFileOutputRecordingDelegate {
     
     // function called when the record is over
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        print("record is finished")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: videoNotification), object: nil)
+        navigationController?.popViewController(animated: true)
         // save file on firebase and display it in the carousel
     }
     

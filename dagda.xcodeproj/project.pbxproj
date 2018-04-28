@@ -38,6 +38,9 @@
 		2D9169082094B421001B07E6 /* videoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9169072094B421001B07E6 /* videoPresenter.swift */; };
 		2D91690A2094B471001B07E6 /* videoConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9169092094B471001B07E6 /* videoConfigurer.swift */; };
 		2D91690C2094C136001B07E6 /* settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D91690B2094C136001B07E6 /* settings.swift */; };
+		2D91690E20950418001B07E6 /* editDesriptionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D91690D20950418001B07E6 /* editDesriptionInteractor.swift */; };
+		2D9169102095050B001B07E6 /* editDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D91690F2095050B001B07E6 /* editDescriptionPresenter.swift */; };
+		2D91691220950621001B07E6 /* editDesccriptionConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D91691120950621001B07E6 /* editDesccriptionConfigurer.swift */; };
 		2DA234FB208B56CC00C6CF55 /* signUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */; };
 		2DA234FE208B580600C6CF55 /* signUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FD208B580600C6CF55 /* signUpInteractor.swift */; };
 		2DA23500208B5D4100C6CF55 /* signUpConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */; };
@@ -115,6 +118,9 @@
 		2D9169072094B421001B07E6 /* videoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoPresenter.swift; sourceTree = "<group>"; };
 		2D9169092094B471001B07E6 /* videoConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoConfigurer.swift; sourceTree = "<group>"; };
 		2D91690B2094C136001B07E6 /* settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settings.swift; sourceTree = "<group>"; };
+		2D91690D20950418001B07E6 /* editDesriptionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editDesriptionInteractor.swift; sourceTree = "<group>"; };
+		2D91690F2095050B001B07E6 /* editDescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editDescriptionPresenter.swift; sourceTree = "<group>"; };
+		2D91691120950621001B07E6 /* editDesccriptionConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editDesccriptionConfigurer.swift; sourceTree = "<group>"; };
 		2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpPresenter.swift; sourceTree = "<group>"; };
 		2DA234FD208B580600C6CF55 /* signUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpInteractor.swift; sourceTree = "<group>"; };
 		2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpConfigurer.swift; sourceTree = "<group>"; };
@@ -344,6 +350,7 @@
 				2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */,
 				2D5624ED20935401006B9805 /* signInPresenter.swift */,
 				2D9169072094B421001B07E6 /* videoPresenter.swift */,
+				2D91690F2095050B001B07E6 /* editDescriptionPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -356,6 +363,7 @@
 				2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */,
 				2D5624EF20935863006B9805 /* signInConfigurer.swift */,
 				2D9169092094B471001B07E6 /* videoConfigurer.swift */,
+				2D91691120950621001B07E6 /* editDesccriptionConfigurer.swift */,
 			);
 			path = configurer;
 			sourceTree = "<group>";
@@ -368,6 +376,7 @@
 				2DA234FD208B580600C6CF55 /* signUpInteractor.swift */,
 				2D5624EB2093539A006B9805 /* signInInteractor.swift */,
 				2D9169052094B3BB001B07E6 /* videoInteractor.swift */,
+				2D91690D20950418001B07E6 /* editDesriptionInteractor.swift */,
 			);
 			path = interactor;
 			sourceTree = "<group>";
@@ -641,6 +650,7 @@
 				2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */,
 				2D91690C2094C136001B07E6 /* settings.swift in Sources */,
 				2DE3319A20895CF400261703 /* QRCodeConfigurer.swift in Sources */,
+				2D91691220950621001B07E6 /* editDesccriptionConfigurer.swift in Sources */,
 				2D5624EC2093539A006B9805 /* signInInteractor.swift in Sources */,
 				2DA234FB208B56CC00C6CF55 /* signUpPresenter.swift in Sources */,
 				2DC4C09C2084B31A007DDD45 /* signUp.swift in Sources */,
@@ -666,12 +676,14 @@
 				2DA234FE208B580600C6CF55 /* signUpInteractor.swift in Sources */,
 				2D9169082094B421001B07E6 /* videoPresenter.swift in Sources */,
 				2DE331962089550700261703 /* QRcodeInteractor.swift in Sources */,
+				2D91690E20950418001B07E6 /* editDesriptionInteractor.swift in Sources */,
 				2DE331982089591400261703 /* QRCodePresenter.swift in Sources */,
 				2DC5DDCB20851531003D9283 /* desriptionController.swift in Sources */,
 				2DA23500208B5D4100C6CF55 /* signUpConfigurer.swift in Sources */,
 				2DC4C0A92084DF0E007DDD45 /* Description.swift in Sources */,
 				2D35C3A42081002100439134 /* QRCodeHomeController.swift in Sources */,
 				2D35C3A82081081000439134 /* QRCodeController.swift in Sources */,
+				2D9169102095050B001B07E6 /* editDescriptionPresenter.swift in Sources */,
 				2D5624EA2092B3A1006B9805 /* memberTabBar.swift in Sources */,
 				2D0F2A8520815523009171ED /* tools.swift in Sources */,
 			);

@@ -10,10 +10,23 @@ import Foundation
 import UIKit
 
 
+protocol editDescriptionControllerInput {
+    func videoUploaded(state: Bool)
+    func descriptionUploaded(state: Bool)
+}
+
+protocol EditDescriptionControllerOuput{
+    func uploadVideo(path: URL, name: String)
+    func uploadDescription(room: String, description: String)
+}
+
 class EditDescription : UIViewController, UITextViewDelegate {
     
     let navTitle = "Edit"
     var cellView : UIView!
+    
+    // viper
+    var interactor : EditDescriptionControllerOuput!
     
     let room = textViewWith()
     let speechReconizer = SpeechReconizerController()
@@ -36,6 +49,9 @@ class EditDescription : UIViewController, UITextViewDelegate {
         return caroussel
     }()
     
+    
+    var name : String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
@@ -43,6 +59,12 @@ class EditDescription : UIViewController, UITextViewDelegate {
         setUpCellVIew()
         setUpInputs()
         setUpVideoView()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
     func setUp(){
@@ -169,7 +191,7 @@ class EditDescription : UIViewController, UITextViewDelegate {
         let height : CGFloat = 200
         
         caroussel?.heightAnchor.constraint(equalToConstant: height).isActive = true
-        caroussel?.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.9).isActive = true
+        caroussel?.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.8).isActive = true
         
     }
     
@@ -187,11 +209,55 @@ extension EditDescription{
     
     @objc func startCamera(_ sender: Any){
         print("Start camera")
-        let controller = VideoController()
-        present(controller, animated: true)
+        if let roomName = self.room.text {
+            let controller = VideoController()
+            controller.filename = roomName
+            navigationController?.pushViewController(controller, animated: true)
+        }
+        else {
+            createAlert(title: "Ok", message: "Please Enter the name of the room")
+        }
     }
 }
 
+
+extension EditDescription {
+    
+    @objc func save(_ sender : Any){
+        guard let name = room.text, let descriptionTexte = descriptionInput.text else {
+            createAlert(title: "Empty Field", message: "Every field should be field")
+            return
+        }
+        interactor.uploadDescription(room: name, description: descriptionTexte)
+        
+        let path = Settings.instance.tempVideoURL().appendingPathComponent(name)
+        
+        if FileManager.default.fileExists(atPath: path.absoluteString) == true {
+            interactor.uploadVideo(path: path, name: name)
+        }
+    }
+}
+
+extension EditDescription : editDescriptionControllerInput {
+    func videoUploaded(state: Bool) {
+        if state == false {
+            createAlert(title: "Ok", message: "Serveur error the video has not been pushed try again.")
+        }
+
+    }
+    
+    func descriptionUploaded(state: Bool) {
+        if state == false {
+            createAlert(title: "Ok", message: "Serveur error description has not been pushed try again.")
+        }
+        else {
+            createAlert(title: "I'm happy to help", message: "The Dagda community thank you for your contribution.")
+
+        }
+    }
+    
+    
+}
 
 
 

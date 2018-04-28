@@ -20,9 +20,9 @@ class User {
     public private(set) var firstConnection : Bool!
     
     private init () {
-        fullName = UserDefaults.standard.object(forKey: "pseudo") as! String
-        name = UserDefaults.standard.object(forKey: "name") as! String
-        firstConnection = UserDefaults.standard.bool(forKey: "firstConnection")
+//        fullName = UserDefaults.standard.object(forKey: "pseudo") as! String
+//        name = UserDefaults.standard.object(forKey: "name") as! String
+//        firstConnection = UserDefaults.standard.bool(forKey: "firstConnection")
     }
     
     static let instance = User()

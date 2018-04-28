@@ -32,6 +32,12 @@ let signInError = "dagda.notification.sign.in.error.notification"
 let adminAdded = "dagda.notification.admin.added.notification"
 let adminAddFailed = "dagda.notification.admin.added.failed.notification"
 
+let videoPosted = "dagda.notification.video.posted.notification"
+
+
+let descriptionAdded = "dagda.notification.add.desription.notification"
+let descriptionNotAdded = "dagda.notification.not.add.desription.notification"
+
 class API {
     fileprivate let FIREBASE_URL = "https://dagda-9f511.firebaseio.com/"
     private init (){}
@@ -110,10 +116,10 @@ class API {
         let ref = Database.database().reference(withPath: "description").child(description.id)
         ref.updateChildValues(description.dictionary(), withCompletionBlock: { (error, ref) in
             if error != nil{
-                print ((error! as NSError).localizedDescription)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: descriptionNotAdded), object: nil)
             }
             else {
-               print ("added")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: descriptionAdded), object: nil)
             }
         })
     }
@@ -160,6 +166,13 @@ class API {
                NotificationCenter.default.post(name: NSNotification.Name(rawValue: adminAdded), object: nil)
             }}
         )
+    }
+    
+    
+    func uploadVideo(name: String, url: URL){
+        let ref = Storage.storage().reference().child("video").child(name)
+        ref.putFile(from: url)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: videoPosted), object: nil)
     }
     
     func signOut (){
