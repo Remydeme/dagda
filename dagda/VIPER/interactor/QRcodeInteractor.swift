@@ -15,7 +15,7 @@ protocol QRCodeInteractorInput {
 
 
 protocol QRCodeInteractorOutput {
-    func presentDescription(description: [String:AnyObject]?)
+    func mayHaveBeenLoadedDescription()
 }
 
 
@@ -26,7 +26,7 @@ class QRCodeInteractor : QRCodeInteractorInput{
     
     func fetchDescriptionIfExist(room: String)  {
         worker = API.instance
+        output.mayHaveBeenLoadedDescription()
         worker.roomDescriptionExists(room: room)
-        output.presentDescription(description: worker.data)
     }
 }

@@ -90,7 +90,6 @@ class SpeechReconizerController : UIViewController, SFSpeechRecognizerDelegate{
     func microphoneTaped(_ sender: Any){
         
         if audioEngine.isRunning {
-            print ("Stop the running ")
            audioEngine.stop()
            request.endAudio()
            startButton.setImage(#imageLiteral(resourceName: "mic"), for: .normal)

@@ -15,11 +15,13 @@ import Firebase
 protocol SignUpControllerInput {
     func hasBeenAdded()
     func hasNotBeenAdded(error: String?)
-    
+    func adminAccountCreated()
+    func failedAccountCreation()
 }
 
 protocol SignUpControllerOutput {
     func addUser(formular: inout [String:String])
+    func createAccount(email: String, password: String)
 }
 
 class SignUp  : UIViewController {
@@ -30,6 +32,9 @@ class SignUp  : UIViewController {
     let signUp = UIButton(type: .custom)
     let viewTitle = labelWithTitle("Dagda", size: 50)
     let dictionarySignUp = ["Family name":textViewWith(), "Firstname":textViewWith(), "Password": textViewWith(), "Email":textViewWith(), "Confirmation":textViewWith()]
+    
+    
+    var formularValues = [String:String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,12 +51,22 @@ class SignUp  : UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.largeTitleDisplayMode = .always
+        
+        // add gesture to hide keyboard on touch
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector (hideKeyBoard(_:)))
+        view.addGestureRecognizer(gesture)
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: UIFont(name: "Optima", size: 20)!]
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesBackButton = false
         navigationItem.title = "Register"
+        tabBarController?.tabBar.isHidden = false
+        navigationController?.isNavigationBarHidden = false 
     }
     
     func setTitle (){
@@ -106,16 +121,13 @@ class SignUp  : UIViewController {
                 print ("Error when trying getting information")
                 return
             }
+            
             if (password == dictionarySignUp["Confirmation"]?.text!) {
-                Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
-                    if let err = error {
-                        print(err.localizedDescription)
-                        self.createAlert(title: "Enregistrer", message: err.localizedDescription)
-                    } else {
-                        var values  = ["email":email, "family name":name, "firstname":firstname, "password":password]
-                        self.interactor.addUser(formular:  &values)
-                    }}
-                )
+                formularValues["email"] = email
+                formularValues["password"] = password
+                formularValues["firstname"] = firstname
+                formularValues["family name"] = name
+                interactor.createAccount(email: email, password: password)
             } else {
                 createAlert(title: "Password", message: "Password confirmation invalid")
                 self.dictionarySignUp["Confirmation"]?.text = ""
@@ -123,6 +135,8 @@ class SignUp  : UIViewController {
             }
         }
     }
+    
+
     
     func setView(){
       
@@ -209,18 +223,35 @@ class SignUp  : UIViewController {
 
 
 extension SignUp : SignUpControllerInput {
+    func adminAccountCreated() {
+        createAlert(title: "Welcome", message: "We are happy that you join the community " + formularValues["firstname"]! + "Welcome")
+        var formular =  formularValues
+        interactor.addUser(formular: &formular)
+    }
+    
+    func failedAccountCreation() {
+        createAlert(title: "Oups", message: API.instance.accountCreationError)
+    }
+    
+   
     func hasBeenAdded() {
-        let layout = UICollectionViewFlowLayout()
-        let controller = MemberController(collectionViewLayout: layout)
+        let controller = MemberTabBar()
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func hasNotBeenAdded(error: String?) {
         createAlert(title: "Error", message: error!)
     }
+    
+    
 }
 
 extension SignUp {
+    
+    @objc func hideKeyBoard(_ sender: Any){
+        self.view.endEditing(true)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

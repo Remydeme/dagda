@@ -18,6 +18,19 @@ let errorAddedNotification = "dagda.notification.error.added.notification"
 let decriptionLoadedNotification = "dagda.notification.loaded.notification"
 let errorDecriptionLoadedNotification = "dagda.notification.error.loaded.notification"
 
+let deleteNotification = "dagda.notification.delete.notification"
+let deleteErrorNotification = "dagda.notification.error.deleting.notification"
+
+let descriptionLoaeded = "dagda.notification.loaded.notification"
+let descriptionLoadedError = "dagda.notification.error.loaded.notification"
+
+
+let signInSuccess = "dagda.notification.sign.in.success.notification"
+let signInError = "dagda.notification.sign.in.error.notification"
+
+
+let adminAdded = "dagda.notification.admin.added.notification"
+let adminAddFailed = "dagda.notification.admin.added.failed.notification"
 
 class API {
     fileprivate let FIREBASE_URL = "https://dagda-9f511.firebaseio.com/"
@@ -25,22 +38,15 @@ class API {
     
     static let instance = API()
     
-    var data : [String:AnyObject]?
+    var description : [String:AnyObject]? // Qrcode informations description
     var descriptionArray : [[String:AnyObject]]!
     var exist = false 
     var added = false
     var error = ""
+    var accountCreationError = ""
+    var deletingError : String?
     
-    func fetchRoomDescription(room : String){
-        let ref = Database.database().reference(withPath: "description")
-        ref.queryOrdered(byChild: "room").queryEqual(toValue: "E2004").observeSingleEvent(of: .value, with: {(snapshot)   in
-           
-            for childSnapshot in snapshot.children {
-                print(childSnapshot)
-            }
-        })
-        
-    }
+
     
 
     func fetchDescriptionNotConfirmed(){
@@ -59,11 +65,32 @@ class API {
     
     // utilise le nom de la salle au lieu d'une valeur random de cle
     
-    func updateDescription(description: Description) {
+    func confirmDescription(description: Description, id: String) {
+        deleteDescription(room: id)
         let ref = Database.database().reference(withPath: "description").child(description.room)
         ref.updateChildValues(description.dictionary())
     }
     
+    
+    /**
+     this function should use a unique id that is the description key
+     and have the room value equal to the room that we want to update 
+     */
+    
+    func userUpdateDescription(description: Description) {
+        let ref = Database.database().reference(withPath: "description").child(description.room)
+        ref.updateChildValues(description.dictionary(), withCompletionBlock: { (error, ref) in
+            if error != nil{
+                print ((error! as NSError).localizedDescription)
+            }
+            else {
+                print ("added")
+            }
+        })
+    }
+    
+    
+    // fetch the description of a specific room using his ID
     func roomDescriptionExists(room: String){
         let ref = Database.database().reference(withPath: "description")
         ref.queryOrdered(byChild: "room").queryEqual(toValue: room).observeSingleEvent(of: .value, with: {(snapshot)   in
@@ -73,15 +100,14 @@ class API {
                 self.exist = true
             }
             for element in snapshot.children.allObjects as! [DataSnapshot]{
-               self.data = element.value as? [String:AnyObject]
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: existNotification), object: nil)
-                print (self.data!) // should be removed 
+               self.description = element.value as? [String:AnyObject]
             }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: existNotification), object: nil)
         })
     }
     
     func addDescription(description: Description){
-        let ref = Database.database().reference(withPath: "description").child(description.room)
+        let ref = Database.database().reference(withPath: "description").child(description.id)
         ref.updateChildValues(description.dictionary(), withCompletionBlock: { (error, ref) in
             if error != nil{
                 print ((error! as NSError).localizedDescription)
@@ -92,15 +118,27 @@ class API {
         })
     }
     
+    func deleteDescription(room: String){
+        let ref = Database.database().reference(withPath: "description").child(room)
+        ref.removeValue(completionBlock: {(error, ref) in
+            if error != nil {
+                print ("Something bad happened while deleting element")
+                self.deletingError = (error?.localizedDescription)!
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: deleteErrorNotification), object: nil)
+            }
+            else {
+                self.deletingError = nil
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: deleteNotification), object: nil)
+            }
+            })
+    }
     
     func addAdmin(formular: inout [String:String]){
         // clear added
         self.added = false
-        let ref = Database.database().reference(withPath: "admin")
-        let child = ref.childByAutoId()
-        let id = child.key
-        formular["id"] = id
-        child.updateChildValues(formular, withCompletionBlock: { (error, ref) in
+        let ref = Database.database().reference(withPath: "admin").child(formular["email"]!)
+        formular["id"] = ref.key
+        ref.updateChildValues(formular, withCompletionBlock: { (error, ref) in
             if error != nil{
                 self.error = (error?.localizedDescription)!
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: errorAddedNotification), object: nil)
@@ -113,6 +151,16 @@ class API {
         })
     }
     
+    func createAdminAccount(email: String, password: String) {
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+            if let err = error {
+                self.accountCreationError = err.localizedDescription
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: adminAddFailed), object: nil)
+            } else {
+               NotificationCenter.default.post(name: NSNotification.Name(rawValue: adminAdded), object: nil)
+            }}
+        )
+    }
     
     func signOut (){
         do {
@@ -121,6 +169,22 @@ class API {
         catch let err {
             print (err.localizedDescription)
         }
+    }
+    
+    
+    func signIn (email: String, password: String){
+        Auth.auth().signIn(withEmail: email, password: password, completion: {(user, error) in
+            if let err = error {
+                print(err.localizedDescription)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: signInError), object: nil)
+            }
+            else {
+                User.instance.connect()
+                User.instance.configure(name: (user?.email)!, id: (user?.uid)!, note : "0")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: signInSuccess), object: nil)
+            }
+        })
+
     }
     
 }

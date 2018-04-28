@@ -23,12 +23,13 @@ class MemberController : UICollectionViewController, UICollectionViewDelegateFlo
     
     func setUp(){
         collectionView?.register(MemberCell.self, forCellWithReuseIdentifier: id)
-        //collectionView?.isPagingEnabled = true
+        collectionView?.isPagingEnabled = true
         collectionView?.backgroundColor = .black
         navigationItem.title = "Descriptions list"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .plain, target: self, action: #selector (MemberController.signOut(_:)))
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.hidesBackButton = true 
+        navigationItem.hidesBackButton = true
+        navigationController?.isNavigationBarHidden = true
     }
     
     @objc func signOut(_ sender : Any){
@@ -39,7 +40,7 @@ class MemberController : UICollectionViewController, UICollectionViewDelegateFlo
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -51,6 +52,9 @@ class MemberController : UICollectionViewController, UICollectionViewDelegateFlo
         return CGSize(width: CGFloat(collectionView.frame.width), height: CGFloat(collectionView.frame.height))
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 140, left: 0, bottom: 10, right: 0)
+    }
 }
 
 

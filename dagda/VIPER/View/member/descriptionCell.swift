@@ -15,8 +15,10 @@ class DescriptionCell : BaseCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector (hideKeyboard(_:)))
+        addGestureRecognizer(gesture)
         setUpView()
-        addHorizontalBar()
+        //addHorizontalBar()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,6 +30,7 @@ class DescriptionCell : BaseCell {
     let roomLabel = labelWithTitle("Room")
     let descriptionInput = textViewWith()
     let confirmedButton = UIButton(type: .custom)
+    let deleteButton = UIButton(type: .custom)
     
     let topBar = UIView()
     let bottomBar = UIView()
@@ -42,17 +45,7 @@ class DescriptionCell : BaseCell {
     
     
     func addHorizontalBar(){
-        
-//        topBar.translatesAutoresizingMaskIntoConstraints = false
-//        addSubview(topBar)
-//
-//        topBar.heightAnchor.constraint(equalToConstant: 1).isActive = true
-//        topBar.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.95).isActive = true
-//        topBar.bottomAnchor.constraint(equalTo: topAnchor).isActive = true
-//        topBar.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//        topBar.backgroundColor = cellBackground
-        
-        // bttom bar settings
+
         
         bottomBar.translatesAutoresizingMaskIntoConstraints = false
         addSubview(bottomBar)
@@ -65,34 +58,35 @@ class DescriptionCell : BaseCell {
     
     func setUpView(){
         
+        backgroundColor = itGreen
         //backgroundView = GradientView(frame: frame)
-        backgroundColor = cellBackground
-        layer.cornerRadius = 7
+       // layer.cornerRadius = 7
        // set room label
         
         roomLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(roomLabel)
-        roomLabel.textColor = Black
+        roomLabel.textColor = .white
+        roomLabel.textAlignment = .center
+        roomLabel.backgroundColor = UIColor(displayP3Red: color(255), green:  color(255), blue:  color(255), alpha: 0.4)
         roomLabel.font = fontWith(25)
-        roomLabel.topAnchor.constraint(equalTo: topAnchor, constant: 13).isActive = true
+        roomLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         roomLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        roomLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        roomLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        
+        roomLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        roomLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
         
         // set input area
        
         descriptionInput.translatesAutoresizingMaskIntoConstraints = false
         addSubview(descriptionInput)
-        descriptionInput.textColor = UIColor(red: color(38), green: color(38), blue: color(38), alpha: 1)
-        descriptionInput.backgroundColor = UIColor(red: color(255), green: color(255), blue: color(255), alpha: -0.1)
-        descriptionInput.layer.borderColor = Black.cgColor
-        descriptionInput.layer.borderWidth = 0.4
-        descriptionInput.layer.cornerRadius = 7
+        descriptionInput.textColor = .white
+        descriptionInput.layer.borderWidth = 0.8
+        descriptionInput.layer.borderColor = UIColor.white.cgColor
+        descriptionInput.layer.cornerRadius = 3
         descriptionInput.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         descriptionInput.topAnchor.constraint(equalTo: roomLabel.bottomAnchor, constant: 30).isActive = true
         descriptionInput.heightAnchor.constraint(equalToConstant: 200).isActive = true
         descriptionInput.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9).isActive = true
+        descriptionInput.backgroundColor = .clear
         descriptionInput.text = "Description here"
         
         // set button
@@ -105,21 +99,54 @@ class DescriptionCell : BaseCell {
         confirmedButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         confirmedButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
         confirmedButton.topAnchor.constraint(equalTo: descriptionInput.bottomAnchor, constant: 15).isActive = true
-        confirmedButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        confirmedButton.backgroundColor = .black
-        confirmedButton.setTitleColor(.white, for: .normal)
+        confirmedButton.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -70).isActive = true 
+        confirmedButton.backgroundColor = .white
+        confirmedButton.setTitleColor(.black, for: .normal)
         confirmedButton.setTitleColor(.green, for: .focused)
+        
+        
+        //delete description button
+        deleteButton.setTitle("Delete", for: .normal)
+        deleteButton.addTarget(self, action: #selector (deleteDescription(_:)), for: .touchDown)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(deleteButton)
+        deleteButton.backgroundColor = .white
+        deleteButton.layer.cornerRadius = 7
+        deleteButton.titleLabel?.font = fontWith(18)
+        deleteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        deleteButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        deleteButton.centerYAnchor.constraint(equalTo: confirmedButton.centerYAnchor).isActive = true
+        deleteButton.leadingAnchor.constraint(equalTo: confirmedButton.trailingAnchor, constant: 20).isActive = true
+        deleteButton.setTitleColor(.black, for: .normal)
+        deleteButton.setTitleColor(.green, for: .focused)
+        
     }
     
 
+    @objc func hideKeyboard(_ sender: Any){
+        endEditing(true)
+    }
+    
+    @objc func deleteDescription(_ sender: Any){
+        print("delete")
+        let delete = UIAlertAction(title: "delete", style: .default, handler: { action in
+            self.topController.output.deleteDescription(formular: self)
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in })
+        let title = "Delete description"
+        let message = "Are you sure that you want to delete this description ?"
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(delete)
+        alertController.addAction(cancel)
+        topController.present(alertController, animated: true, completion: nil)
+    }
+    
     @objc func confirmedDesription(_ sender: Any )
     {
         print ("confirmed desription")
         topController.output.updateDescription(formular: self)
         topController.descriptionArray.remove(at: position.row)
         topController.collectionView?.deleteItems(at: [position])
-        //topController.collectionView?.reloadData()
-
     }
     
 }

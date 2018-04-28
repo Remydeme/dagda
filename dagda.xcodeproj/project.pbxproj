@@ -21,6 +21,18 @@
 		2D35C3A42081002100439134 /* QRCodeHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3A32081002100439134 /* QRCodeHomeController.swift */; };
 		2D35C3A62081054900439134 /* QRCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3A52081054800439134 /* QRCodeCell.swift */; };
 		2D35C3A82081081000439134 /* QRCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3A72081081000439134 /* QRCodeController.swift */; };
+		2D5624EA2092B3A1006B9805 /* memberTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624E92092B3A1006B9805 /* memberTabBar.swift */; };
+		2D5624EC2093539A006B9805 /* signInInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624EB2093539A006B9805 /* signInInteractor.swift */; };
+		2D5624EE20935401006B9805 /* signInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624ED20935401006B9805 /* signInPresenter.swift */; };
+		2D5624F020935863006B9805 /* signInConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624EF20935863006B9805 /* signInConfigurer.swift */; };
+		2D5624F120935863006B9805 /* signInConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624EF20935863006B9805 /* signInConfigurer.swift */; };
+		2D5624F220935863006B9805 /* signInConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624EF20935863006B9805 /* signInConfigurer.swift */; };
+		2D5624F42093D8A1006B9805 /* editDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624F32093D8A0006B9805 /* editDescription.swift */; };
+		2D5624F52093D8A1006B9805 /* editDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624F32093D8A0006B9805 /* editDescription.swift */; };
+		2D5624F62093D8A1006B9805 /* editDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624F32093D8A0006B9805 /* editDescription.swift */; };
+		2D5624F82093DC55006B9805 /* videoCaroussel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624F72093DC55006B9805 /* videoCaroussel.swift */; };
+		2D5624F92093DC55006B9805 /* videoCaroussel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624F72093DC55006B9805 /* videoCaroussel.swift */; };
+		2D5624FA2093DC55006B9805 /* videoCaroussel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624F72093DC55006B9805 /* videoCaroussel.swift */; };
 		2DA234FB208B56CC00C6CF55 /* signUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */; };
 		2DA234FE208B580600C6CF55 /* signUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FD208B580600C6CF55 /* signUpInteractor.swift */; };
 		2DA23500208B5D4100C6CF55 /* signUpConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */; };
@@ -30,10 +42,8 @@
 		2DC4C0A32084C506007DDD45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2DC4C0A22084C505007DDD45 /* GoogleService-Info.plist */; };
 		2DC4C0A62084D98C007DDD45 /* worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0A52084D98C007DDD45 /* worker.swift */; };
 		2DC4C0A92084DF0E007DDD45 /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0A82084DF0E007DDD45 /* Description.swift */; };
-		2DC4C0AC2084F326007DDD45 /* memberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0AB2084F326007DDD45 /* memberController.swift */; };
 		2DC4C0AE2084F330007DDD45 /* descriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0AD2084F330007DDD45 /* descriptionCell.swift */; };
 		2DC4C0B12084F4FB007DDD45 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0B02084F4FB007DDD45 /* BaseCell.swift */; };
-		2DC4C0B32084F5F6007DDD45 /* memberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC4C0B22084F5F6007DDD45 /* memberCell.swift */; };
 		2DC5DDCB20851531003D9283 /* desriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDCA20851531003D9283 /* desriptionController.swift */; };
 		2DC5DDCD20851574003D9283 /* baseCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDCC20851574003D9283 /* baseCollectionController.swift */; };
 		2DC5DDD220854A31003D9283 /* descriptionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5DDD120854A31003D9283 /* descriptionInteractor.swift */; };
@@ -89,6 +99,12 @@
 		2D35C3A32081002100439134 /* QRCodeHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeHomeController.swift; sourceTree = "<group>"; };
 		2D35C3A52081054800439134 /* QRCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeCell.swift; sourceTree = "<group>"; };
 		2D35C3A72081081000439134 /* QRCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeController.swift; sourceTree = "<group>"; };
+		2D5624E92092B3A1006B9805 /* memberTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberTabBar.swift; sourceTree = "<group>"; };
+		2D5624EB2093539A006B9805 /* signInInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signInInteractor.swift; sourceTree = "<group>"; };
+		2D5624ED20935401006B9805 /* signInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signInPresenter.swift; sourceTree = "<group>"; };
+		2D5624EF20935863006B9805 /* signInConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signInConfigurer.swift; sourceTree = "<group>"; };
+		2D5624F32093D8A0006B9805 /* editDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editDescription.swift; sourceTree = "<group>"; };
+		2D5624F72093DC55006B9805 /* videoCaroussel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoCaroussel.swift; sourceTree = "<group>"; };
 		2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpPresenter.swift; sourceTree = "<group>"; };
 		2DA234FD208B580600C6CF55 /* signUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpInteractor.swift; sourceTree = "<group>"; };
 		2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpConfigurer.swift; sourceTree = "<group>"; };
@@ -98,10 +114,8 @@
 		2DC4C0A22084C505007DDD45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2DC4C0A52084D98C007DDD45 /* worker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = worker.swift; sourceTree = "<group>"; };
 		2DC4C0A82084DF0E007DDD45 /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
-		2DC4C0AB2084F326007DDD45 /* memberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberController.swift; sourceTree = "<group>"; };
 		2DC4C0AD2084F330007DDD45 /* descriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = descriptionCell.swift; sourceTree = "<group>"; };
 		2DC4C0B02084F4FB007DDD45 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
-		2DC4C0B22084F5F6007DDD45 /* memberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = memberCell.swift; sourceTree = "<group>"; };
 		2DC5DDCA20851531003D9283 /* desriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = desriptionController.swift; sourceTree = "<group>"; };
 		2DC5DDCC20851574003D9283 /* baseCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baseCollectionController.swift; sourceTree = "<group>"; };
 		2DC5DDD120854A31003D9283 /* descriptionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = descriptionInteractor.swift; sourceTree = "<group>"; };
@@ -226,7 +240,6 @@
 			children = (
 				2DC4C0982084B304007DDD45 /* signIn.swift */,
 				2DC4C09B2084B31A007DDD45 /* signUp.swift */,
-				2DC5DDD320855018003D9283 /* User.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -236,6 +249,7 @@
 			children = (
 				2DC5DDDB20856FF8003D9283 /* SpeechReconizer */,
 				2D35C3732080FD7000439134 /* AppTabBar.swift */,
+				2D5624E92092B3A1006B9805 /* memberTabBar.swift */,
 				2DC5DDCC20851574003D9283 /* baseCollectionController.swift */,
 				2DC4C0AA2084F303007DDD45 /* member */,
 				2DC4C09F2084B618007DDD45 /* extension.swift */,
@@ -279,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				2DC4C0A82084DF0E007DDD45 /* Description.swift */,
+				2DC5DDD320855018003D9283 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -286,8 +301,9 @@
 		2DC4C0AA2084F303007DDD45 /* member */ = {
 			isa = PBXGroup;
 			children = (
-				2DC4C0AB2084F326007DDD45 /* memberController.swift */,
 				2DC5DDCA20851531003D9283 /* desriptionController.swift */,
+				2D5624F32093D8A0006B9805 /* editDescription.swift */,
+				2D5624F72093DC55006B9805 /* videoCaroussel.swift */,
 			);
 			path = member;
 			sourceTree = "<group>";
@@ -296,7 +312,6 @@
 			isa = PBXGroup;
 			children = (
 				2DC4C0AD2084F330007DDD45 /* descriptionCell.swift */,
-				2DC4C0B22084F5F6007DDD45 /* memberCell.swift */,
 			);
 			path = member;
 			sourceTree = "<group>";
@@ -307,6 +322,7 @@
 				2DC5DDD5208552E3003D9283 /* DescriptionPresenter.swift */,
 				2DE331972089591400261703 /* QRCodePresenter.swift */,
 				2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */,
+				2D5624ED20935401006B9805 /* signInPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -317,6 +333,7 @@
 				2DC5DDD72085541B003D9283 /* descriptionConfigurer.swift */,
 				2DE3319920895CF400261703 /* QRCodeConfigurer.swift */,
 				2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */,
+				2D5624EF20935863006B9805 /* signInConfigurer.swift */,
 			);
 			path = configurer;
 			sourceTree = "<group>";
@@ -327,6 +344,7 @@
 				2DC5DDD120854A31003D9283 /* descriptionInteractor.swift */,
 				2DE331952089550700261703 /* QRcodeInteractor.swift */,
 				2DA234FD208B580600C6CF55 /* signUpInteractor.swift */,
+				2D5624EB2093539A006B9805 /* signInInteractor.swift */,
 			);
 			path = interactor;
 			sourceTree = "<group>";
@@ -592,15 +610,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D5624F42093D8A1006B9805 /* editDescription.swift in Sources */,
 				2D35C3742080FD7000439134 /* AppTabBar.swift in Sources */,
-				2DC4C0AC2084F326007DDD45 /* memberController.swift in Sources */,
 				2DC4C0A62084D98C007DDD45 /* worker.swift in Sources */,
 				2DC5DDDD2085702C003D9283 /* reconizerController.swift in Sources */,
+				2D5624EE20935401006B9805 /* signInPresenter.swift in Sources */,
 				2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */,
 				2DE3319A20895CF400261703 /* QRCodeConfigurer.swift in Sources */,
+				2D5624EC2093539A006B9805 /* signInInteractor.swift in Sources */,
 				2DA234FB208B56CC00C6CF55 /* signUpPresenter.swift in Sources */,
 				2DC4C09C2084B31A007DDD45 /* signUp.swift in Sources */,
-				2DC4C0B32084F5F6007DDD45 /* memberCell.swift in Sources */,
 				2DC4C0AE2084F330007DDD45 /* descriptionCell.swift in Sources */,
 				2DC4C0A02084B618007DDD45 /* extension.swift in Sources */,
 				2DC5DDCD20851574003D9283 /* baseCollectionController.swift in Sources */,
@@ -611,8 +630,10 @@
 				2DC5DDDA20856288003D9283 /* editDescriptionController.swift in Sources */,
 				2D35C3722080FD7000439134 /* AppDelegate.swift in Sources */,
 				2DC5DDD82085541B003D9283 /* descriptionConfigurer.swift in Sources */,
+				2D5624F020935863006B9805 /* signInConfigurer.swift in Sources */,
 				2DC5DDD220854A31003D9283 /* descriptionInteractor.swift in Sources */,
 				2D35C37A2080FD7000439134 /* dagda.xcdatamodeld in Sources */,
+				2D5624F82093DC55006B9805 /* videoCaroussel.swift in Sources */,
 				2DC4C0B12084F4FB007DDD45 /* BaseCell.swift in Sources */,
 				2D35C3A62081054900439134 /* QRCodeCell.swift in Sources */,
 				2DA234FE208B580600C6CF55 /* signUpInteractor.swift in Sources */,
@@ -623,6 +644,7 @@
 				2DC4C0A92084DF0E007DDD45 /* Description.swift in Sources */,
 				2D35C3A42081002100439134 /* QRCodeHomeController.swift in Sources */,
 				2D35C3A82081081000439134 /* QRCodeController.swift in Sources */,
+				2D5624EA2092B3A1006B9805 /* memberTabBar.swift in Sources */,
 				2D0F2A8520815523009171ED /* tools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,7 +653,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D5624F52093D8A1006B9805 /* editDescription.swift in Sources */,
 				2D35C38A2080FD7100439134 /* dagdaTests.swift in Sources */,
+				2D5624F120935863006B9805 /* signInConfigurer.swift in Sources */,
+				2D5624F92093DC55006B9805 /* videoCaroussel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -639,7 +664,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D5624F62093D8A1006B9805 /* editDescription.swift in Sources */,
 				2D35C3952080FD7100439134 /* dagdaUITests.swift in Sources */,
+				2D5624F220935863006B9805 /* signInConfigurer.swift in Sources */,
+				2D5624FA2093DC55006B9805 /* videoCaroussel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

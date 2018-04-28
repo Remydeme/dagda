@@ -11,7 +11,7 @@ import Foundation
 
 
 protocol QRCodePresenterInput {
-    func presentDescription(description: [String:AnyObject]?)
+    func mayHaveBeenLoadedDescription()
 }
 
 protocol QRCodePresenterOutput {
@@ -26,12 +26,21 @@ class QRCodePresenter : QRCodePresenterInput{
     
     var output : QRCodePresenterOutput!
     
-    func presentDescription(description: [String : AnyObject]?) {
-        if description != nil {
-            output.displayAddDescription()
-        }
-        else {
-            output.displayDescription(description: description)
-        }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
+    
+    func mayHaveBeenLoadedDescription(){
+        NotificationCenter.default.addObserver(self, selector: #selector (loadDescription(_:)), name: NSNotification.Name(rawValue: existNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector (errorLoading), name:  NSNotification.Name(rawValue: existNotification), object: nil)
+    }
+ 
+
+    @objc func loadDescription(_ sender: Any){
+        output.displayDescription(description: API.instance.description)
+    }
+    
+    @objc func errorLoading(_ sender: Any){
+    }
+    
 }

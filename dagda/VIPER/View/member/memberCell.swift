@@ -20,8 +20,16 @@ class MemberCell : BaseCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
         toConfirmedController = DescriptionController(collectionViewLayout: layout)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector (hideKeyboard(_:)))
+        addGestureRecognizer(gesture)
         setUp()
+    }
+    
+    
+    @objc func hideKeyboard(_ sender: Any){
+        endEditing(true)
     }
     
     required init?(coder aDecoder: NSCoder) {

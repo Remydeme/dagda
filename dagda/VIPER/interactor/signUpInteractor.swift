@@ -11,14 +11,18 @@ import Foundation
 
 protocol SignUpInteractorInput{
     func addUser(formular: inout [String:String])
+    func createAccount(email: String, password: String)
 }
 
 protocol SignUpInteractorOutput {
     func userMayBeHadded()
+    func accountMayBecreated()
 }
 
 
 class SignUpInteractor : SignUpInteractorInput{
+ 
+    
   
     var output : SignUpInteractorOutput!
     var worker : API!
@@ -27,5 +31,11 @@ class SignUpInteractor : SignUpInteractorInput{
         worker = API.instance
         worker.addAdmin(formular: &formular)
         output.userMayBeHadded()
+    }
+    
+    func createAccount(email: String, password: String) {
+        worker = API.instance
+        output.accountMayBecreated()
+        worker.createAdminAccount(email: email, password: password)
     }
 }

@@ -11,7 +11,18 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
+let signOutNotification = "notification.dagda.sign.out.notification"
 
+
+
+protocol SignInControllerInput {
+    func connected()
+    func connectionFailed()
+}
+
+protocol SignInControllerOutput {
+    func connect(email: String, password: String)
+}
 
 class SignIn : UIViewController, UITextViewDelegate{
     
@@ -21,20 +32,46 @@ class SignIn : UIViewController, UITextViewDelegate{
     let viewTitle = labelWithTitle("Dagda", size: 50)
     let dictionarySignUp = ["Password": textViewWith(), "Email":textViewWith()]
     
+    
+    var interactor : SignInControllerOutput!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        SignInConfigurer.instance.configure(controller: self)
         setUp()
         setTitle()
         setCellview()
         setButtonUp()
         setView()
-        //API.instance.fetchDescriptionNotConfirmed()
+        let gesture = UITapGestureRecognizer(target: self, action: #selector (hideKeyBoard(_:)))
+        view.addGestureRecognizer(gesture)
+       // let description = Description()
+//        description.room = "E3004"
+//        description.description = "Hello texst "
+//        description.note = "0"
+//        description.lastModification =  "24-37-1200"
+//        description.valided = "False"
+//        description.id = "E3002-56"
+//        description.writtenBy = "User"
+//        API.instance.addDescription(description: description)
     }
     
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationItem.title = "Sign In"
+        navigationController?.isNavigationBarHidden = true
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        tabBarController?.tabBar.isHidden = true
     }
     
     func setUp(){
@@ -42,6 +79,12 @@ class SignIn : UIViewController, UITextViewDelegate{
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isTranslucent = true
         navigationItem.largeTitleDisplayMode = .always
+        tabBarController?.tabBar.backgroundColor = .white
+        tabBarController?.tabBar.tintColor = .black
+        NotificationCenter.default.addObserver(self, selector: #selector (popToSignIn(_:)), name: NSNotification.Name(rawValue: signOutNotification), object: nil)
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: fontWith(25)]
+
     }
     
     func setTitle (){
@@ -95,6 +138,9 @@ class SignIn : UIViewController, UITextViewDelegate{
     }
     
     
+    @objc func popToSignIn(_ sender: Any){
+        navigationController?.popToRootViewController(animated: true)
+    }
     
     @objc func signUpAction(_ sender: Any){
         print("Register")
@@ -120,22 +166,8 @@ class SignIn : UIViewController, UITextViewDelegate{
             guard let email = dictionarySignUp["Email"]?.text , let password = dictionarySignUp["Password"]?.text else {
                 return
             }
-            print(password)
-            print(email)
-            if !(User.instance.connected) {
-                Auth.auth().signIn(withEmail: email, password: password, completion: {(user, error) in
-                    if let err = error {
-                        print(err.localizedDescription)
-                        self.createAlert(title: "Ok", message: "Bad password or email please try again.")
-                    }
-                    else {
-                        User.instance.connect()
-                        User.instance.configure(name: (user?.email)!, id: (user?.uid)!, note : "Nan")
-                        let layout = UICollectionViewFlowLayout()
-                        let controller = MemberController(collectionViewLayout: layout)
-                        self.navigationController?.pushViewController(controller, animated: true)
-                    }
-                })
+            if User.instance.connected == false {
+                self.interactor.connect(email: email, password: password)
             }
         }
     }
@@ -146,7 +178,7 @@ class SignIn : UIViewController, UITextViewDelegate{
         let height : CGFloat = 30
         for (name, input) in dictionarySignUp{
             input.layer.cornerRadius = 3
-            if name == "Mot de passe" {
+            if name == "Password" {
                 input.isSecureTextEntry = true
             }
             let label = labelWithTitle(name, .white)
@@ -162,7 +194,7 @@ class SignIn : UIViewController, UITextViewDelegate{
             input.centerYAnchor.constraint(equalTo: label.centerYAnchor, constant: 0).isActive = true
             input.leadingAnchor.constraint(equalTo: label.trailingAnchor, constant: 5).isActive = true
             input.heightAnchor.constraint(equalToConstant: height).isActive = true
-            input.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.5).isActive = true
+            input.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.6).isActive = true
             input.textColor = .black
             input.delegate = self
             top += 40
@@ -170,13 +202,24 @@ class SignIn : UIViewController, UITextViewDelegate{
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    @objc func hideKeyBoard(_ sender: Any){
         self.view.endEditing(true)
     }
     
-    
 }
 
+
+extension SignIn : SignInControllerInput {
+    func connected() {
+        let controller = MemberTabBar()
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func connectionFailed(){
+        self.createAlert(title: "Ok", message: "Bad password or email please try again.")
+    }
+    
+}
 
 
 

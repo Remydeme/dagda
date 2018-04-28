@@ -27,11 +27,10 @@ class QRCodeCell : UICollectionViewCell {
     }
     
     func setUp(){
-       // backgroundColor = .clear
         backgroundColor = UIColor(red: color(255), green: color(255), blue: color(255), alpha: 1)
         qrCodeReader = QRCodeController()
-        qrCodeReader.topController = self.topController
-        authorization()
+        qrCodeReader.topController = self.topController //
+        authorization() // ask for hardware use authorization
     }
     
     func authorization(){
@@ -66,7 +65,6 @@ class QRCodeCell : UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
         view.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
-        //view.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0).isActive = true
     }
     
     

@@ -11,10 +11,10 @@ import AVFoundation
 import UIKit
 
 
-class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegateFlowLayout, AVCaptureMetadataOutputObjectsDelegate {
+class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     
-    let navTitle = "Welcome in Dagda"
+    let navTitle = "Dagda"
     let id = "cell"
     
     override func viewDidLoad() {
@@ -32,17 +32,19 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
         navigationController?.navigationBar.prefersLargeTitles = true 
         collectionView?.backgroundColor = .black
         collectionView?.register(QRCodeCell.self, forCellWithReuseIdentifier: id)
-        collectionView?.backgroundColor = .clear 
+        collectionView?.backgroundColor = .clear
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: fontWith(25)]
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        tabBarController?.tabBar.isHidden = true
+        navigationController?.isNavigationBarHidden = true 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = false 
+        tabBarController?.tabBar.isHidden = false
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

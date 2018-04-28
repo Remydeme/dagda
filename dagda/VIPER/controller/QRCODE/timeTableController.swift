@@ -40,15 +40,10 @@ class TimeTableController : UIViewController, UITextViewDelegate {
         setSpeakerButton()
         descriptionViewContraints()
         setUpdateButton()
-        NotificationCenter.default.addObserver(self, selector: #selector (setTextViewSpeech(_:)), name: NSNotification.Name(rawValue: existNotification), object: nil)
     }
     
     
-    
-    @objc func setTextViewSpeech(_ sender: Any){
-        descriptionView.text = (API.instance.data!["desccription"] as! String)
-    }
-    
+
     func setView(){
         self.view.backgroundColor = .clear
     }
@@ -151,13 +146,20 @@ class TimeTableController : UIViewController, UITextViewDelegate {
     }
     
     @objc func updateDescription(_ sender: Any){
-        print("Update")
+          print("Update")
         let description = Description()
-        //description.lastModification
-       // description.id = self.qrCodeController.qrCodeInfo["id"]
-        description.description = self.descriptionView.text
-        API.instance.updateDescription(description: description)
-    }
+        description.room = self.qrCodeController.qrCodeInfo["room"]!
+        description.description = descriptionView.text
+        description.note = "0" // should be the value enter
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let dateString = formatter.string(from: NSDate() as Date)
+        description.lastModification = dateString
+        description.valided = "False"
+        description.writtenBy = "User"
+        description.id = description.room + " " + dateString
+         API.instance.userUpdateDescription(description: description)
+   }
     
     
     func setUpdateButton(){
@@ -179,10 +181,8 @@ class TimeTableController : UIViewController, UITextViewDelegate {
     }
     
     @objc func hearSpeech(_ sender: Any){
-        print("read the speech")
-        self.qrCodeController.generateSpeech()
+        print("read the ")
         self.qrCodeController.readText()
-        self.descriptionView.text = qrCodeController.speech
     }
     
     func setImage(){

@@ -130,6 +130,11 @@ class EditDescriptionController: UIViewController , UITextViewDelegate{
         speechButton.addTarget(self, action: #selector (EditDescriptionController.startRecord(_:)), for: .touchDown)
     }
     
+    
+    /*The value of the id is the same of the room in this case
+      if we update the description of a room we create a new firebase node with an new id that is not equal to the room
+     and a room value equal to the room thet we want to update the description 
+     */
     @objc func push(_ sender: Any){
         print ("Something as been pushed ")
         let description = Description()
@@ -142,6 +147,7 @@ class EditDescriptionController: UIViewController , UITextViewDelegate{
         description.lastModification = dateString
         description.valided = "False"
         description.writtenBy = "User"
+        description.id = description.room
         API.instance.addDescription(description: description)
         createAlert(title: "Thank you", message: "Thank you for your contribution")
     }
