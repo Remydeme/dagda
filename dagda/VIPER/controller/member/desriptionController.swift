@@ -31,7 +31,6 @@ class DescriptionController : BaseCollectionController{
     var descriptionArray : [[String:AnyObject]]!
     
     let id = "cell"
-    
     var topController : SignIn!
     var output : DescriptionControllerOutput!
     
@@ -86,7 +85,7 @@ class DescriptionController : BaseCollectionController{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: CGFloat(340))
+        return CGSize(width: collectionView.frame.width * 0.9, height: CGFloat(340))
     }
     
     

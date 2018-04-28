@@ -33,6 +33,11 @@
 		2D5624F82093DC55006B9805 /* videoCaroussel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624F72093DC55006B9805 /* videoCaroussel.swift */; };
 		2D5624F92093DC55006B9805 /* videoCaroussel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624F72093DC55006B9805 /* videoCaroussel.swift */; };
 		2D5624FA2093DC55006B9805 /* videoCaroussel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5624F72093DC55006B9805 /* videoCaroussel.swift */; };
+		2D9169042094B140001B07E6 /* videoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9169032094B140001B07E6 /* videoController.swift */; };
+		2D9169062094B3BB001B07E6 /* videoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9169052094B3BB001B07E6 /* videoInteractor.swift */; };
+		2D9169082094B421001B07E6 /* videoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9169072094B421001B07E6 /* videoPresenter.swift */; };
+		2D91690A2094B471001B07E6 /* videoConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9169092094B471001B07E6 /* videoConfigurer.swift */; };
+		2D91690C2094C136001B07E6 /* settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D91690B2094C136001B07E6 /* settings.swift */; };
 		2DA234FB208B56CC00C6CF55 /* signUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */; };
 		2DA234FE208B580600C6CF55 /* signUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FD208B580600C6CF55 /* signUpInteractor.swift */; };
 		2DA23500208B5D4100C6CF55 /* signUpConfigurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */; };
@@ -105,6 +110,11 @@
 		2D5624EF20935863006B9805 /* signInConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signInConfigurer.swift; sourceTree = "<group>"; };
 		2D5624F32093D8A0006B9805 /* editDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editDescription.swift; sourceTree = "<group>"; };
 		2D5624F72093DC55006B9805 /* videoCaroussel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoCaroussel.swift; sourceTree = "<group>"; };
+		2D9169032094B140001B07E6 /* videoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoController.swift; sourceTree = "<group>"; };
+		2D9169052094B3BB001B07E6 /* videoInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoInteractor.swift; sourceTree = "<group>"; };
+		2D9169072094B421001B07E6 /* videoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoPresenter.swift; sourceTree = "<group>"; };
+		2D9169092094B471001B07E6 /* videoConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = videoConfigurer.swift; sourceTree = "<group>"; };
+		2D91690B2094C136001B07E6 /* settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settings.swift; sourceTree = "<group>"; };
 		2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpPresenter.swift; sourceTree = "<group>"; };
 		2DA234FD208B580600C6CF55 /* signUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpInteractor.swift; sourceTree = "<group>"; };
 		2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpConfigurer.swift; sourceTree = "<group>"; };
@@ -235,6 +245,14 @@
 			path = VIPER;
 			sourceTree = "<group>";
 		};
+		2D9169022094B11E001B07E6 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				2D9169032094B140001B07E6 /* videoController.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		2DC4C09A2084B309007DDD45 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +265,7 @@
 		2DC4C09D2084B322007DDD45 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				2D9169022094B11E001B07E6 /* Video */,
 				2DC5DDDB20856FF8003D9283 /* SpeechReconizer */,
 				2D35C3732080FD7000439134 /* AppTabBar.swift */,
 				2D5624E92092B3A1006B9805 /* memberTabBar.swift */,
@@ -285,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				2DC4C0A52084D98C007DDD45 /* worker.swift */,
+				2D91690B2094C136001B07E6 /* settings.swift */,
 			);
 			path = Worker;
 			sourceTree = "<group>";
@@ -323,6 +343,7 @@
 				2DE331972089591400261703 /* QRCodePresenter.swift */,
 				2DA234FA208B56CC00C6CF55 /* signUpPresenter.swift */,
 				2D5624ED20935401006B9805 /* signInPresenter.swift */,
+				2D9169072094B421001B07E6 /* videoPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -334,6 +355,7 @@
 				2DE3319920895CF400261703 /* QRCodeConfigurer.swift */,
 				2DA234FF208B5D4100C6CF55 /* signUpConfigurer.swift */,
 				2D5624EF20935863006B9805 /* signInConfigurer.swift */,
+				2D9169092094B471001B07E6 /* videoConfigurer.swift */,
 			);
 			path = configurer;
 			sourceTree = "<group>";
@@ -345,6 +367,7 @@
 				2DE331952089550700261703 /* QRcodeInteractor.swift */,
 				2DA234FD208B580600C6CF55 /* signUpInteractor.swift */,
 				2D5624EB2093539A006B9805 /* signInInteractor.swift */,
+				2D9169052094B3BB001B07E6 /* videoInteractor.swift */,
 			);
 			path = interactor;
 			sourceTree = "<group>";
@@ -616,6 +639,7 @@
 				2DC5DDDD2085702C003D9283 /* reconizerController.swift in Sources */,
 				2D5624EE20935401006B9805 /* signInPresenter.swift in Sources */,
 				2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */,
+				2D91690C2094C136001B07E6 /* settings.swift in Sources */,
 				2DE3319A20895CF400261703 /* QRCodeConfigurer.swift in Sources */,
 				2D5624EC2093539A006B9805 /* signInInteractor.swift in Sources */,
 				2DA234FB208B56CC00C6CF55 /* signUpPresenter.swift in Sources */,
@@ -626,6 +650,7 @@
 				2D1BD57920817BF700838049 /* Gradiant.swift in Sources */,
 				2DC5DDD6208552E3003D9283 /* DescriptionPresenter.swift in Sources */,
 				2DC5DDD420855018003D9283 /* User.swift in Sources */,
+				2D9169062094B3BB001B07E6 /* videoInteractor.swift in Sources */,
 				2DC4C0992084B304007DDD45 /* signIn.swift in Sources */,
 				2DC5DDDA20856288003D9283 /* editDescriptionController.swift in Sources */,
 				2D35C3722080FD7000439134 /* AppDelegate.swift in Sources */,
@@ -634,9 +659,12 @@
 				2DC5DDD220854A31003D9283 /* descriptionInteractor.swift in Sources */,
 				2D35C37A2080FD7000439134 /* dagda.xcdatamodeld in Sources */,
 				2D5624F82093DC55006B9805 /* videoCaroussel.swift in Sources */,
+				2D9169042094B140001B07E6 /* videoController.swift in Sources */,
 				2DC4C0B12084F4FB007DDD45 /* BaseCell.swift in Sources */,
+				2D91690A2094B471001B07E6 /* videoConfigurer.swift in Sources */,
 				2D35C3A62081054900439134 /* QRCodeCell.swift in Sources */,
 				2DA234FE208B580600C6CF55 /* signUpInteractor.swift in Sources */,
+				2D9169082094B421001B07E6 /* videoPresenter.swift in Sources */,
 				2DE331962089550700261703 /* QRcodeInteractor.swift in Sources */,
 				2DE331982089591400261703 /* QRCodePresenter.swift in Sources */,
 				2DC5DDCB20851531003D9283 /* desriptionController.swift in Sources */,

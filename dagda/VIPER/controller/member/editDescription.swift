@@ -17,6 +17,24 @@ class EditDescription : UIViewController, UITextViewDelegate {
     
     let room = textViewWith()
     let speechReconizer = SpeechReconizerController()
+    var descriptionInput : UITextView!
+    
+    let saveButton : UIButton = {
+       
+        let button = UIButton(type: .custom)
+        button.setTitle("Save", for: .normal)
+        button.backgroundColor = .black
+        button.layer.cornerRadius = 17
+        button.titleLabel?.font = fontWith(18)
+        return button
+    }()
+    
+    let carousselController  : Caroussel = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let caroussel = Caroussel(collectionViewLayout: layout)
+        return caroussel
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +42,12 @@ class EditDescription : UIViewController, UITextViewDelegate {
         setUpView()
         setUpCellVIew()
         setUpInputs()
+        setUpVideoView()
     }
     
     func setUp(){
-        navigationItem.title = navTitle        
+        navigationItem.title = navTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector (startCamera(_:)))
         //
     }
     
@@ -38,12 +58,12 @@ class EditDescription : UIViewController, UITextViewDelegate {
     
     
     func setUpCellVIew(){
-        cellView = GradientView()
+        cellView = UIView()
         cellView.translatesAutoresizingMaskIntoConstraints = false
-
+        cellView.backgroundColor = itGreen
         view.addSubview(cellView)
-        cellView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.95).isActive = true
-        cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95).isActive = true
+        cellView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1).isActive = true
+        cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
         cellView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         cellView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true 
     }
@@ -52,7 +72,7 @@ class EditDescription : UIViewController, UITextViewDelegate {
     func setUpInputs(){
         
         room.translatesAutoresizingMaskIntoConstraints = false
-        let descriptionInput = speechReconizer.outputView
+        descriptionInput = speechReconizer.outputView
         descriptionInput.translatesAutoresizingMaskIntoConstraints = false
         let policeSize : CGFloat = 20
         
@@ -72,7 +92,7 @@ class EditDescription : UIViewController, UITextViewDelegate {
         let topRoom :CGFloat = 100
         let leading : CGFloat = 10
         room.heightAnchor.constraint(equalToConstant: height).isActive = true
-        room.widthAnchor.constraint(equalToConstant: width).isActive = true
+        room.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.5).isActive = true
         
         roomLabel.heightAnchor.constraint(equalToConstant: height).isActive = true
         roomLabel.widthAnchor.constraint(equalToConstant: width).isActive = true
@@ -90,19 +110,87 @@ class EditDescription : UIViewController, UITextViewDelegate {
         descriptionLabel.leadingAnchor.constraint(equalTo: roomLabel.leadingAnchor).isActive = true
         descriptionLabel.topAnchor.constraint(equalTo: roomLabel.bottomAnchor, constant: 20).isActive = true
         
-        descriptionInput.leadingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor, constant: 20).isActive = true
-        descriptionInput.topAnchor.constraint(equalTo: descriptionLabel.topAnchor).isActive = true
+        descriptionInput.leadingAnchor.constraint(equalTo: room.leadingAnchor).isActive = true
+        descriptionInput.topAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: 7).isActive = true
         // size constraint description input
         
-        descriptionInput.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        descriptionInput.heightAnchor.constraint(equalToConstant: 150).isActive = true
         descriptionInput.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.5).isActive = true
+        
+        
+        // position the mic pic
+        
+        let micButton = speechReconizer.startButton
+        let micHeight : CGFloat = 40
+        let micWidth : CGFloat = 25
+        
+        micButton.translatesAutoresizingMaskIntoConstraints = false 
+        micButton.setImage(#imageLiteral(resourceName: "mic"), for: .normal)
+        cellView.addSubview(micButton)
+        
+        // constraint
+        micButton.heightAnchor.constraint(equalToConstant: micHeight).isActive = true
+        micButton.widthAnchor.constraint(equalToConstant: micWidth).isActive = true
+        
+        // position
+        
+        let micLeading : CGFloat = 10
+        
+        micButton.leadingAnchor.constraint(equalTo: descriptionInput.trailingAnchor, constant: micLeading).isActive = true
+        micButton.centerYAnchor.constraint(equalTo: descriptionInput.centerYAnchor).isActive = true
+        micButton.addTarget(self, action: #selector (EditDescriptionController.startRecord(_:)), for: .touchDown)
+        
+        
+        // save button
+        saveButton.translatesAutoresizingMaskIntoConstraints  = false
+    
+        cellView.addSubview(saveButton)
+        
+        saveButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        saveButton.widthAnchor.constraint(equalToConstant: 105).isActive = true
+        
+        // position
+        
+        saveButton.topAnchor.constraint(equalTo: descriptionInput.bottomAnchor, constant: 30).isActive = true
+        saveButton.centerXAnchor.constraint(equalTo: cellView.centerXAnchor).isActive = true
+    }
+    
+    func setUpVideoView(){
+        let caroussel = carousselController.collectionView
+        caroussel?.translatesAutoresizingMaskIntoConstraints = false
+        cellView.addSubview(caroussel!)
+        
+        // position
+        let top : CGFloat = 100
+        caroussel?.topAnchor.constraint(equalTo: descriptionInput.bottomAnchor, constant: top).isActive = true
+        caroussel?.centerXAnchor.constraint(equalTo: cellView.centerXAnchor).isActive = true
+        
+        // size
+        let height : CGFloat = 200
+        
+        caroussel?.heightAnchor.constraint(equalToConstant: height).isActive = true
+        caroussel?.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.9).isActive = true
         
     }
     
 }
 
 
+extension EditDescription {
+    
+    @objc func startRecord (_ sender : Any){
+        speechReconizer.microphoneTaped(self)
+    }
+}
 
+extension EditDescription{
+    
+    @objc func startCamera(_ sender: Any){
+        print("Start camera")
+        let controller = VideoController()
+        present(controller, animated: true)
+    }
+}
 
 
 

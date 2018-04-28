@@ -33,7 +33,6 @@ class SpeechReconizerController : UIViewController, SFSpeechRecognizerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         requestAuthorization()
-        startButton.setImage(#imageLiteral(resourceName: "mic"), for: .normal)
     }
     
 

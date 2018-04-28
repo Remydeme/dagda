@@ -29,7 +29,7 @@ protocol QRCodeControllerOutput {
 
 
 
-class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegate,  AVSpeechSynthesizerDelegate, QRCodeControllerInput  {
+class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegate,  AVSpeechSynthesizerDelegate  {
   
     // interactor
     
@@ -53,7 +53,11 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     
     override func viewDidLoad() {
         setUp()
-        setCamera()
+        do {
+            try setCamera()
+        } catch let err {
+            createAlert(title: "Ok", message: err.localizedDescription)
+        }
         QRCodeConfigure.instance.configure(controller: self) // configure VIPER instance
     }
     
@@ -68,10 +72,9 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     
  
     
-    func setCamera(){
+    func setCamera() throws {
         guard let  device = AVCaptureDevice.default(for: .video) else {
-            print ("Error capture device ")
-            return
+            throw VideoControllerError.noCamerasAvailable
         }
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
@@ -119,7 +122,11 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setCamera()
+        do {
+            try setCamera()
+        } catch let err {
+            createAlert(title: "Ok", message: err.localizedDescription)
+        }
         tabBarController?.tabBar.isHidden = false
     }
     
@@ -160,6 +167,78 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     }
     
     
+   
+    /*
+      this function chek the validity of the form field by field
+     */
+   
+    
+   
+    
+
+    
+ 
+ 
+    
+    
+}
+
+
+// speech reader 
+
+extension QRCodeController {
+    func readText(){
+        let audioSession =  AVAudioSession.sharedInstance()
+        do {  // set the category of the aaudio session
+            // tells to the hardware that we want to use the audio hardware components to record and Play sounds
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
+            
+        } catch {
+            print("audioSession properties weren't set because of an error.")
+        }
+        speechSynthetizer.delegate = self
+        let speechUtterance = AVSpeechUtterance(string: speech) // contain the speech and the sttings for the speachSynthetizer
+        speechUtterance.voice =  AVSpeechSynthesisVoice(language: "en-GB")
+        
+        speechUtterance.volume = 1.0
+        
+        speechSynthetizer.speak(speechUtterance) // read the speach
+    }
+}
+
+// Viper architecture
+extension QRCodeController :  QRCodeControllerInput {
+    
+    
+    
+    func displayDescription(description: [String : AnyObject]?) { //
+        timeTable.dictionnary["Day"]?.text = (description!["day"]! as! String)
+        timeTable.dictionnary["Time"]?.text = (description!["Time"]! as! String)
+        timeTable.dictionnary["Subject"]?.text = (description!["Subject"]! as! String)
+        timeTable.dictionnary["Room"]?.text = (description!["Room"]! as! String)
+        timeTable.descriptionView.text = (description?["description"] as! String)
+        generateSpeech()
+        timeTable.qrCodeController = self
+    }
+    func generateSpeech(){
+        speech = "Hi you should follow my instructions. whent it's done tap two times on the screen to quit."
+        let data = API.instance.description!
+        let instructions = data["description"] as! String
+        speech += (" " + instructions)
+    }
+    
+    
+    
+    func displayAddDescription() {
+        editAlert(message: "No description for this room", title: "Help us")
+    }
+    
+}
+
+
+// treat the information get in QRCode
+extension QRCodeController {
+    
     func getArrayInfo(value: String) -> [String:String]? {
         let fields = value.components(separatedBy: "\n")
         var roomData = [String:String]()
@@ -180,9 +259,7 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
         }
     }
     
-    /*
-      this function chek the validity of the form field by field
-     */
+    
     func checkValidity(roomData: [String:String]) -> Bool{
         guard let _ = roomData["Subject"]  else {return false}
         guard let _ = roomData["Room"]  else {return false}
@@ -191,51 +268,8 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
         return true
     }
     
-    func generateSpeech(){
-        speech = "Hi you should follow my instructions. whent it's done tap two times on the screen to quit."
-        let data = API.instance.description!
-        let instructions = data["description"] as! String 
-        speech += (" " + instructions)
-    }
-    
-    func readText(){
-        let audioSession =  AVAudioSession.sharedInstance()
-        do {  // set the category of the aaudio session
-             // tells to the hardware that we want to use the audio hardware components to record and Play sounds
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
-            
-        } catch {
-            print("audioSession properties weren't set because of an error.")
-        }
-        speechSynthetizer.delegate = self
-        let speechUtterance = AVSpeechUtterance(string: speech) // contain the speech and the sttings for the speachSynthetizer
-        speechUtterance.voice =  AVSpeechSynthesisVoice(language: "en-GB")
-       
-        speechUtterance.volume = 1.0
-        
-        speechSynthetizer.speak(speechUtterance) // read the speach
-    }
-    
-
-    func displayDescription(description: [String : AnyObject]?) { // 
-        timeTable.dictionnary["Day"]?.text = (description!["day"]! as! String)
-        timeTable.dictionnary["Time"]?.text = (description!["Time"]! as! String)
-        timeTable.dictionnary["Subject"]?.text = (description!["Subject"]! as! String)
-        timeTable.dictionnary["Room"]?.text = (description!["Room"]! as! String)
-        timeTable.descriptionView.text = (description?["description"] as! String)
-        generateSpeech()
-        timeTable.qrCodeController = self
-    }
-    
-    func displayAddDescription() {
-        editAlert(message: "No description for this room", title: "Help us")
-    }
-    
-    
- 
- 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-    
+        
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
@@ -246,12 +280,11 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
                 self.output.fetchDescriptionIfExist(room: qrCodeInfo["Room"]!)
             }
             else {
-               createAlert(title: "Not valid", message: "Invalid QRCode")
+                createAlert(title: "Not valid", message: "Invalid QRCode")
                 if !((captureSession?.isRunning)!) {
                     captureSession?.startRunning()
                 }
             }
         }
     }
-    
 }

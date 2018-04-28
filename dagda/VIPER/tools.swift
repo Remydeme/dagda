@@ -25,7 +25,7 @@ fileprivate let defaultSize : CGFloat = 17
 fileprivate let defaultBigSize : CGFloat = 18
 let fontColor = UIColor(red: color(255), green: color(255.0) , blue: color(255.0), alpha: 1)
 
-let fontName = "Optima"
+let fontName = "Optima-Bold"
 
 
 func fontWith(_ size: CGFloat) -> UIFont

@@ -60,14 +60,14 @@ class DescriptionCell : BaseCell {
         
         backgroundColor = itGreen
         //backgroundView = GradientView(frame: frame)
-       // layer.cornerRadius = 7
+       layer.cornerRadius = 27
        // set room label
         
         roomLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(roomLabel)
         roomLabel.textColor = .white
         roomLabel.textAlignment = .center
-        roomLabel.backgroundColor = UIColor(displayP3Red: color(255), green:  color(255), blue:  color(255), alpha: 0.4)
+       // roomLabel.backgroundColor = UIColor(displayP3Red: color(255), green:  color(255), blue:  color(255), alpha: 0.4)
         roomLabel.font = fontWith(25)
         roomLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         roomLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
