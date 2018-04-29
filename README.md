@@ -16,9 +16,9 @@ This is a description of the Dagda Application which allowed people to never get
 
 - Rémy Dème <demeremy@gmail.com> 
 
-## Linkedin
+## [Linkedin](https://www.linkedin.com/in/remy-deme-informatique/)
 
-[Linkedin](https://www.linkedin.com/in/remy-deme-informatique/)
+
 
 ## License & copyright
 
