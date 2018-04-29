@@ -17,7 +17,11 @@ Why Dagda?
 
 ## Contributors
 
-- [Rémy Dème](https://www.linkedin.com/in/remy-deme-informatique/) <demeremy@gmail.com> 
+- Rémy Dème <demeremy@gmail.com> ![alt][logo]
+
+[logo]: https://user-images.githubusercontent.com/38355840/39409217-8dccc4e0-4be3-11e8-9a67-3246fcbc7a8e.png
+
+
 
 
 ## Link 
