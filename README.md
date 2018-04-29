@@ -14,7 +14,12 @@ This is a description of the Dagda Application which allowed people to never get
 
 ## Contributors
 
-- Rémy Dème <demeremy@gmail.com> [Linkedin] (https://www.linkedin.com/in/remy-deme-informatique/)
+- Rémy Dème <demeremy@gmail.com> 
+
+## Linkedin
+
+[Linkedin](https://www.linkedin.com/in/remy-deme-informatique/)
+
 ## License & copyright
 
 © Rémy Deme, genius guy
