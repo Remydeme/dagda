@@ -14,9 +14,12 @@ This is a description of the Dagda Application which allowed people to never get
 
 ## Contributors
 
-- Rémy Dème <demeremy@gmail.com> 
+- [Rémy Dème](https://www.linkedin.com/in/remy-deme-informatique/) <demeremy@gmail.com> 
 
-## [Linkedin](https://www.linkedin.com/in/remy-deme-informatique/)
+
+## Link 
+
+[IT Sligo](https://www.itsligo.ie/student-hub/)
 
 
 
