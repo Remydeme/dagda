@@ -28,4 +28,4 @@ Why Dagda?
 
 ## License & copyright
 
-© Rémy Deme,  Pussy are the most importants
+© Rémy Dème
