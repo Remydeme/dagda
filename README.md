@@ -35,7 +35,8 @@ Markdown | Less | Pretty
 - Elie Kiladi-daah <elie243@yahoo.com>
 - Daoud Bhatti <daoud.bh@live.fr>
   
-[logo2]:  
+[logo2]: https://user-images.githubusercontent.com/38355840/39410432-656de08c-4bf8-11e8-8566-b30fd678f108.png
+
 
 
 
