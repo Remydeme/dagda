@@ -17,10 +17,12 @@ Dagda is an application which thanks to the users can permits to enrich a databa
 
 ![31441439_1812788812115041_1305924771019489280_n](https://user-images.githubusercontent.com/38355840/39408007-d47eeb34-4bcf-11e8-86d6-81df5699f32b.png)
 
-* As you can see the application can differentiate the differents users 
+* As you can see the application can differentiate the differents users. 
 ---
 
+![description](https://user-images.githubusercontent.com/38355840/39455485-e2f896bc-4ce0-11e8-9566-ccee7cb6ce4a.png) 
 
+* To add a classroom in the database you can add the classroom number, dictatate the description to the iphone which will retranscribe and take a video.
 
 
 ## Contributors
