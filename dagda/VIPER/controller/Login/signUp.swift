@@ -20,7 +20,7 @@ protocol SignUpControllerInput {
 }
 
 protocol SignUpControllerOutput {
-    func addUser(formular: inout [String:String])
+    func addUser(formular: [String:String])
     func createAccount(email: String, password: String)
 }
 
@@ -67,6 +67,12 @@ class SignUp  : UIViewController {
         navigationItem.title = "Register"
         tabBarController?.tabBar.isHidden = false
         navigationController?.isNavigationBarHidden = false 
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = true
+        navigationItem.hidesBackButton = true 
     }
     
     func setTitle (){
@@ -224,9 +230,8 @@ class SignUp  : UIViewController {
 
 extension SignUp : SignUpControllerInput {
     func adminAccountCreated() {
-        createAlert(title: "Welcome", message: "We are happy that you join the community " + formularValues["firstname"]! + "Welcome")
-        var formular =  formularValues
-        interactor.addUser(formular: &formular)
+        createAlert(title: "Welcome", message: "We are happy that you join the community " + formularValues["firstname"]! + " welcome")
+        interactor.addUser(formular: formularValues)
     }
     
     func failedAccountCreation() {
@@ -236,6 +241,7 @@ extension SignUp : SignUpControllerInput {
    
     func hasBeenAdded() {
         let controller = MemberTabBar()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: welcomNotifcation), object: nil)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

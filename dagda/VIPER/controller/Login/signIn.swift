@@ -18,10 +18,12 @@ let signOutNotification = "notification.dagda.sign.out.notification"
 protocol SignInControllerInput {
     func connected()
     func connectionFailed()
+    func adminDataLoaded(state: Bool)
 }
 
 protocol SignInControllerOutput {
     func connect(email: String, password: String)
+    func fetchAdminInfo(email: String)
 }
 
 class SignIn : UIViewController, UITextViewDelegate{
@@ -65,13 +67,13 @@ class SignIn : UIViewController, UITextViewDelegate{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationItem.title = "Sign In"
-        navigationController?.isNavigationBarHidden = true
-        tabBarController?.tabBar.isHidden = false
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        tabBarController?.tabBar.isHidden = true
+        navigationController?.isNavigationBarHidden = true
+        tabBarController?.tabBar.isHidden = true 
     }
     
     func setUp(){
@@ -134,9 +136,16 @@ class SignIn : UIViewController, UITextViewDelegate{
         signIn.widthAnchor.constraint(equalToConstant: 100).isActive = true
         signIn.centerXAnchor.constraint(equalTo: cellView.centerXAnchor, constant: 70).isActive = true
         signIn.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -15).isActive = true
-        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector (dismiss(_:)))
+        gesture.numberOfTapsRequired = 2
+        self.view.addGestureRecognizer(gesture)
     }
     
+   
+    
+    @objc func dismiss(_ sender: Any){
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @objc func popToSignIn(_ sender: Any){
         navigationController?.popToRootViewController(animated: true)
@@ -167,6 +176,7 @@ class SignIn : UIViewController, UITextViewDelegate{
                 return
             }
             if User.instance.connected == false {
+                print("Connected 1")
                 self.interactor.connect(email: email, password: password)
             }
         }
@@ -210,7 +220,32 @@ class SignIn : UIViewController, UITextViewDelegate{
 
 
 extension SignIn : SignInControllerInput {
+   
+    func adminDataLoaded(state: Bool) {
+        if state == true {
+            let user = User.instance
+            let data = API.instance.adminData
+            user.email = (data!["email"] as! String)
+            user.firstname = (data!["firstname"] as! String)
+            user.pseudo = (data!["pseudo"] as! String)
+            user.name = (data!["family name"] as! String)
+            user.function = (data!["function"] as! String)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: welcomNotifcation), object: nil)
+        }
+        else {
+            createAlert(title: "Error", message: "Enable to load user data")
+        }
+    }
+    
     func connected() {
+        
+        // fetch the user
+        interactor.fetchAdminInfo(email: (dictionarySignUp["Email"]?.text)!)
+        // clear input
+        dictionarySignUp["Email"]?.text = ""
+        dictionarySignUp["Password"]?.text = ""
+        // set user settings
+        
         let controller = MemberTabBar()
         self.navigationController?.pushViewController(controller, animated: true)
     }

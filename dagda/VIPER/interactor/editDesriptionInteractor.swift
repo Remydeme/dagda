@@ -41,7 +41,7 @@ class EditDescriptionInteractor : EditDescriptionInteractorInput{
         let dateString = formatter.string(from: NSDate() as Date)
         descriptionObject.lastModification = dateString
         descriptionObject.valided = "True"
-        descriptionObject.writtenBy = User.instance.name
+        descriptionObject.writtenBy = User.instance.email
         descriptionObject.description = description
         worker.addDescription(description: descriptionObject)
     }

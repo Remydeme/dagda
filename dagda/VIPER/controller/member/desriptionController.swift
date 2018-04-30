@@ -39,6 +39,16 @@ class DescriptionController : BaseCollectionController{
         DescriptionConfigurer.instance.configure(controller: self)
         self.output.fetchDescription()
         setUp()
+         NotificationCenter.default.addObserver(self, selector: #selector (welcom(_:)), name: NSNotification.Name(rawValue: welcomNotifcation), object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func welcom(_ sender: Any){
+        let presenter = Welcome()
+        present(presenter, animated: true)
     }
     
     @objc func signOut(_ sender : Any){
@@ -53,10 +63,10 @@ class DescriptionController : BaseCollectionController{
         tabBarController?.tabBar.tintColor = .black
         collectionView?.register(DescriptionCell.self, forCellWithReuseIdentifier: id)
        // collectionView?.backgroundView = GradientView(frame: (collectionView?.frame)!)
-        
+        navigationItem.hidesBackButton = true 
         // background color
         collectionView?.backgroundColor = .white
-        navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = false 
         // add logout button
          navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .plain, target: self, action: #selector (signOut(_:)))
         

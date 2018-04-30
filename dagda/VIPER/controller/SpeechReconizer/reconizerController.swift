@@ -85,7 +85,7 @@ class SpeechReconizerController : UIViewController, SFSpeechRecognizerDelegate{
         }
     }
     
-    
+    /*function that handle the tap */
     func microphoneTaped(_ sender: Any){
         
         if audioEngine.isRunning {
@@ -102,6 +102,7 @@ class SpeechReconizerController : UIViewController, SFSpeechRecognizerDelegate{
     
     func recordAndReconize(){
      
+        /* cancel the previous task */
         if recognitionTask != nil {
             recognitionTask?.cancel()
             recognitionTask = nil 
@@ -136,7 +137,7 @@ class SpeechReconizerController : UIViewController, SFSpeechRecognizerDelegate{
    
         node = audioEngine.inputNode
         
-        self.request = SFSpeechAudioBufferRecognitionRequest()
+        self.request = SFSpeechAudioBufferRecognitionRequest() // set the buffer that will ccontains the speech
         // start the task
         
         // clean the bus
@@ -148,16 +149,15 @@ class SpeechReconizerController : UIViewController, SFSpeechRecognizerDelegate{
                 self.outputView.text! = description
                 
                 isFinal = (result?.isFinal)!
-                print (isFinal)
             }
             else if error != nil { // if the task is over or error occur
             }
             
-            if isFinal {
-                print("In the stop isfinal ")
+            if isFinal { // if the record is over
                 self.audioEngine.stop()
                 self.recognitionTask = nil
                 self.startButton.isEnabled = true
+                self.startButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
                 self.node.removeTap(onBus: self.bus)
             }
         })

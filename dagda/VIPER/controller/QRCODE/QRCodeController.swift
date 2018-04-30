@@ -38,7 +38,10 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     // image video attribute
     var captureSession : AVCaptureSession? // to perform a real time capture cession
     var videoPrewLayer : AVCaptureVideoPreviewLayer?
+    var captureMetaDataOutput : AVCaptureMetadataOutput!
+    var input : AVCaptureInput!
     var qrCodeFrameView : UIView!
+    var device : AVCaptureDevice!
     var timeTable : TimeTableController!
     var editDescription: EditDescriptionController!
     var topController : QRCodeHomeController!
@@ -53,11 +56,6 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     
     override func viewDidLoad() {
         setUp()
-        do {
-            try setCamera()
-        } catch let err {
-            createAlert(title: "Ok", message: err.localizedDescription)
-        }
         QRCodeConfigure.instance.configure(controller: self) // configure VIPER instance
     }
     
@@ -65,31 +63,57 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isTranslucent = true
+        tabBarController?.tabBar.isHidden = false
         timeTable = TimeTableController()
         captureSession = AVCaptureSession()
         setUpGesture()
+        do {
+            try  setCamera()
+        }catch let err {
+            print(err.localizedDescription)
+        }
+
     }
     
+    func getCaptureDevice() throws {
+        let session = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
+        let cameras = (session.devices.compactMap { $0 })
+        if cameras.isEmpty { throw VideoControllerError.noCamerasAvailable }
+        
+        for camera in cameras {
+            
+            if camera.position == .back {
+                device = camera
+                try camera.lockForConfiguration()
+                camera.focusMode = .autoFocus
+                camera.unlockForConfiguration()
+            }
+        }
+    }
  
     
     func setCamera() throws {
-        guard let  device = AVCaptureDevice.default(for: .video) else {
-            throw VideoControllerError.noCamerasAvailable
+        
+        do{
+            try getCaptureDevice()
+        }catch let err {
+            print (err.localizedDescription)
         }
+      
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
-            let input = try AVCaptureDeviceInput(device: device)
+            input = try AVCaptureDeviceInput(device: device)
             
             // Set the input device on the capture session.
-            if (captureSession?.canAddInput(input))!{
+           if (captureSession?.canAddInput(input) == true){
                 captureSession?.addInput(input)
             }
             else {
                 print( "Can not had input ")
             }
             
-            let captureMetaDataOutput = AVCaptureMetadataOutput() //  will be use to read meta data from input
-            if (captureSession?.canAddOutput(captureMetaDataOutput))! {
+             captureMetaDataOutput = AVCaptureMetadataOutput() //  will be use to read meta data from input
+            if (captureSession?.canAddOutput(captureMetaDataOutput) == true ){
                 captureSession?.addOutput(captureMetaDataOutput)
                 captureMetaDataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
                 captureMetaDataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr] // tell that the type of metadata that we want to scan is qr type
@@ -98,14 +122,15 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
                 print("Failed to add metadata output ")
             }
        
+            captureSession?.commitConfiguration()
             // layer that
             videoPrewLayer = AVCaptureVideoPreviewLayer(session: captureSession!) // permit to display a video that is being captured
             videoPrewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill // set constraints on layer
             videoPrewLayer?.frame = view.layer.bounds //
-            view.layer.addSublayer(videoPrewLayer!) // add this layer on the view layer 
+            view.layer.addSublayer(videoPrewLayer!) // add this layer on the view layer
+    
             // tell the receiver to start running
             captureSession?.startRunning()
-            
         } catch {
             // If any error occurs, simply print it out and don't continue any more.
             print(error)
@@ -113,28 +138,37 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
         }
     }
     
-   
-
+    deinit {
+        captureSession?.removeInput(input)
+        captureSession?.removeOutput(captureMetaDataOutput)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+       // videoPrewLayer?.connection?.isEnabled = false
+        navigationController?.isNavigationBarHidden = false
+       // captureSession?.removeInput(input)
+       // captureSession?.removeOutput(captureMetaDataOutput)
         captureSession?.stopRunning()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        do {
-            try setCamera()
-        } catch let err {
-            createAlert(title: "Ok", message: err.localizedDescription)
-        }
         tabBarController?.tabBar.isHidden = false
+        navigationController?.isNavigationBarHidden = false
+        captureSession?.startRunning()
     }
     
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+    }
     
     func setUpGesture()
     {
         //Looks for single or multiple taps.
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector (QRCodeController.dismiss(_:)))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector (self.dismiss(_:)))
         tap.numberOfTapsRequired = 2
        timeTable.view.addGestureRecognizer(tap)
     }
@@ -159,8 +193,6 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
         self.present(alertController, animated: true, completion: nil)
     }
     
-
-
     
     @objc func dismiss(_ sender: Any){
         dismiss(animated: true, completion: nil)
@@ -171,16 +203,7 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     /*
       this function chek the validity of the form field by field
      */
-   
-    
-   
-    
-
-    
  
- 
-    
-    
 }
 
 
@@ -209,17 +232,26 @@ extension QRCodeController {
 // Viper architecture
 extension QRCodeController :  QRCodeControllerInput {
     
-    
-    
     func displayDescription(description: [String : AnyObject]?) { //
-        timeTable.dictionnary["Day"]?.text = (description!["day"]! as! String)
-        timeTable.dictionnary["Time"]?.text = (description!["Time"]! as! String)
-        timeTable.dictionnary["Subject"]?.text = (description!["Subject"]! as! String)
-        timeTable.dictionnary["Room"]?.text = (description!["Room"]! as! String)
+        print ("In the display description ")
+        timeTable.dictionnary["Day"]?.text = (qrCodeInfo!["Day"]! )
+        timeTable.dictionnary["Time"]?.text = (qrCodeInfo!["Time"]! )
+        timeTable.dictionnary["Subject"]?.text = (qrCodeInfo!["Subject"]! )
+        timeTable.dictionnary["Room"]?.text = (qrCodeInfo!["Room"]! )
         timeTable.descriptionView.text = (description?["description"] as! String)
         generateSpeech()
         timeTable.qrCodeController = self
+        // before we start to fetch the video on the net 
+        present(timeTable, animated: true)
     }
+    
+    
+}
+
+
+// treat the information get in QRCode
+extension QRCodeController {
+    
     func generateSpeech(){
         speech = "Hi you should follow my instructions. whent it's done tap two times on the screen to quit."
         let data = API.instance.description!
@@ -228,16 +260,10 @@ extension QRCodeController :  QRCodeControllerInput {
     }
     
     
-    
     func displayAddDescription() {
         editAlert(message: "No description for this room", title: "Help us")
     }
     
-}
-
-
-// treat the information get in QRCode
-extension QRCodeController {
     
     func getArrayInfo(value: String) -> [String:String]? {
         let fields = value.components(separatedBy: "\n")
@@ -268,23 +294,94 @@ extension QRCodeController {
         return true
     }
     
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+    
+    func getDay()->String {
+
+        //As part of swift 3 apple has removed NS, making things simpler so
+        //new code will be:
         
-        if let metadataObject = metadataObjects.first {
-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            guard let stringValue = readableObject.stringValue else { return }
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            // start treat metadata
-            qrCodeInfo = getArrayInfo(value: stringValue)
-            if qrCodeInfo != nil {
-                self.output.fetchDescriptionIfExist(room: qrCodeInfo["Room"]!)
-            }
-            else {
-                createAlert(title: "Not valid", message: "Invalid QRCode")
-                if !((captureSession?.isRunning)!) {
-                    captureSession?.startRunning()
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        switch day {
+        case 0:
+            return "Sunday"
+        case 1:
+            return "Monday"
+        case 2:
+            return "Tuesday"
+        case 3:
+            return "Wednesday"
+        case 4:
+            return "Thurday"
+        case 5:
+            return "Friday"
+        case 6:
+            return "Saturday"
+  
+        default:
+            return "unknown"
+        }
+    }
+    
+    func checkDate(date: String, day: String) -> Bool{
+        let component = date.components(separatedBy: " to ")
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        
+        // split the minute and the hour
+        let field = component[1].components(separatedBy: ":")
+        // time
+        let minuteCourse = field[1]
+        let hourCourse = field[0]
+       
+        //
+        if day != getDay() {
+            return false
+        }
+        
+        if  hourCourse < String(hour) {
+            return false
+        }
+        else if (hourCourse == String(hour) && minuteCourse < String(minutes)){
+            return false
+        }
+        else if (hourCourse == String(hour) && minuteCourse == String(minutes)){
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
+    
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        captureSession?.stopRunning()
+            if let metadataObject = metadataObjects.first {
+                guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+                guard let stringValue = readableObject.stringValue else { return }
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+                
+                // start treat metadata
+                qrCodeInfo = getArrayInfo(value: stringValue)
+                
+                if qrCodeInfo != nil {
+                    if checkDate(date: qrCodeInfo["Time"]!, day: qrCodeInfo["Day"]!) == false  { // check if the date
+                        createAlert(title: "Bad day", message: "Your lesson is not today")
+                        captureSession?.startRunning()
+                    }else {
+                        self.output.fetchDescriptionIfExist(room: qrCodeInfo["Room"]!)
+                    }
+                }
+                else {
+                    createAlert(title: "Not valid", message: "Invalid QRCode")
+                    if !((captureSession?.isRunning)!) {
+                        captureSession?.startRunning()
+                    }
+                    User.instance.clearRead()
                 }
             }
-        }
     }
 }

@@ -12,10 +12,12 @@ import Foundation
 
 protocol SignInInteractorInput {
     func connect(email: String, password: String)
+    func fetchAdminInfo(email: String)
 }
 
 protocol SignInInteractorOutput {
     func mayHaveBeenConnected()
+    func mayHaveFetchAdminData()
 }
 
 
@@ -28,6 +30,12 @@ class SignInInteractor : SignInInteractorInput{
         worker = API.instance
         output.mayHaveBeenConnected()
         worker.signIn(email: email, password: password)
+    }
+    
+    func fetchAdminInfo(email: String) {
+        worker = API.instance
+        output.mayHaveFetchAdminData()
+        worker.fetchAdmin(email: email)
     }
 }
 

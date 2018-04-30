@@ -30,9 +30,15 @@ class QRCodePresenter : QRCodePresenterInput{
         NotificationCenter.default.removeObserver(self)
     }
     
+    func cleanObserver(){
+        NotificationCenter.default.removeObserver(self) // call this function here beacause the Notificcation center is not clean after each call
+    }
+    
     func mayHaveBeenLoadedDescription(){
+        cleanObserver()
+        
         NotificationCenter.default.addObserver(self, selector: #selector (loadDescription(_:)), name: NSNotification.Name(rawValue: existNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector (errorLoading), name:  NSNotification.Name(rawValue: existNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector (errorLoading), name:  NSNotification.Name(rawValue: notExistNotification), object: nil)
     }
  
 
@@ -41,6 +47,7 @@ class QRCodePresenter : QRCodePresenterInput{
     }
     
     @objc func errorLoading(_ sender: Any){
+        print("Error lopading data")
     }
     
 }

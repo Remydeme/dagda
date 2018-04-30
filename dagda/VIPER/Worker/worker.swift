@@ -12,6 +12,11 @@ import Firebase
 
 
 let existNotification = "dagda.notification.exist.notification"
+let notExistNotification = "dagda.notification.not.exist.notification"
+
+let fetchAdminData = "dagda.notification.fetch.admin.data.success.notification"
+let fetchAdminDataError = "dagda.notification.fetch.data.error.notification"
+
 let addedNotification = "dagda.notification.added.notification"
 let errorAddedNotification = "dagda.notification.error.added.notification"
 
@@ -46,6 +51,7 @@ class API {
     
     var description : [String:AnyObject]? // Qrcode informations description
     var descriptionArray : [[String:AnyObject]]!
+    var adminData : [String:AnyObject]!
     var exist = false 
     var added = false
     var error = ""
@@ -69,7 +75,7 @@ class API {
     
     
     
-    // utilise le nom de la salle au lieu d'une valeur random de cle
+    /* utilise le nom de la salle au lieu d'une valeur random de cle*/
     
     func confirmDescription(description: Description, id: String) {
         deleteDescription(room: id)
@@ -99,16 +105,22 @@ class API {
     // fetch the description of a specific room using his ID
     func roomDescriptionExists(room: String){
         let ref = Database.database().reference(withPath: "description")
-        ref.queryOrdered(byChild: "room").queryEqual(toValue: room).observeSingleEvent(of: .value, with: {(snapshot)   in
+        ref.queryOrdered(byChild: room).observeSingleEvent(of: .value, with: {(snapshot)   in
             
             let value = snapshot.value
             if (value != nil) {
                 self.exist = true
             }
+            else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: notExistNotification), object: nil)
+            }
+            
             for element in snapshot.children.allObjects as! [DataSnapshot]{
                self.description = element.value as? [String:AnyObject]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: existNotification), object: nil)
+                break 
             }
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: existNotification), object: nil)
+            
         })
     }
     
@@ -139,12 +151,16 @@ class API {
             })
     }
     
-    func addAdmin(formular: inout [String:String]){
+    func addAdmin(formular: [String:String]){
         // clear added
         self.added = false
-        let ref = Database.database().reference(withPath: "admin").child(formular["email"]!)
-        formular["id"] = ref.key
-        ref.updateChildValues(formular, withCompletionBlock: { (error, ref) in
+        let ref = Database.database().reference(withPath: "admin").childByAutoId()
+        let adminFormular = AdminFormular()
+        adminFormular.email = formular["email"]!
+        adminFormular.firstName = formular["firstname"]!
+        adminFormular.id = ref.key
+        
+        ref.updateChildValues(adminFormular.formular, withCompletionBlock: { (error, ref) in
             if error != nil{
                 self.error = (error?.localizedDescription)!
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: errorAddedNotification), object: nil)
@@ -155,6 +171,24 @@ class API {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: addedNotification), object: nil)
             }
         })
+    }
+    
+    func fetchAdmin(email: String){
+        let ref = Database.database().reference(withPath: "admin").queryOrdered(byChild: "email").queryEqual(toValue: email)
+        ref.observeSingleEvent(of: .value, with: {(snapshot) in
+        
+            let value = snapshot.value
+            if (value == nil) {
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: fetchAdminDataError), object: nil)
+            }
+
+            for element in snapshot.children.allObjects as! [DataSnapshot]{
+                self.adminData = element.value as? [String:AnyObject]
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: fetchAdminData), object: nil)
+                break
+            }
+        
+            })
     }
     
     func createAdminAccount(email: String, password: String) {

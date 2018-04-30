@@ -8,12 +8,13 @@
 
 import Foundation
 import UIKit
+import Firebase
+import AVKit
 
-
-class TimeTableController : UIViewController, UITextViewDelegate {
+class TimeTableController : UIViewController, UITextViewDelegate, UIScrollViewDelegate {
     
     
-    var cellView : UIView!
+    var cellView : UIScrollView!
     
     let dictionnary  = ["Subject":labelWithTitle("Subject"), "Time":labelWithTitle("Time"), "Room":labelWithTitle("Room"),    "Day":labelWithTitle("Day")]
     
@@ -26,6 +27,12 @@ class TimeTableController : UIViewController, UITextViewDelegate {
     let speakerButton = UIButton(type: .custom)
     
     let updateButton = UIButton(type: .custom)
+    
+    
+    // handle the video
+    
+    var video : AVPlayer!
+    var videoPlayer : AVPlayerViewController!
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -40,6 +47,7 @@ class TimeTableController : UIViewController, UITextViewDelegate {
         setSpeakerButton()
         descriptionViewContraints()
         setUpdateButton()
+        setUpPlayerView()
     }
     
     
@@ -49,8 +57,8 @@ class TimeTableController : UIViewController, UITextViewDelegate {
     }
     
     func setCellView(){
-        cellView = UIView()
-        
+        cellView = UIScrollView()
+        cellView.contentSize = CGSize(width: view.frame.width, height: view.frame.height + 200)
         
         //cellView.layer.cornerRadius = 7
         cellView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,8 +71,6 @@ class TimeTableController : UIViewController, UITextViewDelegate {
         cellView.heightAnchor.constraint(equalToConstant: 460).isActive = true
         cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
        
-        
-        
     }
     
    
@@ -214,6 +220,33 @@ class TimeTableController : UIViewController, UITextViewDelegate {
 }
 
 
+extension TimeTableController {
+    
+    func setUpPlayerView(){
+        
+        videoPlayer = AVPlayerViewController()
+        videoPlayer.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
+        videoPlayer.title = dictionnary["Room"]?.text
+        
+        let videoView = videoPlayer.view
+        videoView?.translatesAutoresizingMaskIntoConstraints = false
+        cellView.addSubview(videoView!)
+        
+        videoView?.heightAnchor.constraint(equalToConstant: 230).isActive = true
+        videoView?.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        
+        videoView?.topAnchor.constraint(equalTo: updateButton.bottomAnchor, constant: 60).isActive = true
+        videoView?.centerXAnchor.constraint(equalTo: cellView.centerXAnchor).isActive = true
+        
+        videoView?.backgroundColor = .white
+    }
+    
+    func configurePlayer(){
+        //video = AVPlayer(url: url)
+       // videoPlayer.player = video
+        
+    }
+}
 
 
 

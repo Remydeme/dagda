@@ -18,7 +18,7 @@ class Caroussel : BaseCollectionController {
     let id = "video Cell"
     
     // video filename
-    var fileName = ""
+    var filePath : URL!
     
     // I have to load the video from the database
     
@@ -34,13 +34,15 @@ class Caroussel : BaseCollectionController {
     
     @objc func setCellVideoPath(_ sender: Any){
         let cell = collectionView?.cellForItem(at: IndexPath(row: 0, section: 0)) as! VideoCell
-        let path = Settings.instance.tempVideoURL().appendingPathComponent(fileName)
+        let path = filePath.absoluteString
         cell.configurePlayer(path: path)
     }
     
     override func setUp() {
         collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: id)
         collectionView?.backgroundColor = itGreen
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isTranslucent = false
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -88,21 +90,24 @@ class VideoCell: UICollectionViewCell{
         addGestureRecognizer(gesture)
     }
     
-    func configurePlayer(path: URL){
-        video = AVPlayer(url: path)
-        videoPlayer = AVPlayerViewController()
-        videoPlayer.player = video
-        videoPlayer.title = path.absoluteString
-        let videoView = videoPlayer.view
-        videoView?.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(videoView!)
-        
-        videoView?.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
-        videoView?.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+    func configurePlayer(path: String){
+      
+            let url = URL(fileURLWithPath: path)
+            video = AVPlayer(url: url)
+            videoPlayer = AVPlayerViewController()
+            videoPlayer.player = video
+            videoPlayer.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
+            videoPlayer.title = path
+            
+            let videoView = videoPlayer.view
+            videoView?.frame = frame
+            addSubview(videoView!)
     }
     
     @objc func playVideo(_ sender: Any){
-        topController.navigationController?.pushViewController(videoPlayer, animated: true)
+        print("play video")
+        let controller = UINavigationController(rootViewController: videoPlayer)
+        topController.navigationController?.pushViewController(controller, animated: true)
     }
     
 }
@@ -110,56 +115,5 @@ class VideoCell: UICollectionViewCell{
 
 
 
-
-
-//
-//func uploadVideo(_ path: URL, _ userID: String,
-//                 metadataEsc: @escaping (URL, StorageReference)->(),
-//                 progressEsc: @escaping (Progress)->(),
-//                 completionEsc: @escaping ()->(),
-//                 errorEsc: @escaping (Error)->()) {
-//    
-//    let localFile: URL = path
-//    let videoName = getName()
-//    let nameRef = Storage.storage().reference().child(userID).child(videoName)
-//    let metadata = StorageMetadata()
-//    metadata.contentType = "video"
-//    nameRef.putFile(from: <#T##URL#>)
-//    let uploadTask = nameRef.putFile(from: localFile, metadata: metadata) { metadata, error in
-//        if error != nil {
-//            errorEsc(error!)
-//        } else {
-//            if let meta = metadata {
-//                if let url = meta.downloadURL() {
-//                    metadataEsc(url, nameRef)
-//                }
-//            }
-//        }
-//    }
-//    
-//    _ = uploadTask.observe(.progress, handler: { snapshot in
-//        if let progressSnap = snapshot.progress {
-//            progressEsc(progressSnap)
-//        }
-//    })
-//    
-//    _ = uploadTask.observe(.success, handler: { snapshot in
-//        if snapshot.status == .success {
-//            uploadTask.removeAllObservers()
-//            completionEsc()
-//        }
-//    })
-//}
-//
-//func getName() -> String {
-//    let dateFormatter = DateFormatter()
-//    let dateFormat = "yyyyMMddHHmmss"
-//    dateFormatter.dateFormat = dateFormat
-//    let date = dateFormatter.string(from: Date())
-//    let name = date.appending(".mp4")
-//    return name
-//}
-//
-//
 
 

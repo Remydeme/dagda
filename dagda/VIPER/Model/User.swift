@@ -12,12 +12,18 @@ import UIKit
 
 class User {
     
-    public private(set) var name : String = ""
-    public private(set) var id : String = ""
-    public private(set) var note : String = ""
-    public private (set) var fullName : String = ""
+    public  var name : String = ""
+    public  var id : String = ""
+    public  var note : String = ""
+    public  var firstname : String = ""
     public private(set) var connected = false
-    public private(set) var firstConnection : Bool!
+    public private(set) var firstConnection : Bool = true
+    var email = ""
+    var function = ""
+    var score = ""
+    var birth = ""
+    var pseudo = ""
+    public private(set) var read : Bool = false
     
     private init () {
 //        fullName = UserDefaults.standard.object(forKey: "pseudo") as! String
@@ -33,10 +39,21 @@ class User {
         self.note = note
     }
     
-
+    
+    func setId(id:String){
+        self.id = id
+    }
     
     func connect(){
-        connected = true 
+        connected = true
+    }
+    
+    func setRead(){
+        read = true
+    }
+    
+    func clearRead(){
+        read = false
     }
     
     func disconnect(){

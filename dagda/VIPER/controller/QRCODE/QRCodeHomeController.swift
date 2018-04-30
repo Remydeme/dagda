@@ -16,6 +16,7 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
     
     let navTitle = "Dagda"
     let id = "cell"
+    let sign = SignIn()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +30,20 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
         navigationItem.title = navTitle
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.barTintColor = UIColor.white
-        navigationController?.navigationBar.prefersLargeTitles = true 
+        navigationController?.navigationBar.prefersLargeTitles = true
+        tabBarController?.tabBar.isHidden = false
         collectionView?.backgroundColor = .black
         collectionView?.register(QRCodeCell.self, forCellWithReuseIdentifier: id)
         collectionView?.backgroundColor = .clear
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: fontWith(25)]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign In", style: .plain, target: self, action: #selector (signIn(_:)))
+       
+    }
+    
+  
+    
+    @objc func signIn(_ sender: Any){
+        let controller = UINavigationController(rootViewController: sign)
+        present(controller, animated:  true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,6 +55,8 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
+        navigationController?.isNavigationBarHidden = false
+        collectionView?.reloadData()
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

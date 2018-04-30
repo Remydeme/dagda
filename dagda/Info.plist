@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -24,8 +24,12 @@
 	<string></string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need to use your camera </string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>we need to add the video to the library</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We want to use your microphone</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>we want to access to the library</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>We need to access to the speech recognizer</string>
 	<key>UILaunchStoryboardName</key>
@@ -34,6 +38,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDefault</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

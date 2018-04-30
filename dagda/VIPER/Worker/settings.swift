@@ -24,8 +24,7 @@ class Settings {
     }
     
     func tempVideoURL() -> URL {
-        let manager = FileManager.default
-        return manager.temporaryDirectory
+        return URL(fileURLWithPath: NSTemporaryDirectory() as String) 
     }
     
     func createDirectory(){

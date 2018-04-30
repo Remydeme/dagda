@@ -27,11 +27,18 @@ class EditDescriptionPresenter : EditDescriptionPresenterInput{
         NotificationCenter.default.removeObserver(self)
     }
     
+    func cleanObserver(){
+        NotificationCenter.default.removeObserver(self) // call this function here beacause the Notificcation center is not clean after each call
+    }
+    
     func mayUploadVideo() {
+        cleanObserver()
+        
         NotificationCenter.default.addObserver(self, selector: #selector (videoUploaded(_:)), name: NSNotification.Name(rawValue: videoPosted), object: nil)
     }
     
     func mayUploadDescription() {
+        cleanObserver()
         NotificationCenter.default.addObserver(self, selector: #selector (descriptionUploaded(_:)), name: NSNotification.Name(rawValue: descriptionAdded), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector (failedDescriptionAdded(_:)), name: NSNotification.Name(rawValue: descriptionNotAdded), object: nil)
     }

@@ -22,8 +22,10 @@ class MemberTabBar : UITabBarController{
         let descriptionController = DescriptionController(collectionViewLayout: layout)
         let description = createTabController(controller: descriptionController, tile: "home", logo: #imageLiteral(resourceName: "description"))
         
+        let edit = EditDescription()
+        let editController = createTabController(controller: edit, tile: "edit", logo: #imageLiteral(resourceName: "edit"))
         
-        viewControllers = [description]
+        viewControllers = [description, editController]
     }
     
     

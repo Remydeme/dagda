@@ -35,7 +35,14 @@ class SignUpPresenter :  SignUpPresenterInput{
         NotificationCenter.default.removeObserver(self)
     }
     
+    func cleanObserver(){
+        NotificationCenter.default.removeObserver(self) // call this function here beacause the Notificcation center is not clean after each call
+    }
+    
     func userMayBeHadded(){
+        
+        cleanObserver()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(SignUpPresenter.wasAdded(_:)), name: NSNotification.Name(rawValue: addedNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SignUpPresenter.wasNotAddded(_:)), name: NSNotification.Name(rawValue: addedNotification), object: nil)
     }

@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 
-
-let itGreen =  UIColor(red: color(26), green: color(153) , blue: color(172), alpha: 1.0)
-let itBlue = UIColor(red: color(0), green: color(105) , blue: color(145), alpha: 1)
+let itRed = UIColor(red: color(254), green: color(60) , blue: color(69), alpha: 1.0)
+let itGreen =  UIColor(red: color(66), green: color(235) , blue: color(194), alpha: 1.0)
+let itBlue = UIColor(red: color(81), green: color(250) , blue: color(195), alpha: 1)
 let Black = UIColor(red: color(38), green: color(38) , blue: color(38), alpha: 1)
 let cellBackground = UIColor(red: color(255), green: color(255) , blue: color(255), alpha: 1)
 let homeBlue = UIColor(red: color(51), green: color(191), blue: color(255), alpha: 0.9)

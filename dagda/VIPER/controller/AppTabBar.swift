@@ -21,13 +21,14 @@ class AppTabBar : UITabBarController{
         let QRCodeControllerVar = QRCodeHomeController(collectionViewLayout: layout)
         let Home = createTabController(controller: QRCodeControllerVar, tile: "Flash", logo: #imageLiteral(resourceName: "home"))
         
-        
-        let edit = EditDescription()
-        let editController = createTabController(controller: edit, tile: "edit", logo: #imageLiteral(resourceName: "description"))
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: fontWith(25)]
-        viewControllers = [editController, signInController, Home]
+//
+//        let edit = EditDescription()
+//        let editController = createTabController(controller: edit, tile: "edit", logo: #imageLiteral(resourceName: "description"))
+//
+       let video = TimeTableController()
+       let controler = createTabController(controller: video, tile: "video", logo: #imageLiteral(resourceName: "home"))
+  
+        viewControllers = [controler, Home]
     }
     
     
