@@ -36,7 +36,7 @@ Markdown | Less | Pretty
 - Daoud Bhatti <daoud.bh@live.fr>
   
 [logo2]:https://user-images.githubusercontent.com/38355840/39410505-9b5da744-4bf9-11e8-969d-1049b5c59a1c.png
-[logo]:https://user-images.githubusercontent.com/38355840/39428289-1d3ee5b0-4c87-11e8-968b-7f952de54929.png
+[logo]:https://user-images.githubusercontent.com/38355840/39440396-0e7f1a76-4cab-11e8-912d-34f8982e1c1a.png
 
 
 
