@@ -32,11 +32,13 @@ Markdown | Less | Pretty
 
 - Rémy Dème <demeremy@gmail.com> ![alt][logo]
 - Anthony Figueiredo <figanthony2@gmail.com> ![alt][logo2]
-- Elie Kiladi-daah <elie243@yahoo.com>
+- Elie Kiladi-daah <elie243@yahoo.com> ![alt][logo3]
 - Daoud Bhatti <daoud.bh@live.fr>
   
 [logo2]:https://user-images.githubusercontent.com/38355840/39410505-9b5da744-4bf9-11e8-969d-1049b5c59a1c.png
 [logo]:https://user-images.githubusercontent.com/38355840/39440396-0e7f1a76-4cab-11e8-912d-34f8982e1c1a.png
+[logo3]:https://user-images.githubusercontent.com/38355840/39440668-efdcb7e4-4cab-11e8-96df-2a31a248b8ad.png
+
 
 
 
