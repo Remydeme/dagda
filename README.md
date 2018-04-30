@@ -30,14 +30,13 @@ Markdown | Less | Pretty
 
 ## Contributors
 
-- Rémy Dème <demeremy@gmail.com> ![alt][logo]
-- Anthony Figueiredo <figanthony2@gmail.com> ![alt][logo2]
-- Elie Kiladi-daah <elie243@yahoo.com> ![alt][logo3]
-- Daoud Bhatti <daoud.bh@live.fr>
+- [Rémy Dème](https://www.linkedin.com/in/remy-deme-informatique?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BD2GTV8kSTb6kkSCMw4JYwQ%3D%3D) <demeremy@gmail.com>
+- [Anthony Figueiredo](https://www.linkedin.com/in/anthony-figueiredo-a86097159?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BHJjR50ONTQG3L9wJRvyDpg%3D%3D) <figanthony2@gmail.com> 
+- [Elie Kiladi-daah](https://www.linkedin.com/in/elie-kiladi-daah-08b374162?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BgP2oK7v2RdmdlwsrheahOQ%3D%3D) <elie243@yahoo.com> 
+- [Daoud Bhatti](https://www.linkedin.com/in/daoudbh?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BkUmdAxaqSWCvPYriyr7bug%3D%3D) <daoud.bh@live.fr>
   
-[logo2]:https://user-images.githubusercontent.com/38355840/39410505-9b5da744-4bf9-11e8-969d-1049b5c59a1c.png
-[logo]:https://user-images.githubusercontent.com/38355840/39440396-0e7f1a76-4cab-11e8-912d-34f8982e1c1a.png
-[logo3]:https://user-images.githubusercontent.com/38355840/39440668-efdcb7e4-4cab-11e8-96df-2a31a248b8ad.png
+
+
 
 
 
