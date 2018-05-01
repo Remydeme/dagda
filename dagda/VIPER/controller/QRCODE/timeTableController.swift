@@ -11,6 +11,8 @@ import UIKit
 import Firebase
 import AVKit
 
+
+
 class TimeTableController : UIViewController, UITextViewDelegate, UIScrollViewDelegate {
     
     
@@ -63,11 +65,11 @@ class TimeTableController : UIViewController, UITextViewDelegate, UIScrollViewDe
         cellView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cellView)
         cellView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        cellView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        cellView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         let cellViewColor = UIColor(red: color(38), green: color(38), blue: color(38), alpha: 0.5)
         cellView.layer.borderWidth = 0.3
         cellView.backgroundColor = cellViewColor
-        cellView.heightAnchor.constraint(equalToConstant: 460).isActive = true
+        cellView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
        
     }
@@ -112,10 +114,11 @@ class TimeTableController : UIViewController, UITextViewDelegate, UIScrollViewDe
         speakerButton.addTarget(self, action: #selector (TimeTableController.hearSpeech(_:)), for: .touchDown)
         cellView.addSubview(speakerButton)
         
-        speakerButton.heightAnchor.constraint(equalToConstant:  80).isActive = true
-        speakerButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        speakerButton.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 5).isActive = true
-        speakerButton.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -5).isActive = true
+        speakerButton.heightAnchor.constraint(equalToConstant:  60).isActive = true
+        speakerButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+       // speakerButton.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 5).isActive = true
+        speakerButton.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: 60).isActive = true
+        speakerButton.centerXAnchor.constraint(equalTo:  cellView.centerXAnchor, constant: 100).isActive = true
     }
     
     func descriptionViewContraints(){
@@ -153,17 +156,18 @@ class TimeTableController : UIViewController, UITextViewDelegate, UIScrollViewDe
     @objc func updateDescription(_ sender: Any){
           print("Update")
         let description = Description()
-        description.room = self.qrCodeController.qrCodeInfo["room"]!
+        description.room = (self.dictionnary["Room"]?.text!)!
         description.description = descriptionView.text
         description.note = "0" // should be the value enter
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "yyyy-MM-dd HH:MM"
         let dateString = formatter.string(from: NSDate() as Date)
         description.lastModification = dateString
         description.valided = "False"
         description.writtenBy = "User"
         description.id = description.room + " " + dateString
          API.instance.userUpdateDescription(description: description)
+        self.dismiss(animated: true, completion: nil)
    }
     
     
@@ -224,7 +228,8 @@ extension TimeTableController {
     
     func loadFilURL(){
         let storageRef = Storage.storage().reference()
-        let starsRef = storageRef.child("video").child((dictionnary["Room"]?.text)!)
+        let room = (dictionnary["Room"]?.text)! + ".mp4"
+        let starsRef = storageRef.child("video").child(room)
         // Fetch the download URL
         starsRef.downloadURL { url, error in
             if let error = error {
@@ -244,17 +249,17 @@ extension TimeTableController {
         videoPlayer.player = video
         videoPlayer.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
         videoPlayer.title = "test"
+        videoPlayer.view.layer.cornerRadius = 27
         
         let videoView = videoPlayer.view
         videoView?.translatesAutoresizingMaskIntoConstraints = false
         cellView.addSubview(videoView!)
-        
-        videoView?.heightAnchor.constraint(equalToConstant: 230).isActive = true
-        videoView?.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        videoView?.layer.cornerRadius = 27
+        videoView?.heightAnchor.constraint(equalToConstant: 240).isActive = true
+        videoView?.widthAnchor.constraint(equalToConstant: 260).isActive = true
         
         videoView?.topAnchor.constraint(equalTo: updateButton.bottomAnchor, constant: 60).isActive = true
         videoView?.centerXAnchor.constraint(equalTo: cellView.centerXAnchor).isActive = true
-        videoPlayer.player?.play()
     }
     
     func configurePlayer(){

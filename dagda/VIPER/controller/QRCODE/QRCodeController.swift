@@ -226,7 +226,7 @@ extension QRCodeController {
         speechSynthetizer.delegate = self
         let speechUtterance = AVSpeechUtterance(string: speech) // contain the speech and the sttings for the speachSynthetizer
         speechUtterance.voice =  AVSpeechSynthesisVoice(language: "en-GB")
-        
+        speechUtterance.rate = 0.45
         speechUtterance.volume = 1.0
         
         speechSynthetizer.speak(speechUtterance) // read the speach
@@ -267,7 +267,7 @@ extension QRCodeController :  QRCodeControllerInput {
 extension QRCodeController {
     
     func generateSpeech(){
-        speech = "Hi you should follow my instructions. whent it's done tap two times on the screen to quit."
+        speech = "Hi you should follow my instructions. whent it's done tap two times on the screen to quit the view.   Your room position is"
         let data = API.instance.description!
         let instructions = data["description"] as! String
         speech += (" " + instructions)
@@ -386,7 +386,10 @@ extension QRCodeController {
                 
                 if qrCodeInfo != nil {
                     if checkDate(date: qrCodeInfo["Time"]!, day: qrCodeInfo["Day"]!) == false  { // check if the date
-                        //createAlert(title: "Course issue", message: "Your lesson is not today or is passed")
+                         speech = "Your lesson is not today it was swhedule for "
+                         speech = speech + (qrCodeInfo["Day"]! + " at " + qrCodeInfo["Time"]!)
+                         speech = speech + (" in room " + qrCodeInfo["Room"]!)
+                        readText()
                         self.output.fetchDescriptionIfExist(room: qrCodeInfo["Room"]!)
                     }else {
                         self.output.fetchDescriptionIfExist(room: qrCodeInfo["Room"]!)

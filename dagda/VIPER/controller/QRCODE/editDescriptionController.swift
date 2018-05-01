@@ -112,7 +112,7 @@ class EditDescriptionController: UIViewController , UITextViewDelegate{
         
         confirmedButton.heightAnchor.constraint(equalToConstant: height).isActive = true
         confirmedButton.widthAnchor.constraint(equalToConstant: width).isActive = true
-        
+
         
         // speech button
         
@@ -148,7 +148,7 @@ class EditDescriptionController: UIViewController , UITextViewDelegate{
         description.lastModification = dateString
         description.valided = "False"
         description.writtenBy = "User"
-        description.id = description.room
+        description.id = description.room + dateString
         API.instance.addDescription(description: description)
         createAlert(title: "Thank you", message: "Thank you for your contribution")
     }

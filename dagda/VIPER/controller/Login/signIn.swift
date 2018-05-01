@@ -114,7 +114,7 @@ class SignIn : UIViewController, UITextViewDelegate{
         signUp.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(signUp)
         signUp.addTarget(self, action: #selector (SignIn.signUpAction(_:)), for: .touchDown)
-        signUp.setTitle("Singn Up", for: .normal)
+        signUp.setTitle("Sign Up", for: .normal)
         signUp.backgroundColor = .black
         signUp.layer.cornerRadius = 17
         signUp.titleLabel?.font = fontWith(16)

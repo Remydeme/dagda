@@ -90,7 +90,7 @@ class API {
      */
     
     func userUpdateDescription(description: Description) {
-        let ref = Database.database().reference(withPath: "description").child(description.room)
+        let ref = Database.database().reference(withPath: "description").child(description.id)
         ref.updateChildValues(description.dictionary(), withCompletionBlock: { (error, ref) in
             if error != nil{
                 print ((error! as NSError).localizedDescription)
