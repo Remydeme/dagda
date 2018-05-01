@@ -19,6 +19,8 @@ extension QRCodeController : QRCodePresenterOutput{
 }
 
 extension QRCodePresenter : QRCodeInteractorOutput{
+  
+    
     
 }
 

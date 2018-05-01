@@ -11,15 +11,18 @@ import Foundation
 
 protocol QRCodeInteractorInput {
     func fetchDescriptionIfExist(room: String)
+    func downloadVideoDescription(roomName: String)
 }
 
 
 protocol QRCodeInteractorOutput {
     func mayHaveBeenLoadedDescription()
+    func mayHaveBeenLoadedVideo()
 }
 
 
 class QRCodeInteractor : QRCodeInteractorInput{
+
     
     var output : QRCodeInteractorOutput!
     var worker : API!
@@ -29,4 +32,11 @@ class QRCodeInteractor : QRCodeInteractorInput{
         output.mayHaveBeenLoadedDescription()
         worker.roomDescriptionExists(room: room)
     }
+    
+    func downloadVideoDescription(roomName: String) {
+        worker = API.instance
+        output.mayHaveBeenLoadedVideo()
+       // worker.downloadVideo(name: roomName)
+    }
+    
 }

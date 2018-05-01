@@ -12,15 +12,18 @@ import Foundation
 
 protocol QRCodePresenterInput {
     func mayHaveBeenLoadedDescription()
+    func mayHaveBeenLoadedVideo()
 }
 
 protocol QRCodePresenterOutput {
     func displayDescription(description: [String : AnyObject]?)
     func displayAddDescription()
+    func noDescritpionForRoom()
 }
 
 
 class QRCodePresenter : QRCodePresenterInput{
+
 
 
     
@@ -30,15 +33,24 @@ class QRCodePresenter : QRCodePresenterInput{
         NotificationCenter.default.removeObserver(self)
     }
     
+    
+    
+    
     func cleanObserver(){
         NotificationCenter.default.removeObserver(self) // call this function here beacause the Notificcation center is not clean after each call
     }
+    
+    func mayHaveBeenLoadedVideo() {
+        
+    }
+    
+    
     
     func mayHaveBeenLoadedDescription(){
         cleanObserver()
         
         NotificationCenter.default.addObserver(self, selector: #selector (loadDescription(_:)), name: NSNotification.Name(rawValue: existNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector (errorLoading), name:  NSNotification.Name(rawValue: notExistNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector (errorLoading(_:)), name:  NSNotification.Name(rawValue: notExistNotification), object: nil)
     }
  
 
@@ -47,7 +59,7 @@ class QRCodePresenter : QRCodePresenterInput{
     }
     
     @objc func errorLoading(_ sender: Any){
-        print("Error lopading data")
+        output.noDescritpionForRoom()
     }
     
 }

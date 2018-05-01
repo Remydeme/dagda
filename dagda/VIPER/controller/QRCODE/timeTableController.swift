@@ -47,13 +47,12 @@ class TimeTableController : UIViewController, UITextViewDelegate, UIScrollViewDe
         setSpeakerButton()
         descriptionViewContraints()
         setUpdateButton()
-        setUpPlayerView()
     }
     
     
 
     func setView(){
-        self.view.backgroundColor = .clear
+        self.view.backgroundColor = itGreen
     }
     
     func setCellView(){
@@ -222,11 +221,29 @@ class TimeTableController : UIViewController, UITextViewDelegate, UIScrollViewDe
 
 extension TimeTableController {
     
-    func setUpPlayerView(){
-        
+    
+    func loadFilURL(){
+        let storageRef = Storage.storage().reference()
+        let starsRef = storageRef.child("video").child((dictionnary["Room"]?.text)!)
+        // Fetch the download URL
+        starsRef.downloadURL { url, error in
+            if let error = error {
+                self.createAlert(title: "video", message: "Pas de video pour cette description")
+            } else {
+               // self.createAlert(title: "url" , message: (url?.absoluteString)!)
+                self.setUpPlayerView(url: url!)
+            }
+        }
+
+    }
+    
+    func setUpPlayerView(url: URL){
+        let asset = AVURLAsset(url: url)
+        video = AVPlayer(playerItem: AVPlayerItem(asset: asset))
         videoPlayer = AVPlayerViewController()
+        videoPlayer.player = video
         videoPlayer.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
-        videoPlayer.title = dictionnary["Room"]?.text
+        videoPlayer.title = "test"
         
         let videoView = videoPlayer.view
         videoView?.translatesAutoresizingMaskIntoConstraints = false
@@ -237,13 +254,11 @@ extension TimeTableController {
         
         videoView?.topAnchor.constraint(equalTo: updateButton.bottomAnchor, constant: 60).isActive = true
         videoView?.centerXAnchor.constraint(equalTo: cellView.centerXAnchor).isActive = true
-        
-        videoView?.backgroundColor = .white
+        videoPlayer.player?.play()
     }
     
     func configurePlayer(){
-        //video = AVPlayer(url: url)
-       // videoPlayer.player = video
+        
         
     }
 }

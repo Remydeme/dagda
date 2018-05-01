@@ -28,7 +28,7 @@ class AppTabBar : UITabBarController{
        let video = TimeTableController()
        let controler = createTabController(controller: video, tile: "video", logo: #imageLiteral(resourceName: "home"))
   
-        viewControllers = [controler, Home]
+        viewControllers = [Home]
     }
     
     

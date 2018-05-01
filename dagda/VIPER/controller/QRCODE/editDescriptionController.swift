@@ -33,7 +33,7 @@ class EditDescriptionController: UIViewController , UITextViewDelegate{
     }
     
     func setView(){
-        self.view.backgroundColor = .clear
+        self.view.backgroundColor = itBlue
     }
     
     func setCellView(){
@@ -99,7 +99,8 @@ class EditDescriptionController: UIViewController , UITextViewDelegate{
         let width : CGFloat = 100
         
         confirmedButton.addTarget(self, action: #selector (EditDescriptionController.push(_:)), for: .touchDown)
-        
+        confirmedButton.backgroundColor = .black
+        confirmedButton.layer.cornerRadius = 17
         confirmedButton.translatesAutoresizingMaskIntoConstraints = false
         confirmedButton.setTitle("Push", for: .normal)
         let textInput = dictionnary["Description"] as! UITextView
@@ -107,7 +108,7 @@ class EditDescriptionController: UIViewController , UITextViewDelegate{
         cellView.addSubview(confirmedButton)
         
         confirmedButton.topAnchor.constraint(equalTo: textInput.bottomAnchor, constant: 15).isActive = true
-        confirmedButton.centerXAnchor.constraint(equalTo: cellView.centerXAnchor, constant: -30).isActive = true
+        confirmedButton.centerXAnchor.constraint(equalTo: cellView.centerXAnchor, constant: 0).isActive = true
         
         confirmedButton.heightAnchor.constraint(equalToConstant: height).isActive = true
         confirmedButton.widthAnchor.constraint(equalToConstant: width).isActive = true

@@ -21,10 +21,13 @@ enum QRCODETYPE : String {
 protocol QRCodeControllerInput {
     func displayDescription(description: [String : AnyObject]?)
     func displayAddDescription()
+    func noDescritpionForRoom()
+    func videoExist(state: Bool)
 }
 
 protocol QRCodeControllerOutput {
     func fetchDescriptionIfExist(room: String)
+    func downloadVideoDescription(roomName: String)
 }
 
 
@@ -145,10 +148,8 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-       // videoPrewLayer?.connection?.isEnabled = false
         navigationController?.isNavigationBarHidden = false
-       // captureSession?.removeInput(input)
-       // captureSession?.removeOutput(captureMetaDataOutput)
+
         captureSession?.stopRunning()
     }
     
@@ -185,7 +186,10 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
             self.editDescription.qrCodeInfo = self.qrCodeInfo
             self.present(self.editDescription, animated: true, completion: nil)
         })
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in })
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            self.captureSession?.startRunning()
+        }
+        )
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(edit)
@@ -231,6 +235,15 @@ extension QRCodeController {
 
 // Viper architecture
 extension QRCodeController :  QRCodeControllerInput {
+    func noDescritpionForRoom() {
+        editAlert(message: "No description for the Room do you want to help the dagda community ?", title: "Description")
+    }
+    
+  
+    func videoExist(state: Bool) {
+        
+    }
+    
     
     func displayDescription(description: [String : AnyObject]?) { //
         print ("In the display description ")
@@ -241,7 +254,8 @@ extension QRCodeController :  QRCodeControllerInput {
         timeTable.descriptionView.text = (description?["description"] as! String)
         generateSpeech()
         timeTable.qrCodeController = self
-        // before we start to fetch the video on the net 
+        timeTable.loadFilURL()
+        // before we start to fetch the video on the net
         present(timeTable, animated: true)
     }
     
@@ -270,6 +284,9 @@ extension QRCodeController {
         var roomData = [String:String]()
         for field in fields{
             let infos = field.components(separatedBy: ": ")
+            if (infos[0] != "Day" && infos[0] != "Time" && infos[0] != "Subject" && infos[0] != "Room") {
+                return nil
+            }
             if infos.count > 0 {
                 roomData[infos[0]] = infos[1]
             } else {
@@ -369,8 +386,8 @@ extension QRCodeController {
                 
                 if qrCodeInfo != nil {
                     if checkDate(date: qrCodeInfo["Time"]!, day: qrCodeInfo["Day"]!) == false  { // check if the date
-                        createAlert(title: "Bad day", message: "Your lesson is not today")
-                        captureSession?.startRunning()
+                        //createAlert(title: "Course issue", message: "Your lesson is not today or is passed")
+                        self.output.fetchDescriptionIfExist(room: qrCodeInfo["Room"]!)
                     }else {
                         self.output.fetchDescriptionIfExist(room: qrCodeInfo["Room"]!)
                     }
@@ -380,7 +397,6 @@ extension QRCodeController {
                     if !((captureSession?.isRunning)!) {
                         captureSession?.startRunning()
                     }
-                    User.instance.clearRead()
                 }
             }
     }

@@ -57,7 +57,7 @@ class API {
     var error = ""
     var accountCreationError = ""
     var deletingError : String?
-    
+    var tryToGet : Bool = false
 
     
 
@@ -104,23 +104,22 @@ class API {
     
     // fetch the description of a specific room using his ID
     func roomDescriptionExists(room: String){
+        self.description = nil
         let ref = Database.database().reference(withPath: "description")
-        ref.queryOrdered(byChild: room).observeSingleEvent(of: .value, with: {(snapshot)   in
-            
+        ref.queryOrdered(byChild: "room").queryEqual(toValue: room).observeSingleEvent(of: .value, with: {(snapshot)   in
             let value = snapshot.value
             if (value != nil) {
                 self.exist = true
             }
-            else {
+            if  snapshot.hasChildren() == false {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: notExistNotification), object: nil)
+                self.tryToGet = false // clear
             }
-            
-            for element in snapshot.children.allObjects as! [DataSnapshot]{
+            for element in snapshot.children.allObjects as! [DataSnapshot] {
                self.description = element.value as? [String:AnyObject]
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: existNotification), object: nil)
                 break 
             }
-            
         })
     }
     
@@ -204,7 +203,8 @@ class API {
     
     
     func uploadVideo(name: String, url: URL){
-        let ref = Storage.storage().reference().child("video").child(name)
+        let filename = name + ".mp4"
+        let ref = Storage.storage().reference().child("video").child(filename)
         ref.putFile(from: url)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: videoPosted), object: nil)
     }
