@@ -9,12 +9,13 @@
 import Foundation
 import UIKit
 
+let cornerRadius : CGFloat = 1.61803398875 * 3 
 
 let itRed = UIColor(red: color(254), green: color(60) , blue: color(69), alpha: 1.0)
 let itGreen =  UIColor(red: color(66), green: color(235) , blue: color(194), alpha: 1.0)
 let itBlue = UIColor(red: color(81), green: color(250) , blue: color(195), alpha: 1)
 let Black = UIColor(red: color(38), green: color(38) , blue: color(38), alpha: 1)
-let cellBackground = UIColor(red: color(255), green: color(255) , blue: color(255), alpha: 1)
+let itWhite = UIColor(red: color(255), green: color(255) , blue: color(255), alpha: 0.7)
 let homeBlue = UIColor(red: color(51), green: color(191), blue: color(255), alpha: 0.9)
 let homeMocha = UIColor(red: color(255), green: color (250), blue: color (244), alpha: 1)
 
@@ -102,6 +103,7 @@ func textViewWith() -> UITextView
     textInput.textColor = fontColor
     textInput.backgroundColor =  viewInpucolor
     textInput.autocapitalizationType = .none
+    textInput.backgroundColor = viewInpucolor
     return textInput
 }
 

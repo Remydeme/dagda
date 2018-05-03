@@ -16,17 +16,19 @@ import AssetsLibrary
 protocol editDescriptionControllerInput {
     func videoUploaded(state: Bool)
     func descriptionUploaded(state: Bool)
+    func roomInfoDownloaded(description: String, exist: Bool)
 }
 
 protocol EditDescriptionControllerOuput{
     func uploadVideo(path: URL, name: String)
     func uploadDescription(room: String, description: String)
+    func fetchInformation(room: String)
 }
 
 
 let welcomNotifcation = "dagda.welcom.notication"
 
-class EditDescription : UIViewController, UITextViewDelegate {
+class EditDescription : UIViewController{
     
     let navTitle = "Edit"
     var cellView : UIScrollView!
@@ -34,19 +36,13 @@ class EditDescription : UIViewController, UITextViewDelegate {
     // viper
     var interactor : EditDescriptionControllerOuput!
     
-    let room = textViewWith()
-    let speechReconizer = SpeechReconizerController()
-    var descriptionInput : UITextView!
+    let room = textViewWith() // room input view
+    let speechReconizer = SpeechReconizerController() // speech reconizer
+    var descriptionInput : UITextView! // description input
     
-    var imagePicker = UIImagePickerController()
+    var imagePicker = UIImagePickerController() // controller that handle the video device
     
-    var filename : URL?
-    
-    let startButton : UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "play"), for: .normal)
-        return button
-    }()
+    var filename : URL? // filename store the url where the video file is temporary store in the device
     
     
     let saveButton : UIButton = {
@@ -88,8 +84,13 @@ class EditDescription : UIViewController, UITextViewDelegate {
         setUpVideoView()
         authorization()
         EditDescriptionConfigurer.instance.configure(controller: self)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector (hideKeyBoard(_ :)))
+        self.view.addGestureRecognizer(gesture)
     }
     
+    @objc func hideKeyBoard(_ sender: Any){
+        self.view.endEditing(true)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -153,14 +154,23 @@ class EditDescription : UIViewController, UITextViewDelegate {
     func setUpInputs(){
         
         room.translatesAutoresizingMaskIntoConstraints = false
+        room.layer.cornerRadius = cornerRadius
+        room.textColor = .black
+        room.backgroundColor = itWhite
+        room.delegate = self
         descriptionInput = speechReconizer.outputView
+        descriptionInput.layer.cornerRadius = cornerRadius
+        descriptionInput.textColor = .black
+        descriptionInput.backgroundColor = itWhite
         descriptionInput.translatesAutoresizingMaskIntoConstraints = false
         let policeSize : CGFloat = 20
         
         let roomLabel = labelWithTitle("Room", size: policeSize)
+        roomLabel.textColor = .black
         roomLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let descriptionLabel = labelWithTitle("Description", size: policeSize)
+        descriptionLabel.textColor = .black
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         cellView.addSubview(descriptionLabel)
@@ -291,9 +301,15 @@ extension EditDescription {
         
         if name != "" && descriptionTexte != "" {
             interactor.uploadDescription(room: name, description: descriptionTexte)
-
+            let index = IndexPath(row: 0, section: 0)
+            let cell = carousselController.collectionView?.cellForItem(at: index) as? VideoCell
+            cell?.videoPlayer.view.removeFromSuperview()
+            cell?.videoPlayer = nil
+            cell?.video = nil
             if filename != nil {
-                interactor.uploadVideo(path: filename!, name: name)
+                let path = filename
+                self.filename = nil // clear the filename for future edition 
+                interactor.uploadVideo(path: path!, name: name)
             }
         }
         else {
@@ -302,31 +318,7 @@ extension EditDescription {
     }
 }
 
-extension EditDescription : editDescriptionControllerInput {
-    func videoUploaded(state: Bool) {
-        if state == false {
-            createAlert(title: "Ok", message: "Serveur error the video has not been pushed try again.")
-        }
-        else {
-            room.text = ""
-            descriptionInput.text = ""
-            carousselController.collectionView?.reloadData()
-        }
-    }
-    
-    func descriptionUploaded(state: Bool) {
-        if state == false {
-            createAlert(title: "Ok", message: "Serveur error description has not been pushed try again.")
-        }
-        else {
-            createAlert(title: "I'm happy to help", message: "The Dagda community thank you for your contribution.")
-            room.text = ""
-            descriptionInput.text = ""
-        }
-    }
-    
-    
-}
+
 
 
 
@@ -360,27 +352,86 @@ extension EditDescription : UINavigationControllerDelegate, UIImagePickerControl
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
        print("Got a video")
                 if let pickedVideo:NSURL = (info[UIImagePickerControllerMediaURL] as? NSURL) {
-                    // Save video to the main photo album
-                  //  let selectorToCall = Selector(("videoWasSavedSuccessfully:didFinishSavingWithError:context:"))
                     UISaveVideoAtPathToSavedPhotosAlbum(pickedVideo.relativePath!, self, nil, nil)
                     carousselController.filePath = pickedVideo.absoluteURL
                     filename = pickedVideo.absoluteURL
-//                    UISaveVideoAtPathToSavedPhotosAlbum(<#T##videoPath: String##String#>, <#T##completionTarget: Any?##Any?#>, <#T##completionSelector: Selector?##Selector?#>, <#T##contextInfo: UnsafeMutableRawPointer?##UnsafeMutableRawPointer?#>)
-//                    // Save the video to the app directory so we can play it later
-//                    let videoData = NSData(contentsOf: pickedVideo.absoluteURL!)
-//                    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//                    let filename = room.text
-//                    let dataPath = paths[0].absoluteString + "/" + filename!
-//                    let path = URL(fileURLWithPath: dataPath)
-//                    videoData?.write(to: path, atomically: true)
                     self.dismiss(animated: true, completion: nil)
-//                    carousselController.fileName = room.text
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: videoNotification), object: nil)
                 }
     }
-//
+
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
 }
+
+
+
+extension EditDescription : editDescriptionControllerInput {
+    
+    func roomInfoDownloaded(description: String, exist: Bool) {
+        if exist == true {
+            descriptionInput.text = description
+        }
+        else {
+            descriptionInput.text = "Enter description"
+        }
+    }
+    
+    
+    func videoUploaded(state: Bool) {
+        if state == false {
+            createAlert(title: "Ok", message: "Serveur error the video has not been pushed try again.")
+        }
+        else {
+            room.text = ""
+            descriptionInput.text = ""
+            carousselController.collectionView?.reloadData()
+        }
+    }
+    
+    func descriptionUploaded(state: Bool) {
+        if state == false {
+            createAlert(title: "Ok", message: "Serveur error description has not been pushed try again.")
+        }
+        else {
+            createAlert(title: "I'm happy to help", message: "The Dagda community thank you for your contribution.")
+            room.text = ""
+            descriptionInput.text = ""
+        }
+    }
+    
+    
+}
+
+
+extension EditDescription : UITextViewDelegate {
+    
+    
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        let roomName = self.room.text
+        if roomName != ""{
+            self.carousselController.roomName = roomName
+            interactor.fetchInformation(room: roomName!)
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

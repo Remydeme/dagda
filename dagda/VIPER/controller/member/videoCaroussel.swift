@@ -11,7 +11,10 @@ import UIKit
 import Firebase
 import AVKit
 
-let videoNotification = "dagda.video.notificcation"
+
+
+let videoNotification = "dagda.video.notification.created"
+
 
 class Caroussel : BaseCollectionController {
     
@@ -19,6 +22,9 @@ class Caroussel : BaseCollectionController {
     
     // video filename
     var filePath : URL!
+    
+    // containt the name of the string
+    var roomName : String? 
     
     // I have to load the video from the database
     
@@ -30,12 +36,24 @@ class Caroussel : BaseCollectionController {
         super.viewDidLoad()
         setUp()
         NotificationCenter.default.addObserver(self, selector: #selector (setCellVideoPath(_:)), name: NSNotification.Name(rawValue: videoNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector (setVideoPlayer(_:)), name: NSNotification.Name(rawValue: videoUrlDownloaded), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector (setNoVideoView(_:)), name: NSNotification.Name(rawValue: videoUrlNotDownloaded), object: nil)
     }
     
     @objc func setCellVideoPath(_ sender: Any){
         let cell = collectionView?.cellForItem(at: IndexPath(row: 0, section: 0)) as! VideoCell
         let path = filePath.absoluteString
         cell.configurePlayer(path: path)
+    }
+    
+    @objc func setVideoPlayer(_ sender: Any){
+        let cell = collectionView?.cellForItem(at: IndexPath(row: 0, section: 0)) as! VideoCell
+        let path = API.instance.videoUrl
+        cell.configurePlayer(url: path!)
+    }
+    
+    @objc func setNoVideoView(_ sender: Any){
+        
     }
     
     override func setUp() {
@@ -85,9 +103,9 @@ class VideoCell: UICollectionViewCell{
     }
     
     func setUp(){
-        backgroundColor = UIColor(displayP3Red: color(255), green: color(255), blue: color(255), alpha: 0.4)
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(playVideo(_:)))
-        addGestureRecognizer(gesture)
+        backgroundColor = itWhite
+     
+        layer.cornerRadius = cornerRadius
     }
     
     func configurePlayer(path: String){
@@ -104,11 +122,37 @@ class VideoCell: UICollectionViewCell{
             addSubview(videoView!)
     }
     
-    @objc func playVideo(_ sender: Any){
-        print("play video")
-        let controller = UINavigationController(rootViewController: videoPlayer)
-        topController.navigationController?.pushViewController(controller, animated: true)
+    func configurePlayer(url: URL){
+        let asset = AVURLAsset(url: url)
+        video = AVPlayer(playerItem: AVPlayerItem(asset: asset))
+        videoPlayer = AVPlayerViewController()
+        videoPlayer.player = video
+        videoPlayer.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
+        videoPlayer.title = "Description video"
+        videoPlayer.view.layer.cornerRadius = cornerRadius
+        let videoView = videoPlayer.view
+        videoView?.frame = frame
+        addSubview(videoView!)
     }
+    
+    func setNoVideoViewUp(){
+        let label = labelWithTitle("No video available", size: 20)
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(label)
+        
+        label.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        label.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8).isActive = true
+        
+        label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        
+    }
+    
+ 
     
 }
 

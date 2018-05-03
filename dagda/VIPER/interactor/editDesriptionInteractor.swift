@@ -12,15 +12,19 @@ import Foundation
 protocol EditDescriptionInteractorInput {
     func uploadVideo(path: URL, name: String)
     func uploadDescription(room: String, description: String)
+    func fetchInformation(room: String)
 }
 
 protocol EditDescriptionInteractorOutput {
     func mayUploadVideo()
     func mayUploadDescription()
+    func mayHaveLoadedRoomDescription()
 }
 
 
 class EditDescriptionInteractor : EditDescriptionInteractorInput{
+
+    
    
     let worker = API.instance
     var output : EditDescriptionInteractorOutput!
@@ -28,6 +32,12 @@ class EditDescriptionInteractor : EditDescriptionInteractorInput{
     func uploadVideo(path: URL, name: String) {
         output.mayUploadVideo()
         worker.uploadVideo(name: name, url: path)
+    }
+    
+    func fetchInformation(room: String) {
+        worker.loadFilURL(room: room)
+        output.mayHaveLoadedRoomDescription()
+        worker.roomDescriptionExists(room: room)
     }
     
     func uploadDescription(room: String, description: String) {

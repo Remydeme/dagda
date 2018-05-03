@@ -12,11 +12,13 @@ import UIKit
 
 
 class MemberTabBar : UITabBarController{
+    var topController : SignIn?
+
     
     override func viewDidLoad() {
         
-        
        
+        
         
         let layout = UICollectionViewFlowLayout()
         let descriptionController = DescriptionController(collectionViewLayout: layout)
@@ -25,10 +27,15 @@ class MemberTabBar : UITabBarController{
         let edit = EditDescription()
         let editController = createTabController(controller: edit, tile: "edit", logo: #imageLiteral(resourceName: "edit"))
         
+        
+        
         viewControllers = [description, editController]
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //topController?.navigationController?.isNavigationBarHidden = true 
+    }
     
     
 }

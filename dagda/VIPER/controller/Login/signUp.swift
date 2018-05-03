@@ -89,7 +89,7 @@ class SignUp  : UIViewController {
         cellView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cellView)
         cellView.layer.cornerRadius = 17
-        cellView.backgroundColor = cellBackground
+        cellView.backgroundColor = .white
         cellView.heightAnchor.constraint(equalToConstant: 320).isActive = true
         cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95).isActive = true
         cellView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

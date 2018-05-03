@@ -52,10 +52,15 @@ class TimeTableController : UIViewController, UITextViewDelegate, UIScrollViewDe
     }
     
     
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.qrCodeController.speechSynthetizer.stopSpeaking(at: .immediate)
+    }
     func setView(){
         self.view.backgroundColor = itGreen
     }
+    
+    
     
     func setCellView(){
         cellView = UIScrollView()
@@ -160,7 +165,7 @@ class TimeTableController : UIViewController, UITextViewDelegate, UIScrollViewDe
         description.description = descriptionView.text
         description.note = "0" // should be the value enter
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:MM"
+        formatter.dateFormat = "yyyy-MM-dd HH:MM:SS"
         let dateString = formatter.string(from: NSDate() as Date)
         description.lastModification = dateString
         description.valided = "False"

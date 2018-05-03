@@ -60,13 +60,10 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     override func viewDidLoad() {
         setUp()
         QRCodeConfigure.instance.configure(controller: self) // configure VIPER instance
+        
     }
     
     func setUp(){
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.isTranslucent = true
-        tabBarController?.tabBar.isHidden = false
         timeTable = TimeTableController()
         captureSession = AVCaptureSession()
         setUpGesture()
@@ -148,15 +145,11 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.isNavigationBarHidden = false
-
         captureSession?.stopRunning()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = false
-        navigationController?.isNavigationBarHidden = false
         captureSession?.startRunning()
     }
     
@@ -174,7 +167,7 @@ class QRCodeController : UIViewController, AVCaptureMetadataOutputObjectsDelegat
        timeTable.view.addGestureRecognizer(tap)
     }
 
-    
+  
 
     
     func editAlert(message : String, title: String){
@@ -374,6 +367,12 @@ extension QRCodeController {
         }
     }
     
+    func setWrongDate(){
+        speech = "Your lesson is not today it was swhedule for "
+        speech = speech + (qrCodeInfo["Day"]! + " at " + qrCodeInfo["Time"]!)
+        speech = speech + (" in room " + qrCodeInfo["Room"]!)
+    }
+    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession?.stopRunning()
             if let metadataObject = metadataObjects.first {
@@ -386,9 +385,7 @@ extension QRCodeController {
                 
                 if qrCodeInfo != nil {
                     if checkDate(date: qrCodeInfo["Time"]!, day: qrCodeInfo["Day"]!) == false  { // check if the date
-                         speech = "Your lesson is not today it was swhedule for "
-                         speech = speech + (qrCodeInfo["Day"]! + " at " + qrCodeInfo["Time"]!)
-                         speech = speech + (" in room " + qrCodeInfo["Room"]!)
+                        setWrongDate() // set the speech string with the wrong date texte model 
                         readText()
                         self.output.fetchDescriptionIfExist(room: qrCodeInfo["Room"]!)
                     }else {
@@ -396,7 +393,7 @@ extension QRCodeController {
                     }
                 }
                 else {
-                    createAlert(title: "Not valid", message: "Invalid QRCode")
+                    createAlert(title: "Not valid", message: "Not a valid QRCode bad format. The format must be It's sligo description QRCode one")
                     if !((captureSession?.isRunning)!) {
                         captureSession?.startRunning()
                     }

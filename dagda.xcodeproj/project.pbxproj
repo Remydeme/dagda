@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0F2A82208137E6009171ED /* timeTableController.swift */; };
 		2D0F2A8520815523009171ED /* tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0F2A8420815523009171ED /* tools.swift */; };
+		2D17E9A9209A76080088E505 /* searchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D17E9A8209A76080088E505 /* searchController.swift */; };
 		2D1BD57920817BF700838049 /* Gradiant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1BD57820817BF700838049 /* Gradiant.swift */; };
 		2D35C3722080FD7000439134 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3712080FD7000439134 /* AppDelegate.swift */; };
 		2D35C3742080FD7000439134 /* AppTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35C3732080FD7000439134 /* AppTabBar.swift */; };
@@ -94,6 +95,7 @@
 		1AE49551C699678D8DB7689C /* Pods-dagdaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dagdaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dagdaTests/Pods-dagdaTests.release.xcconfig"; sourceTree = "<group>"; };
 		2D0F2A82208137E6009171ED /* timeTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeTableController.swift; sourceTree = "<group>"; };
 		2D0F2A8420815523009171ED /* tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tools.swift; sourceTree = "<group>"; };
+		2D17E9A8209A76080088E505 /* searchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchController.swift; sourceTree = "<group>"; };
 		2D1BD57820817BF700838049 /* Gradiant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradiant.swift; sourceTree = "<group>"; };
 		2D35C36E2080FD7000439134 /* dagda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dagda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D35C3712080FD7000439134 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +193,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D17E9A7209A75F40088E505 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2D17E9A8209A76080088E505 /* searchController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		2D35C3652080FD7000439134 = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +291,7 @@
 		2DC4C09D2084B322007DDD45 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				2D17E9A7209A75F40088E505 /* Search */,
 				2D9169022094B11E001B07E6 /* Video */,
 				2DC5DDDB20856FF8003D9283 /* SpeechReconizer */,
 				2D35C3732080FD7000439134 /* AppTabBar.swift */,
@@ -664,6 +675,7 @@
 				2DC4C0A62084D98C007DDD45 /* worker.swift in Sources */,
 				2DC5DDDD2085702C003D9283 /* reconizerController.swift in Sources */,
 				2D5624EE20935401006B9805 /* signInPresenter.swift in Sources */,
+				2D17E9A9209A76080088E505 /* searchController.swift in Sources */,
 				2D0F2A83208137E6009171ED /* timeTableController.swift in Sources */,
 				2D91690C2094C136001B07E6 /* settings.swift in Sources */,
 				2DE3319A20895CF400261703 /* QRCodeConfigurer.swift in Sources */,

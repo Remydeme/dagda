@@ -18,6 +18,8 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
     let id = "cell"
     let sign = SignIn()
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,10 +38,16 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
         collectionView?.register(QRCodeCell.self, forCellWithReuseIdentifier: id)
         collectionView?.backgroundColor = .clear
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign In", style: .plain, target: self, action: #selector (signIn(_:)))
-       
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector (search(_:)))
     }
     
+   
+    
   
+    @objc func search(_ sender: Any){
+        let searchContoller = SearchController()
+        present(searchContoller, animated: true)
+    }
     
     @objc func signIn(_ sender: Any){
         let controller = UINavigationController(rootViewController: sign)
@@ -48,8 +56,8 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
         tabBarController?.tabBar.isHidden = true
-        navigationController?.isNavigationBarHidden = true 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,7 +87,21 @@ class QRCodeHomeController : UICollectionViewController, UICollectionViewDelegat
 
 
 
-
+extension QRCodeHomeController : UISearchResultsUpdating {
+ 
+    
+    func setSearchController (){
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Candies"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+}
 
 
 

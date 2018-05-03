@@ -48,15 +48,7 @@ class SignIn : UIViewController, UITextViewDelegate{
         setView()
         let gesture = UITapGestureRecognizer(target: self, action: #selector (hideKeyBoard(_:)))
         view.addGestureRecognizer(gesture)
-       // let description = Description()
-//        description.room = "E3004"
-//        description.description = "Hello texst "
-//        description.note = "0"
-//        description.lastModification =  "24-37-1200"
-//        description.valided = "False"
-//        description.id = "E3002-56"
-//        description.writtenBy = "User"
-//        API.instance.addDescription(description: description)
+     
     }
     
     
@@ -67,13 +59,10 @@ class SignIn : UIViewController, UITextViewDelegate{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationItem.title = "Sign In"
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        navigationController?.isNavigationBarHidden = true
-        tabBarController?.tabBar.isHidden = true 
     }
     
     func setUp(){
@@ -103,7 +92,7 @@ class SignIn : UIViewController, UITextViewDelegate{
         cellView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cellView)
         cellView.layer.cornerRadius = 17
-        cellView.backgroundColor = cellBackground
+        cellView.backgroundColor = .white 
         cellView.heightAnchor.constraint(equalToConstant: 180).isActive = true
         cellView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95).isActive = true
         cellView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -188,8 +177,9 @@ class SignIn : UIViewController, UITextViewDelegate{
         let height : CGFloat = 30
         for (name, input) in dictionarySignUp{
             input.layer.cornerRadius = 3
+            input.isSecureTextEntry = true 
             if name == "Password" {
-                input.isSecureTextEntry = true
+                input.isSecureTextEntry = true 
             }
             let label = labelWithTitle(name, .white)
             label.translatesAutoresizingMaskIntoConstraints = false

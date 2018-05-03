@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         IQKeyboardManager.shared.enable = true
-        
         Auth.auth().signInAnonymously() { (user, error) in}
 
         window = UIWindow(frame: UIScreen.main.bounds)

@@ -43,6 +43,9 @@ let videoPosted = "dagda.notification.video.posted.notification"
 let descriptionAdded = "dagda.notification.add.desription.notification"
 let descriptionNotAdded = "dagda.notification.not.add.desription.notification"
 
+let videoUrlNotDownloaded = "dagda.notification.url.video.not.downloaded.notification"
+let videoUrlDownloaded = "dagda.notification.url.video.downloaded.notification"
+
 class API {
     fileprivate let FIREBASE_URL = "https://dagda-9f511.firebaseio.com/"
     private init (){}
@@ -58,7 +61,7 @@ class API {
     var accountCreationError = ""
     var deletingError : String?
     var tryToGet : Bool = false
-
+    var videoUrl : URL?
     
 
     func fetchDescriptionNotConfirmed(){
@@ -99,6 +102,26 @@ class API {
                 print ("added")
             }
         })
+    }
+    
+    
+    
+    
+    func loadFilURL(room: String){
+        let storageRef = Storage.storage().reference()
+        let videoTitle = room + ".mp4"
+        let starsRef = storageRef.child("video").child(videoTitle)
+        // Fetch the download URL
+        starsRef.downloadURL { url, error in
+            if let error = error {
+                self.error = error.localizedDescription
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: videoUrlNotDownloaded), object: nil)
+            } else {
+               self.videoUrl = url
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: videoUrlDownloaded), object: nil)
+            }
+        }
+        
     }
     
     
